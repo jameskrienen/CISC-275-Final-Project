@@ -48,10 +48,7 @@
         ]
     },
     "devDependencies": {
-<<<<<<< HEAD
-=======
         "@types/testing-library__react": "^10.2.0",
->>>>>>> upstream/main
         "@typescript-eslint/eslint-plugin": "^5.10.1",
         "@typescript-eslint/parser": "^5.10.1",
         "eslint": "^8.7.0",

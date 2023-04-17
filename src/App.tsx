@@ -1,11 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
-
-function App(): JSX.Element {
-    return ();
-=======
-import "./App.css";
-
 function App(): JSX.Element {
     return (
         <div className="App">
@@ -13,7 +6,6 @@ function App(): JSX.Element {
             <div>By Dan, Jess, and James</div>
         </div>
     );
->>>>>>> upstream/main
 }
 
 export default App;
