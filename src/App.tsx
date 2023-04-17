@@ -1,7 +1,14 @@
 import React from "react";
+import "./App.css";
 
 function App(): JSX.Element {
-    return ();
+    return (
+        <div className="App">
+            <div>CISC275 Final Project</div>
+            <div>By Dan, Jess, and James</div>
+            <div>Jess first branch</div>
+        </div>
+    );
 }
 
 export default App;
