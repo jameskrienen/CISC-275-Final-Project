@@ -48,5 +48,9 @@ jobs:
               env:
                   user_name: "github-actions[bot]"
                   user_email: "github-actions[bot]@users.noreply.github.com"
+<<<<<<< HEAD
                   github_token: ${{ secrets.GH_TOKEN }}
+=======
+                  github_token: ${{ secrets.PROJECT_TOKEN }}
+>>>>>>> upstream/main
                   repository: ${{ github.repository }}
