@@ -1,13 +1,13 @@
 import React from "react";
 import "./App.css";
+import { CentralItemList } from "./project-components/CentralItemList";
 
 function App(): JSX.Element {
     return (
         <div className="App">
-            <div>CISC275 Final Project</div>
-            <div>By Dan, Jess, and James</div>
-            <div>Jess first branch</div>
-            <div>Dan branch</div>
+            <h1>CISC275 Final Project</h1>
+            <h2>By Dan, Jess, and James</h2>
+            <CentralItemList></CentralItemList>
         </div>
     );
 }
