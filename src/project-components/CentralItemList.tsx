@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+//Import useState from react after removing comments
 import { Button, Row, Col } from "react-bootstrap";
 import { Video } from "../Interfaces/VideoInterface";
 //import { useDrag } from 'react-dnd'
@@ -311,6 +312,7 @@ const VIDEOS2: Video[] = [
 ];
 
 export function CentralItemList(): JSX.Element {
+    /**
     const [allVideos1, setAllVideos1] = useState<Video[]>(VIDEOS1);
     const [allVideos2, setAllVideos2] = useState<Video[]>(VIDEOS2);
 
@@ -320,6 +322,7 @@ export function CentralItemList(): JSX.Element {
     function updateAllVideos2(videos: Video[]) {
         setAllVideos2(videos);
     }
+     */
 
     /**
     const [liked1, setLiked1] = useState<number>(0);
@@ -332,12 +335,11 @@ export function CentralItemList(): JSX.Element {
 
     return (
         <div>
-            {/**Remove this line when adding/deleting functionality is implemented*/}
-            {updateAllVideos1(allVideos1)};{updateAllVideos2(allVideos2)};
             <Row>
                 <Col>
                     <ul>
-                        {allVideos1.map((video: Video) => (
+                        {/**Change mapped to be allVideos1 after removing comments */}
+                        {VIDEOS1.map((video: Video) => (
                             <li key={video.name}>
                                 <img
                                     src={placeholderthumbnail}
@@ -358,7 +360,8 @@ export function CentralItemList(): JSX.Element {
                 </Col>
                 <Col>
                     <ul>
-                        {allVideos2.map((video: Video) => (
+                        {/**Change mapped to be allVideos1 after removing comments */}
+                        {VIDEOS2.map((video: Video) => (
                             <li key={video.name}>
                                 <img
                                     src={placeholderthumbnail}
