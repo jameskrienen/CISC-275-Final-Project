@@ -9,8 +9,10 @@ export interface Video {
     recommended: string[];
     // If the video has been reported
     isReported: boolean;
-    // The video's thumbnail
-    thumbnail: HTMLImageElement;
-    // The video's like count
+    //The video's thumbnail
+    thumbnail: string;
+    //If the video is liked
+    isLiked: boolean;
+    //The video's like count
     likes: number;
 }
