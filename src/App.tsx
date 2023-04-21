@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
+import { CentralItemList } from "./project-components/CentralItemList";
 import { Form } from "react-bootstrap";
 
 function App(): JSX.Element {
@@ -29,6 +30,7 @@ function App(): JSX.Element {
                     <option value="moderator">Moderator</option>
                 </Form.Select>
             </Form.Group>
+            <CentralItemList></CentralItemList>
         </div>
     );
 }
