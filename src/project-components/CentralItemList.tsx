@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Row, Col } from "react-bootstrap";
 import { Video } from "../Interfaces/VideoInterface";
+//import { useDrag } from 'react-dnd'
 import placeholderthumbnail from "./placeholder.jpeg";
 
 const VIDEOS1: Video[] = [
@@ -313,9 +314,12 @@ export function CentralItemList(): JSX.Element {
     const [allVideos1, setAllVideos1] = useState<Video[]>(VIDEOS1);
     const [allVideos2, setAllVideos2] = useState<Video[]>(VIDEOS2);
 
-    const [liked1, setLiked1] = useState<boolean>(false);
+    const [liked1, setLiked1] = useState<number>(0);
+    const [liked2, setLiked2] = useState<number>(0);
 
-    //function updateLiked1(video: Video) {}
+    /*  function updateLiked1(video: Video) {
+
+    } */
 
     return (
         <div>
