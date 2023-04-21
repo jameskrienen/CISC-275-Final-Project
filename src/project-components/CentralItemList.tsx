@@ -5,7 +5,7 @@ import { Video } from "../Interfaces/VideoInterface";
 //import { useDrag } from 'react-dnd'
 import placeholderthumbnail from "./placeholder.jpeg";
 
-const VIDEOS1: Video[] = [
+const VIDEOS: Video[] = [
     {
         name: "The Best Pop Songs from the 2000's",
         description: "Description here",
@@ -155,10 +155,7 @@ const VIDEOS1: Video[] = [
         thumbnail: placeholderthumbnail,
         isLiked: false,
         likes: 0
-    }
-];
-
-const VIDEOS2: Video[] = [
+    },
     {
         name: "Funny Standup Compilation",
         description: "Description here",
@@ -336,49 +333,24 @@ export function CentralItemList(): JSX.Element {
     return (
         <div>
             <Row>
-                <Col>
-                    <ul>
-                        {/**Change mapped to be allVideos1 after removing comments */}
-                        {VIDEOS1.map((video: Video) => (
-                            <li key={video.name}>
-                                <img
-                                    src={placeholderthumbnail}
-                                    alt={video.name}
-                                ></img>
-                                <div>
-                                    <span style={{ marginLeft: "200px" }}>
-                                        <Button>Like</Button>
-                                        {video.likes}
-                                    </span>
-                                </div>
-                                <h5>{video.name}</h5>
-                                <div>Description: {video.description}</div>
-                                Genre: {video.genre}
-                            </li>
-                        ))}
-                    </ul>
-                </Col>
-                <Col>
-                    <ul>
-                        {/**Change mapped to be allVideos1 after removing comments */}
-                        {VIDEOS2.map((video: Video) => (
-                            <li key={video.name}>
-                                <img
-                                    src={placeholderthumbnail}
-                                    alt={video.name}
-                                ></img>
-                                <div>
-                                    <span style={{ marginLeft: "200px" }}>
-                                        <Button>Like</Button>
-                                        {video.likes}
-                                    </span>
-                                </div>
-                                <h5>{video.name}</h5>
-                                <div>Description: {video.description}</div>
-                                Genre: {video.genre}
-                            </li>
-                        ))}
-                    </ul>
+                <Col style={{ columnCount: 2 }}>
+                    {VIDEOS.map((video: Video) => (
+                        <ul key={video.name} style={{ breakInside: "avoid" }}>
+                            <h5>{video.name}</h5>
+                            <div>Description: {video.description}</div>
+                            Genre: {video.genre}
+                            <img
+                                src={placeholderthumbnail}
+                                alt={video.name}
+                            ></img>
+                            <div>
+                                <span>
+                                    <Button>Like</Button>
+                                    {video.likes}
+                                </span>
+                            </div>
+                        </ul>
+                    ))}
                 </Col>
                 <Col>
                     <h4>Viewer List:</h4>
