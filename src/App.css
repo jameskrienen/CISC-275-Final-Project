@@ -1,8 +1,10 @@
 .App {
-    text-align: center;
+    display: flex;
 }
 
-.App-logo {
+.App-Logo {
+    margin-top: 50px;
+    margin-left: 50px;
     height: 40vmin;
     pointer-events: none;
 }
@@ -33,6 +35,11 @@
     width: 100px;
     height: 100px;
     background-color: red;
+}
+
+.videoList {
+    margin-top: 50px;
+    margin-left: 50px;
 }
 
 @keyframes App-logo-spin {
