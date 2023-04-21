@@ -314,8 +314,17 @@ export function CentralItemList(): JSX.Element {
     const [allVideos1, setAllVideos1] = useState<Video[]>(VIDEOS1);
     const [allVideos2, setAllVideos2] = useState<Video[]>(VIDEOS2);
 
+    function updateAllVideos1(videos: Video[]) {
+        setAllVideos1(videos);
+    }
+    function updateAllVideos2(videos: Video[]) {
+        setAllVideos2(videos);
+    }
+
+    /**
     const [liked1, setLiked1] = useState<number>(0);
     const [liked2, setLiked2] = useState<number>(0);
+    */
 
     /*  function updateLiked1(video: Video) {
 
@@ -323,6 +332,8 @@ export function CentralItemList(): JSX.Element {
 
     return (
         <div>
+            {/**Remove this line when adding/deleting functionality is implemented*/}
+            {updateAllVideos1(allVideos1)};{updateAllVideos2(allVideos2)};
             <Row>
                 <Col>
                     <ul>
