@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 //Import useState from react after removing comments
 import { Button, Row, Col } from "react-bootstrap";
 import { Video } from "../Interfaces/VideoInterface";
@@ -309,32 +309,23 @@ const VIDEOS: Video[] = [
 ];
 
 export function CentralItemList(): JSX.Element {
-    /**
-    const [allVideos1, setAllVideos1] = useState<Video[]>(VIDEOS1);
-    const [allVideos2, setAllVideos2] = useState<Video[]>(VIDEOS2);
+    const [videos, setVideos] = useState<Video[]>(VIDEOS);
 
-    function updateAllVideos1(videos: Video[]) {
-        setAllVideos1(videos);
+    function updateLikes(title: string) {
+        setVideos(
+            videos.map((video: Video) =>
+                video.name === title
+                    ? { ...video, likes: video.likes + 1 }
+                    : video
+            )
+        );
     }
-    function updateAllVideos2(videos: Video[]) {
-        setAllVideos2(videos);
-    }
-     */
-
-    /**
-    const [liked1, setLiked1] = useState<number>(0);
-    const [liked2, setLiked2] = useState<number>(0);
-    */
-
-    /*  function updateLiked1(video: Video) {
-
-    } */
 
     return (
         <div>
             <Row>
                 <Col style={{ columnCount: 2 }}>
-                    {VIDEOS.map((video: Video) => (
+                    {videos.map((video: Video) => (
                         <ul key={video.name} style={{ breakInside: "avoid" }}>
                             <h5>{video.name}</h5>
                             <div>Description: {video.description}</div>
@@ -345,7 +336,11 @@ export function CentralItemList(): JSX.Element {
                             ></img>
                             <div>
                                 <span>
-                                    <Button>Like</Button>
+                                    <Button
+                                        onClick={() => updateLikes(video.name)}
+                                    >
+                                        Like
+                                    </Button>
                                     {video.likes}
                                 </span>
                             </div>
