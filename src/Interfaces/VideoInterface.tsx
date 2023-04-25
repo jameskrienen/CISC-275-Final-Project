@@ -11,8 +11,6 @@ export interface Video {
     isReported: boolean;
     //The video's thumbnail
     thumbnail: string;
-    //If the video is liked
-    isLiked: boolean;
     //The video's like count
     likes: number;
 }

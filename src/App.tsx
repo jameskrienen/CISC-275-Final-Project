@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import { CentralItemList } from "./project-components/CentralItemList";
+import { ReviewList } from "./project-components/ReviewList";
 import { Form } from "react-bootstrap";
 
 function App(): JSX.Element {
@@ -9,7 +10,6 @@ function App(): JSX.Element {
     function updateRole(event: React.ChangeEvent<HTMLSelectElement>) {
         setRole(event.target.value);
     }
-
     //Actual app
     return (
         <div className="App">
@@ -23,7 +23,7 @@ function App(): JSX.Element {
                 </span>
                 <span>Clipped!</span>
                 <span>
-                    <Form.Group controlId="userRole">
+                    <Form.Group controlId="userRoles">
                         <Form.Label>Choose your role:</Form.Label>
                         <Form.Select value={role} onChange={updateRole}>
                             <option value="viewer">Viewer</option>
@@ -33,11 +33,17 @@ function App(): JSX.Element {
                     </Form.Group>
                 </span>
             </div>
-            <div className="videoList">
+            <div
+                hidden={role !== "moderator"}
+                style={{ display: "flex", textAlign: "center" }}
+            >
+                <ReviewList></ReviewList>
+            </div>
+            <div className="videoList" hidden={role === "moderator"}>
+                <h2>Videos:</h2>
                 <CentralItemList></CentralItemList>
             </div>
         </div>
     );
 }
-
 export default App;
