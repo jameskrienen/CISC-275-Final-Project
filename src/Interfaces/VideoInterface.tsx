@@ -7,12 +7,12 @@ export interface Video {
     genre: string;
     // List of recommended videos from this video
     recommended: string[];
+    //If the reccommended list is wanted
+    wantRecconmended: boolean;
     // If the video has been reported
     isReported: boolean;
     //The video's thumbnail
     thumbnail: string;
-    //If the video is liked
-    isLiked: boolean;
     //The video's like count
     likes: number;
 }
