@@ -7,6 +7,8 @@ export interface Video {
     genre: string;
     // List of recommended videos from this video
     recommended: string[];
+    //If the reccommended list is wanted
+    wantRecconmended: boolean;
     // If the video has been reported
     isReported: boolean;
     //The video's thumbnail
