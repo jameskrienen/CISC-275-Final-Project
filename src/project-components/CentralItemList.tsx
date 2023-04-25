@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-//Import useState from react after removing comments
 import { Button, Row, Col } from "react-bootstrap";
 import { Video } from "../Interfaces/VideoInterface";
-import { useDrag } from "react-dnd";
-import { useDrop } from "react-dnd";
 import placeholderthumbnail from "./placeholder.jpeg";
 
 const VIDEOS: Video[] = [
