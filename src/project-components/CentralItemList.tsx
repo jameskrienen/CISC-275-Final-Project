@@ -13,7 +13,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -23,7 +22,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -33,7 +31,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -43,7 +40,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -53,7 +49,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -63,7 +58,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -73,7 +67,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -83,7 +76,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -93,7 +85,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -103,7 +94,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -113,7 +103,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -123,7 +112,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -133,7 +121,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -143,7 +130,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -153,7 +139,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -163,7 +148,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -173,7 +157,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -183,7 +166,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -193,7 +175,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -203,7 +184,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -213,7 +193,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -223,7 +202,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -233,7 +211,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -243,7 +220,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -253,7 +229,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -263,7 +238,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -273,7 +247,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -283,7 +256,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -293,7 +265,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     },
     {
@@ -303,7 +274,6 @@ const VIDEOS: Video[] = [
         recommended: [""],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        isLiked: false,
         likes: 0
     }
 ];
