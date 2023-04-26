@@ -3,6 +3,7 @@ import "./App.css";
 import { CentralItemList } from "./project-components/CentralItemList";
 import { ReviewList } from "./project-components/ReviewList";
 import { Form } from "react-bootstrap";
+import { CreatorList } from "./project-components/CreatorList";
 
 function App(): JSX.Element {
     //For user roles
@@ -34,14 +35,22 @@ function App(): JSX.Element {
                 </span>
             </div>
             <div
+                className="reviewList"
                 hidden={role !== "moderator"}
                 style={{ display: "flex", textAlign: "center" }}
             >
+                <h2>Under Review:</h2>
                 <ReviewList></ReviewList>
             </div>
-            <div className="videoList" hidden={role === "moderator"}>
+            <div
+                className="videoList"
+                hidden={role === "creator" || role === "moderator"}
+            >
                 <h2>Videos:</h2>
                 <CentralItemList></CentralItemList>
+            </div>
+            <div hidden={role !== "creator"}>
+                <CreatorList></CreatorList>
             </div>
         </div>
     );

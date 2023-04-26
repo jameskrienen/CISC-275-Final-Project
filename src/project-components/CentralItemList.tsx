@@ -506,38 +506,46 @@ export function CentralItemList(): JSX.Element {
                     {videos.map((video: Video) => (
                         <ul key={video.name} style={{ breakInside: "avoid" }}>
                             <h5>{video.name}</h5>
-                            <div>Description: {video.description}</div>
-                            Genre: {video.genre}
+                            <div>
+                                <span style={{ fontWeight: "bold" }}>
+                                    Description:{" "}
+                                </span>
+                                <span>{video.description}</span>
+                            </div>
+                            <div>
+                                <span style={{ fontWeight: "bold" }}>
+                                    Genre:{" "}
+                                </span>
+                                <span>{video.genre}</span>
+                            </div>
                             <img
                                 src={placeholderthumbnail}
                                 alt={video.name}
                             ></img>
                             <div>
-                                <span>
+                                <span style={{ marginRight: "10px" }}>
                                     <Button
                                         onClick={() =>
                                             updateReported(video.name)
                                         }
                                     >
-                                        Report
+                                        Report{" "}
+                                        {video.isReported === true ? (
+                                            <span>🚩</span>
+                                        ) : (
+                                            <span></span>
+                                        )}
                                     </Button>
-                                    {video.isReported === true ? (
-                                        <span>🚩</span>
-                                    ) : (
-                                        <span></span>
-                                    )}
                                 </span>
-                                <span style={{ marginLeft: "125px" }}>
+                                <span>
                                     <Button
                                         onClick={() => updateLikes(video.name)}
                                     >
-                                        Like
+                                        👍
                                     </Button>
                                     {video.likes}
                                 </span>
-                            </div>
-                            <div>
-                                <span>
+                                <span style={{ marginLeft: "10px" }}>
                                     <Button
                                         onClick={() =>
                                             updateReccomendedView(video.name)
