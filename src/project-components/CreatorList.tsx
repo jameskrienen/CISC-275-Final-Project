@@ -2,10 +2,17 @@ import React, { useState } from "react";
 import { Row, Col, Form } from "react-bootstrap";
 import { Video } from "../Interfaces/VideoInterface";
 import placeholderthumbnail from "../placeholder.jpeg";
+import { Creator } from "../Interfaces/CreatorInterface";
 
-export function CreatorList(): JSX.Element {
+export function CreatorList({
+    currentCreator
+}: {
+    currentCreator: Creator;
+}): JSX.Element {
     const creatorVideos: Video[] = [];
-    const [creator, setCreator] = useState<string>("");
+    const [creator, setCreator] = useState<string>(currentCreator.username);
+    const userList: string[] = ["Dan", "James", "Jess"];
+
     //const [creatorVideos, setCreatorVideos] = useState<Video[]>([]);
 
     function updateCreator(event: React.ChangeEvent<HTMLInputElement>) {
@@ -30,6 +37,11 @@ export function CreatorList(): JSX.Element {
                         value={creator}
                         onChange={updateCreator}
                     ></Form.Control>
+                    <Form.Label>
+                        {userList.includes(creator) ? "Welcome " : ""}
+                        {userList.includes(creator) ? creator : "Not a creator"}
+                        {"!"}
+                    </Form.Label>
                 </Form.Group>
             </div>
             <Row>

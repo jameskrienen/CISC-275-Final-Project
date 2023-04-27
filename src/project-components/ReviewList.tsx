@@ -3,8 +3,8 @@ import { Video } from "../Interfaces/VideoInterface";
 import { Row, Col, Button } from "react-bootstrap";
 import placeholderthumbnail from "../placeholder.jpeg";
 
-export function ReviewList(): JSX.Element {
-    const [flaggedVideos, setFlaggedVideos] = useState<Video[]>([]);
+export function ReviewList({ videoList }: { videoList: Video[] }): JSX.Element {
+    const [flaggedVideos, setFlaggedVideos] = useState<Video[]>(videoList);
 
     function initializeFlagged() {
         setFlaggedVideos(

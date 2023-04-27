@@ -49,7 +49,7 @@ function App(): JSX.Element {
                 style={{ display: "flex", textAlign: "center" }}
             >
                 <h2>Under Review:</h2>
-                <ReviewList></ReviewList>
+                <ReviewList videoList={[]}></ReviewList>
             </div>
             <div
                 className="videoList"
@@ -60,12 +60,21 @@ function App(): JSX.Element {
             </div>
             <div style={{ marginRight: 150, marginTop: 50 }}>
                 <h2 hidden={role !== "viewer"}>Watchlist:</h2>
-                <div hidden={role !== "viewer"}>
-                    <WatchList userVideos={[]}></WatchList>
+                <div hidden={role !== "viewer"} style={{ marginLeft: 50 }}>
+                    <WatchList
+                        currentUser={{ username: "Dan", watchlist: [] }}
+                    ></WatchList>
                 </div>
             </div>
             <div hidden={role !== "creator"}>
-                <CreatorList></CreatorList>
+                <CreatorList
+                    currentCreator={{
+                        username: "Dan",
+                        createdVideos: [],
+                        flaggedVideos: [],
+                        blockedUsers: []
+                    }}
+                ></CreatorList>
             </div>
         </div>
     );
