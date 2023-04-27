@@ -5,7 +5,7 @@ import { ReviewList } from "./project-components/ReviewList";
 import { Form } from "react-bootstrap";
 import { CreatorList } from "./project-components/CreatorList";
 import { WatchList } from "./project-components/WatchList";
-import { VIDEOS } from "./project-components/allVideos";
+import { VIDEOS } from "./allVideos";
 
 export const ItemTypes = {
     VIDEO: "video"

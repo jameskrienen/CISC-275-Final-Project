@@ -1,5 +1,5 @@
 import placeholderthumbnail from "./placeholder.jpeg";
-import { Video } from "../Interfaces/VideoInterface";
+import { Video } from "./Interfaces/VideoInterface";
 
 export const VIDEOS: Video[] = [
     {
