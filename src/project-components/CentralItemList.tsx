@@ -10,12 +10,6 @@ export function CentralItemList({
 }): JSX.Element {
     const [videos, setVideos] = useState<Video[]>(allVideos);
 
-    /*const [{ isDragging }, drag] = useDrag(() => ({
-        type: ItemTypes.VIDEO,
-        collect: (monitor) => ({ isDragging: !!monitor.isDragging() })
-    }));
-    const [collectVideos, drop] = useDrop(() => ({ accept: ItemTypes.VIDEO }));*/
-
     function updateLikes(title: string) {
         setVideos(
             videos.map((video: Video) =>
@@ -49,7 +43,7 @@ export function CentralItemList({
     return (
         <div>
             <Row>
-                <Col style={{ columnCount: 3 }}>
+                <Col style={{ columnCount: 2 }}>
                     {videos.map((video: Video) => (
                         <ul key={video.name} style={{ breakInside: "avoid" }}>
                             <h5>{video.name}</h5>

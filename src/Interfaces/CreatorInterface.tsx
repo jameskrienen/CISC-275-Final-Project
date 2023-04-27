@@ -5,8 +5,8 @@ export interface Creator {
     // The creator's username
     username: string;
     // List of all videos the creator has made
-    created_videos: Video[];
+    createdVideos: Video[];
     // List of videos that have been flagged from the created_videos list
-    flagged_videos: Video[];
-    blocked_users: Viewer[];
+    flaggedVideos: Video[];
+    blockedUsers: Viewer[];
 }
