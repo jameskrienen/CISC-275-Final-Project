@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Row, Col, Form } from "react-bootstrap";
 import { Video } from "../Interfaces/VideoInterface";
-import placeholderthumbnail from "./placeholder.jpeg";
+import placeholderthumbnail from "../placeholder.jpeg";
 
 export function CreatorList(): JSX.Element {
     const creatorVideos: Video[] = [];

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Video } from "../Interfaces/VideoInterface";
-import placeholderthumbnail from "./placeholder.jpeg";
+import placeholderthumbnail from "../placeholder.jpeg";
 import { Row, Col, Button } from "react-bootstrap";
 
 export function WatchList({
@@ -28,7 +28,6 @@ export function WatchList({
                             ></Button>
                         </ul>
                     ))}
-                    ;
                 </Col>
             </Row>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Row, Col } from "react-bootstrap";
 import { Video } from "../Interfaces/VideoInterface";
-import placeholderthumbnail from "./placeholder.jpeg";
+import placeholderthumbnail from "../placeholder.jpeg";
 
 export function CentralItemList({
     allVideos
