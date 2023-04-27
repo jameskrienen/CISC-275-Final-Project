@@ -49,12 +49,16 @@ export function CentralItemList({
     return (
         <div>
             <Row>
-                <Col style={{ columnCount: 2 }}>
+                <Col style={{ columnCount: 3 }}>
                     {videos.map((video: Video) => (
                         <ul key={video.name} style={{ breakInside: "avoid" }}>
                             <h5>{video.name}</h5>
                             <div>
-                                <span style={{ fontWeight: "bold" }}>
+                                <span
+                                    style={{
+                                        fontWeight: "bold"
+                                    }}
+                                >
                                     Description:{" "}
                                 </span>
                                 <span>{video.description}</span>
@@ -69,7 +73,7 @@ export function CentralItemList({
                                 src={placeholderthumbnail}
                                 alt={video.name}
                             ></img>
-                            <div>
+                            <div style={{ marginTop: "10px" }}>
                                 <span style={{ marginRight: "10px" }}>
                                     <Button
                                         onClick={() =>
