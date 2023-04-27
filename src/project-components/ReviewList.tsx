@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Video } from "../Interfaces/VideoInterface";
 import { Row, Col, Button } from "react-bootstrap";
-import placeholderthumbnail from "./placeholder.jpeg";
+import placeholderthumbnail from "../placeholder.jpeg";
 
 export function ReviewList(): JSX.Element {
     const [flaggedVideos, setFlaggedVideos] = useState<Video[]>([]);
