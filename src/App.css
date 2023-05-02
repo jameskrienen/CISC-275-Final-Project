@@ -13,3 +13,8 @@
     margin-top: 50px;
     margin-left: 50px;
 }
+
+.centralItemList {
+    background-color: lightgray;
+    padding: 10px;
+}
