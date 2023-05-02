@@ -2,14 +2,10 @@ import React, { useState } from "react";
 import "./App.css";
 import { CentralItemList } from "./project-components/CentralItemList";
 import { ReviewList } from "./project-components/ReviewList";
-import { Form } from "react-bootstrap";
+import { Col, Form, Row } from "react-bootstrap";
 import { CreatorList } from "./project-components/CreatorList";
 import { WatchList } from "./project-components/WatchList";
 import { VIDEOS } from "./allVideos";
-
-export const ItemTypes = {
-    VIDEO: "video"
-};
 
 function App(): JSX.Element {
     //For user roles
@@ -50,6 +46,26 @@ function App(): JSX.Element {
             >
                 <h2>Under Review:</h2>
                 <ReviewList videoList={[]}></ReviewList>
+            </div>
+            <div
+                className="creator"
+                hidden={role !== "creator"}
+                style={{ display: "flex", textAlign: "center" }}
+            >
+                <div>
+                    <div>
+                        <Row>
+                            <Col>
+                                <CentralItemList
+                                    allVideos={[]}
+                                ></CentralItemList>
+                            </Col>
+                            <Col>
+                                <h1>List of Viewers</h1>
+                            </Col>
+                        </Row>
+                    </div>
+                </div>
             </div>
             <div
                 className="videoList"
