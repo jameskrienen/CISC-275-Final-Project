@@ -45,7 +45,11 @@ export function CentralItemList({
             <Row>
                 <Col style={{ columnCount: 2 }}>
                     {videos.map((video: Video) => (
-                        <ul key={video.name} style={{ breakInside: "avoid" }}>
+                        <ul
+                            className="centralItemList"
+                            key={video.name}
+                            style={{ breakInside: "avoid" }}
+                        >
                             <h5>{video.name}</h5>
                             <div>
                                 <span
