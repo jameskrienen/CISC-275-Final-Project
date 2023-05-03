@@ -1,0 +1,16 @@
+.App {
+    display: flex;
+    background-color: darkgray;
+}
+
+.App-Logo {
+    align-content: baseline;
+    margin-top: 10px;
+    margin-left: 20px;
+    height: 40vmin;
+}
+
+.lists {
+    display: flex;
+    justify-content: flex-end;
+}

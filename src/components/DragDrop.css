@@ -1,0 +1,13 @@
+.centralList {
+    height: fit-content;
+    margin: 30px;
+}
+
+.watchList {
+    padding: 10px;
+    padding-left: 30px;
+    background-color: lightslategray;
+    height: 600px fit-content;
+    width: 250px;
+    margin-left: 50px;
+}
