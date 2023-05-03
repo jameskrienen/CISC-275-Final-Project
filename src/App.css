@@ -1,20 +1,15 @@
 .App {
     display: flex;
+    background-color: darkgray;
 }
 
 .App-Logo {
-    margin-top: 50px;
-    margin-left: 50px;
-    height: 40vmin;
+    align-content: baseline;
+    margin-top: 10px;
+    margin-left: 20px;
 }
 
-.videoList,
-.reviewList {
-    margin-top: 50px;
-    margin-left: 50px;
-}
-
-.centralItemList {
-    background-color: lightgray;
-    padding: 10px;
+.lists {
+    display: flex;
+    justify-content: space-evenly;
 }

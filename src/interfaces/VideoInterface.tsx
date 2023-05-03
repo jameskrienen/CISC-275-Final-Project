@@ -8,7 +8,7 @@ export interface Video {
     // List of recommended videos from this video
     recommended: string[];
     //If the reccommended list is wanted
-    wantRecconmended: boolean;
+    wantRecommended: boolean;
     // If the video has been reported
     isReported: boolean;
     //The video's thumbnail
