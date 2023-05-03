@@ -41,7 +41,7 @@ function App(): JSX.Element {
                     </span>
                 </div>
                 <div className="lists">
-                    <DragDrop role={role}/>
+                    <DragDrop role={role} />
                 </div>
             </div>
         </DndProvider>

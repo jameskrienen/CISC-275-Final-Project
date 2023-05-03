@@ -13,7 +13,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecommended: true,
+        wantRecommended: false,
         likes: 0
     },
     {
