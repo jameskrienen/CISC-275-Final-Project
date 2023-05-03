@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { useDrop } from "react-dnd";
 import "../App.css";
 import VideoComponent from "./VideoComponent";
-import { Video } from "../Interfaces/VideoInterface";
+import { Video } from "../interfaces/VideoInterface";
 import { VIDEOS } from "./allVideos";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import "./DragDrop.css";
-import { Creator } from "../Interfaces/CreatorInterface";
-import { Moderator } from "../Interfaces/ModeratorInterface";
+import { Creator } from "../interfaces/CreatorInterface";
+import { Moderator } from "../interfaces/ModeratorInterface";
 import placeholderimage from "../placeholder.jpeg";
 
 function DragDrop({ role }: { role: string }): JSX.Element {

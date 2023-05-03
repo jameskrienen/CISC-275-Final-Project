@@ -1,5 +1,5 @@
 import placeholderthumbnail from "../placeholder.jpeg";
-import { Video } from "../Interfaces/VideoInterface";
+import { Video } from "../interfaces/VideoInterface";
 export const VIDEOS: Video[] = [
     {
         name: "The Best Pop Songs from the 2000's",
