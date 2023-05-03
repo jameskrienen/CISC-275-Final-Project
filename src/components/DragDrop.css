@@ -1,5 +1,9 @@
+.lists {
+    width: 100%;
+}
 .centralList {
     height: fit-content;
+    width: 75%;
     margin: 30px;
 }
 
@@ -8,6 +12,6 @@
     padding-left: 30px;
     background-color: lightslategray;
     height: 600px fit-content;
-    width: 250px;
+    width: 25%;
     margin-left: 50px;
 }
