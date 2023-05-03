@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDrag } from "react-dnd";
-import { Video } from "../interfaces/VideoInterface";
+import { Video } from "../Interfaces/VideoInterface";
 
 function VideoComponent({
     name,
@@ -12,7 +12,8 @@ function VideoComponent({
     thumbnail,
     wantRecommended,
     likes,
-    updateList
+    updateCentralList,
+    updateModeratorList
 }: {
     name: string;
     description: string;
@@ -22,7 +23,8 @@ function VideoComponent({
     thumbnail: string;
     wantRecommended: boolean;
     likes: number;
-    updateList: (vid: Video) => void;
+    updateCentralList: (vid: Video) => void;
+    updateModeratorList: (vid: Video) => void;
 }) {
     const [video, setVideo] = useState<Video>({
         name,
@@ -85,7 +87,8 @@ function VideoComponent({
                     <Button
                         onClick={() => {
                             updateReported();
-                            updateList(video);
+                            updateCentralList(video);
+                            updateModeratorList(video);
                         }}
                         style={{
                             backgroundColor: "#2a52be",
@@ -100,7 +103,8 @@ function VideoComponent({
                     <Button
                         onClick={() => {
                             updateLikes();
-                            updateList(video);
+                            updateCentralList(video);
+                            updateModeratorList(video);
                         }}
                         style={{
                             backgroundColor: "#2a52be",
@@ -116,7 +120,8 @@ function VideoComponent({
                     <Button
                         onClick={() => {
                             update();
-                            updateList(video);
+                            updateCentralList(video);
+                            updateModeratorList(video);
                         }}
                         style={{
                             backgroundColor: "#2a52be",
