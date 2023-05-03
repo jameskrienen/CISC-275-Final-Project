@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Row, Col } from "react-bootstrap";
-import { Video } from "../Interfaces/VideoInterface";
+import { Video } from "../interfaces/VideoInterface";
 import placeholderthumbnail from "../placeholder.jpeg";
 
 export function CentralItemList({
@@ -34,7 +34,7 @@ export function CentralItemList({
         setVideos(
             videos.map((video: Video) =>
                 video.name === title
-                    ? { ...video, wantRecconmended: !video.wantRecconmended }
+                    ? { ...video, wantRecconmended: !video.wantRecommended }
                     : video
             )
         );
@@ -98,7 +98,7 @@ export function CentralItemList({
                                     >
                                         Reccomended
                                     </Button>
-                                    {video.wantRecconmended === true ? (
+                                    {video.wantRecommended === true ? (
                                         <span>
                                             <li>{video.recommended[0]}</li>
                                             <li>{video.recommended[1]}</li>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Video } from "../Interfaces/VideoInterface";
+import { Video } from "../interfaces/VideoInterface";
 import { Row, Col, Button } from "react-bootstrap";
 import placeholderthumbnail from "../placeholder.jpeg";
 
