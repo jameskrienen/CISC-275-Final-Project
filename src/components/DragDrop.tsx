@@ -2,15 +2,21 @@ import React, { useState } from "react";
 import { useDrop } from "react-dnd";
 import "../App.css";
 import VideoComponent from "./VideoComponent";
-import { Video } from "../interfaces/VideoInterface";
+import { Video } from "../Interfaces/VideoInterface";
 import { VIDEOS } from "./allVideos";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import "./DragDrop.css";
-import { Creator } from "../interfaces/CreatorInterface";
+import { Creator } from "../Interfaces/CreatorInterface";
+import { Moderator } from "../Interfaces/ModeratorInterface";
+import placeholderimage from "../placeholder.jpeg";
 
 function DragDrop({ role }: { role: string }): JSX.Element {
     //const users = ["Dan", "Jess", "James"];
     const creators = ["Dan", "Jess", "James"];
+    const moderators = ["Dan", "Jess", "James"];
+    const [currentModerator, setCurrentModerator] = useState<Moderator>({
+        review_list: []
+    });
     const [currentCreator, setCurrentCreator] = useState<Creator>({
         username: "Dan",
         createdVideos: [],
@@ -38,33 +44,44 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         setGenre(event.target.value);
     }
 
-    const [filterGenre, setFilterGenre] = useState<string>("");
-    function updateFilterGenre(event: React.ChangeEvent<HTMLSelectElement>) {
-        setFilterGenre(event.target.value);
-    }
-
     function updateCreatorVideos(newVideo: Video) {
         const newCreator = {
             ...currentCreator,
             createdVideos: [...currentCreator.createdVideos, newVideo]
         };
         setCurrentCreator(newCreator);
+        addVideoToCentralList(newVideo);
+    }
+
+    function updateModeratorVideos(newVideo: Video) {
+        let newModerator: Moderator = currentModerator;
+        if (!currentModerator.review_list.includes(newVideo)) {
+            newModerator = {
+                ...currentModerator,
+                review_list: [...currentModerator.review_list, newVideo]
+            };
+        }
+        setCurrentModerator(newModerator);
     }
 
     const [currentUser, setCurrentUser] = useState<string>("Dan");
     const [allVideos, setAllVideos] = useState<Video[]>(VIDEOS);
     const [watchList, setWatchList] = useState<Video[]>([]);
-    const [moderatorList, setModeratorList] = useState<Video[]>([]);
-    const [creatorList, setCreatorList] = useState<Video[]>([]);
+    //const [moderatorList, setModeratorList] = useState<Video[]>([]);
+    //const [creatorList, setCreatorList] = useState<Video[]>([]);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [{ isOver }, drop] = useDrop(() => ({
         accept: "VIDEO",
-        drop: (item: Video) => addVideo(item.name),
+        drop: (item: Video) => addVideoToWatchlist(item.name),
         collect: (monitor) => ({
             isOver: !!monitor.isOver()
         })
     }));
 
+    function addVideoToCentralList(video: Video) {
+        const newVideos = [...allVideos, video];
+        setAllVideos(newVideos);
+    }
     function updateCentralList(toEdit: Video) {
         const newVideos = allVideos.map((video: Video) => {
             return video.name === toEdit.name ? { ...toEdit } : video;
@@ -72,7 +89,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         setAllVideos(newVideos);
     }
 
-    function addVideo(name: string) {
+    function addVideoToWatchlist(name: string) {
         const videoToAdd = VIDEOS.filter((video: Video) => name === video.name);
         setWatchList((watchList) => [...watchList, videoToAdd[0]]);
     }
@@ -115,7 +132,12 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                     video.wantRecommended
                                                 }
                                                 likes={video.likes}
-                                                updateList={updateCentralList}
+                                                updateCentralList={
+                                                    updateCentralList
+                                                }
+                                                updateModeratorList={
+                                                    updateModeratorVideos
+                                                }
                                             ></VideoComponent>
                                         </ul>
                                     );
@@ -149,7 +171,12 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                     video.wantRecommended
                                                 }
                                                 likes={video.likes}
-                                                updateList={updateCentralList}
+                                                updateCentralList={
+                                                    updateCentralList
+                                                }
+                                                updateModeratorList={
+                                                    updateModeratorVideos
+                                                }
                                             ></VideoComponent>
                                         </div>
                                     );
@@ -162,7 +189,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
             <div hidden={role !== "moderator"}>
                 <div className="moderatorList">
                     <Row>
-                        <Col style={{ columnCount: 3 }}>
+                        <Col style={{ columnCount: 1 }}>
                             <div
                                 style={{
                                     fontWeight: "bold",
@@ -171,26 +198,67 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                             >
                                 Review List:
                             </div>
-                            {moderatorList.map((video: Video) => {
-                                return (
-                                    <div key="moderator">
-                                        <VideoComponent
-                                            key={`${video.likes}-${video.isReported}-${video.wantRecommended}`}
-                                            name={video.name}
-                                            description={video.description}
-                                            genre={video.genre}
-                                            recommended={video.recommended}
-                                            isReported={video.isReported}
-                                            thumbnail={video.thumbnail}
-                                            wantRecommended={
-                                                video.wantRecommended
-                                            }
-                                            likes={video.likes}
-                                            updateList={updateCentralList}
-                                        ></VideoComponent>
-                                    </div>
-                                );
-                            })}
+                            <div>
+                                <p
+                                    style={{
+                                        fontWeight: "bold",
+                                        fontSize: "xx-large"
+                                    }}
+                                >
+                                    What is your username?
+                                </p>
+                                <Form.Group>
+                                    <Form.Label>Username:</Form.Label>
+                                    <Form.Control
+                                        value={currentUser}
+                                        onChange={updateUser}
+                                    ></Form.Control>
+                                    <Form.Label>
+                                        {moderators.includes(currentUser)
+                                            ? "Welcome "
+                                            : ""}
+                                        {moderators.includes(currentUser)
+                                            ? currentUser
+                                            : "Not a creator"}
+                                        {"!"}
+                                    </Form.Label>
+                                </Form.Group>
+                            </div>
+                            <div>
+                                {currentModerator.review_list.map(
+                                    (video: Video) => {
+                                        return (
+                                            <div key="moderator">
+                                                <VideoComponent
+                                                    key={`${video.likes}-${video.isReported}-${video.wantRecommended}`}
+                                                    name={video.name}
+                                                    description={
+                                                        video.description
+                                                    }
+                                                    genre={video.genre}
+                                                    recommended={
+                                                        video.recommended
+                                                    }
+                                                    isReported={
+                                                        video.isReported
+                                                    }
+                                                    thumbnail={video.thumbnail}
+                                                    wantRecommended={
+                                                        video.wantRecommended
+                                                    }
+                                                    likes={video.likes}
+                                                    updateCentralList={
+                                                        updateCentralList
+                                                    }
+                                                    updateModeratorList={
+                                                        updateModeratorVideos
+                                                    }
+                                                ></VideoComponent>
+                                            </div>
+                                        );
+                                    }
+                                )}
+                            </div>
                         </Col>
                     </Row>
                 </div>
@@ -231,7 +299,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                             </Form.Label>
                         </Form.Group>
                     </span>
-                    <span></span>
                     <Row>
                         <Col style={{ columnCount: 1, display: "flex" }}>
                             {currentCreator.createdVideos.map(
@@ -250,7 +317,12 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                     video.wantRecommended
                                                 }
                                                 likes={video.likes}
-                                                updateList={updateCentralList}
+                                                updateCentralList={
+                                                    updateCentralList
+                                                }
+                                                updateModeratorList={
+                                                    updateModeratorVideos
+                                                }
                                             ></VideoComponent>
                                         </div>
                                     );
@@ -340,8 +412,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 genre: videoGenre,
                                                 recommended: [],
                                                 isReported: false,
-                                                thumbnail:
-                                                    "../placeholder.jpeg",
+                                                thumbnail: placeholderimage,
                                                 wantRecommended: false,
                                                 likes: 0
                                             })
