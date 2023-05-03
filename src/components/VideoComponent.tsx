@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDrag } from "react-dnd";
 import { Video } from "../interfaces/VideoInterface";
+
 function VideoComponent({
     name,
     description,
@@ -37,17 +38,14 @@ function VideoComponent({
     function updateLikes() {
         const newVideo = { ...video, likes: video.likes + 1 };
         setVideo(newVideo);
-        updateList(video);
     }
     function update() {
         const newVideo = { ...video, wantRecommended: !video.wantRecommended };
         setVideo(newVideo);
-        updateList(video);
     }
     function updateReported() {
         const newVideo = { ...video, isReported: !video.isReported };
         setVideo(newVideo);
-        updateList(video);
     }
 
     const [{ isDragging }, drag] = useDrag(() => ({
@@ -87,6 +85,7 @@ function VideoComponent({
                     <Button
                         onClick={() => {
                             updateReported();
+                            updateList(video);
                         }}
                         style={{
                             backgroundColor: "#2a52be",
@@ -101,6 +100,7 @@ function VideoComponent({
                     <Button
                         onClick={() => {
                             updateLikes();
+                            updateList(video);
                         }}
                         style={{
                             backgroundColor: "#2a52be",
@@ -116,6 +116,7 @@ function VideoComponent({
                     <Button
                         onClick={() => {
                             update();
+                            updateList(video);
                         }}
                         style={{
                             backgroundColor: "#2a52be",

@@ -10,7 +10,6 @@ export const ItemTypes = {
 };
 
 function App(): JSX.Element {
-    //For user roles
     const [role, setRole] = useState<string>("viewer");
 
     function updateRole(event: React.ChangeEvent<HTMLSelectElement>) {
