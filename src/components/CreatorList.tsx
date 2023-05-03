@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
-import { Video } from "../Interfaces/VideoInterface";
+import { Video } from "../interfaces/VideoInterface";
 import placeholderthumbnail from "../placeholder.jpeg";
-import { Creator } from "../Interfaces/CreatorInterface";
+import { Creator } from "../interfaces/CreatorInterface";
 import { VIDEOS } from "../allVideos";
 
 export function CreatorList({
@@ -181,7 +181,7 @@ export function CreatorList({
                                         recommended: [],
                                         isReported: false,
                                         thumbnail: placeholderthumbnail,
-                                        wantRecconmended: false,
+                                        wantRecommended: false,
                                         likes: 0
                                     })
                                 }
@@ -210,10 +210,6 @@ export function CreatorList({
                                 <option value="How-To">How-To</option>
                             </Form.Select>
                         </Form.Group>
-                        {VIDEOS.filter(
-                            (video: Video): boolean =>
-                                video.genre === filterGenre
-                        )}
                     </div>
                 </Col>
             </Row>

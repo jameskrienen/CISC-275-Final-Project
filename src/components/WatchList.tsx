@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Video } from "../Interfaces/VideoInterface";
+import { Video } from "../interfaces/VideoInterface";
 import placeholderthumbnail from "../placeholder.jpeg";
 import { Row, Col, Button, Form } from "react-bootstrap";
-import { Viewer } from "../Interfaces/ViewerInterface";
+import { Viewer } from "../interfaces/ViewerInterface";
 
 export function WatchList({
     currentUser

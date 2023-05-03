@@ -1,5 +1,5 @@
 import placeholderthumbnail from "./placeholder.jpeg";
-import { Video } from "./Interfaces/VideoInterface";
+import { Video } from "./interfaces/VideoInterface";
 
 export const VIDEOS: Video[] = [
     {
@@ -14,7 +14,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -29,7 +29,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -44,7 +44,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -59,7 +59,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -74,7 +74,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -89,7 +89,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -104,7 +104,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -119,7 +119,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -134,7 +134,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -149,7 +149,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -164,7 +164,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -179,7 +179,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -194,7 +194,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -209,7 +209,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -224,7 +224,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -239,7 +239,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -254,7 +254,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -269,7 +269,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -284,7 +284,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -299,7 +299,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -314,7 +314,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -329,7 +329,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -344,7 +344,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -359,7 +359,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -374,7 +374,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -389,7 +389,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -404,7 +404,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -419,7 +419,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -434,7 +434,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     },
     {
@@ -449,7 +449,7 @@ export const VIDEOS: Video[] = [
         ],
         isReported: false,
         thumbnail: placeholderthumbnail,
-        wantRecconmended: false,
+        wantRecommended: false,
         likes: 0
     }
 ];
