@@ -9,7 +9,7 @@ import "./DragDrop.css";
 import { Creator } from "../interfaces/CreatorInterface";
 
 function DragDrop({ role }: { role: string }): JSX.Element {
-    const users = ["Dan", "Jess", "James"];
+    //const users = ["Dan", "Jess", "James"];
     const creators = ["Dan", "Jess", "James"];
     const [currentCreator, setCurrentCreator] = useState<Creator>({
         username: "Dan",
@@ -221,8 +221,10 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                 onChange={updateUser}
                             ></Form.Control>
                             <Form.Label>
-                                {users.includes(currentUser) ? "Welcome " : ""}
-                                {users.includes(currentUser)
+                                {creators.includes(currentUser)
+                                    ? "Welcome "
+                                    : ""}
+                                {creators.includes(currentUser)
                                     ? currentUser
                                     : "Not a creator"}
                                 {"!"}
