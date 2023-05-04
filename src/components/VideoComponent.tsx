@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDrag } from "react-dnd";
 import { Video } from "../interfaces/VideoInterface";
@@ -40,14 +40,20 @@ function VideoComponent({
     function updateLikes() {
         const newVideo = { ...video, likes: video.likes + 1 };
         setVideo(newVideo);
+        updateCentralList(newVideo);
+        updateModeratorList(newVideo);
     }
     function update() {
         const newVideo = { ...video, wantRecommended: !video.wantRecommended };
         setVideo(newVideo);
+        updateCentralList(newVideo);
+        updateModeratorList(newVideo);
     }
     function updateReported() {
         const newVideo = { ...video, isReported: !video.isReported };
         setVideo(newVideo);
+        updateCentralList(newVideo);
+        updateModeratorList(newVideo);
     }
 
     const [{ isDragging }, drag] = useDrag(() => ({
@@ -87,8 +93,6 @@ function VideoComponent({
                     <Button
                         onClick={() => {
                             updateReported();
-                            updateCentralList(video);
-                            updateModeratorList(video);
                         }}
                         style={{
                             backgroundColor: "#2a52be",
@@ -103,8 +107,6 @@ function VideoComponent({
                     <Button
                         onClick={() => {
                             updateLikes();
-                            updateCentralList(video);
-                            updateModeratorList(video);
                         }}
                         style={{
                             backgroundColor: "#2a52be",
@@ -120,8 +122,6 @@ function VideoComponent({
                     <Button
                         onClick={() => {
                             update();
-                            updateCentralList(video);
-                            updateModeratorList(video);
                         }}
                         style={{
                             backgroundColor: "#2a52be",

@@ -55,7 +55,10 @@ function DragDrop({ role }: { role: string }): JSX.Element {
 
     function updateModeratorVideos(newVideo: Video) {
         let newModerator: Moderator = currentModerator;
-        if (!currentModerator.review_list.includes(newVideo)) {
+        const videoNames: string[] = currentModerator.review_list.map(
+            (vid: Video) => vid.name
+        );
+        if (!videoNames.includes(newVideo.name)) {
             newModerator = {
                 ...currentModerator,
                 review_list: [...currentModerator.review_list, newVideo]
