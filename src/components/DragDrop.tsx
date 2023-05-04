@@ -70,8 +70,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
     const [currentUser, setCurrentUser] = useState<string>("Dan");
     const [allVideos, setAllVideos] = useState<Video[]>(VIDEOS);
     const [watchList, setWatchList] = useState<Video[]>([]);
-    //const [moderatorList, setModeratorList] = useState<Video[]>([]);
-    //const [creatorList, setCreatorList] = useState<Video[]>([]);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [{ isOver }, drop] = useDrop(() => ({
         accept: "VIDEO",
@@ -80,6 +78,36 @@ function DragDrop({ role }: { role: string }): JSX.Element {
             isOver: !!monitor.isOver()
         })
     }));
+
+    function deleteVideoFromCentralList(vid: Video) {
+        const newCentralList = allVideos.filter(
+            (video: Video) => video.name !== vid.name
+        );
+        setAllVideos(newCentralList);
+    }
+
+    function deleteVideoFromCreatorList(vid: Video) {
+        const newCreatorList = currentCreator.createdVideos.filter(
+            (video: Video) => video.name !== vid.name
+        );
+        const newCreator = { ...currentCreator, createdVideos: newCreatorList };
+        setCurrentCreator(newCreator);
+    }
+
+    function deleteFromReviewList(vid: Video) {
+        const newList = currentModerator.review_list.filter(
+            (video: Video) => video.name !== vid.name
+        );
+        const newModerator = { ...currentModerator, review_list: newList };
+        setCurrentModerator(newModerator);
+    }
+
+    function deleteFromWatchList(vid: Video) {
+        const newList = watchList.filter(
+            (video: Video) => video.name !== vid.name
+        );
+        setWatchList(newList);
+    }
 
     function addVideoToCentralList(video: Video) {
         const newVideos = [...allVideos, video];
@@ -90,6 +118,13 @@ function DragDrop({ role }: { role: string }): JSX.Element {
             return video.name === toEdit.name ? { ...toEdit } : video;
         });
         setAllVideos(newVideos);
+    }
+
+    function updateWatchList(toEdit: Video) {
+        const newVideos = watchList.map((video: Video) => {
+            return video.name === toEdit.name ? { ...toEdit } : video;
+        });
+        setWatchList(newVideos);
     }
 
     function addVideoToWatchlist(name: string) {
@@ -141,6 +176,22 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 updateModeratorList={
                                                     updateModeratorVideos
                                                 }
+                                                updateWatchList={
+                                                    updateWatchList
+                                                }
+                                                deleteCentralVid={
+                                                    deleteVideoFromCentralList
+                                                }
+                                                deleteCreatorVid={
+                                                    deleteVideoFromCreatorList
+                                                }
+                                                deleteReviewVid={
+                                                    deleteFromReviewList
+                                                }
+                                                deleteWatchVid={
+                                                    deleteFromWatchList
+                                                }
+                                                role={role}
                                             ></VideoComponent>
                                         </ul>
                                     );
@@ -180,6 +231,22 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 updateModeratorList={
                                                     updateModeratorVideos
                                                 }
+                                                updateWatchList={
+                                                    updateWatchList
+                                                }
+                                                deleteCentralVid={
+                                                    deleteVideoFromCentralList
+                                                }
+                                                deleteCreatorVid={
+                                                    deleteVideoFromCreatorList
+                                                }
+                                                deleteReviewVid={
+                                                    deleteFromReviewList
+                                                }
+                                                deleteWatchVid={
+                                                    deleteFromWatchList
+                                                }
+                                                role={role}
                                             ></VideoComponent>
                                         </div>
                                     );
@@ -256,6 +323,22 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                     updateModeratorList={
                                                         updateModeratorVideos
                                                     }
+                                                    updateWatchList={
+                                                        updateWatchList
+                                                    }
+                                                    deleteCentralVid={
+                                                        deleteVideoFromCentralList
+                                                    }
+                                                    deleteCreatorVid={
+                                                        deleteVideoFromCreatorList
+                                                    }
+                                                    deleteReviewVid={
+                                                        deleteFromReviewList
+                                                    }
+                                                    deleteWatchVid={
+                                                        deleteFromWatchList
+                                                    }
+                                                    role={role}
                                                 ></VideoComponent>
                                             </div>
                                         );
@@ -326,6 +409,22 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 updateModeratorList={
                                                     updateModeratorVideos
                                                 }
+                                                updateWatchList={
+                                                    updateWatchList
+                                                }
+                                                deleteCentralVid={
+                                                    deleteVideoFromCentralList
+                                                }
+                                                deleteCreatorVid={
+                                                    deleteVideoFromCreatorList
+                                                }
+                                                deleteReviewVid={
+                                                    deleteFromReviewList
+                                                }
+                                                deleteWatchVid={
+                                                    deleteFromWatchList
+                                                }
+                                                role={role}
                                             ></VideoComponent>
                                         </div>
                                     );

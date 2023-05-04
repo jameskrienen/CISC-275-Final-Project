@@ -13,7 +13,13 @@ function VideoComponent({
     wantRecommended,
     likes,
     updateCentralList,
-    updateModeratorList
+    updateModeratorList,
+    updateWatchList,
+    deleteCentralVid,
+    deleteCreatorVid,
+    deleteReviewVid,
+    deleteWatchVid,
+    role
 }: {
     name: string;
     description: string;
@@ -25,6 +31,12 @@ function VideoComponent({
     likes: number;
     updateCentralList: (vid: Video) => void;
     updateModeratorList: (vid: Video) => void;
+    updateWatchList: (vid: Video) => void;
+    deleteCentralVid: (vid: Video) => void;
+    deleteCreatorVid: (vid: Video) => void;
+    deleteReviewVid: (vid: Video) => void;
+    deleteWatchVid: (vid: Video) => void;
+    role: string;
 }) {
     const [video, setVideo] = useState<Video>({
         name,
@@ -42,18 +54,21 @@ function VideoComponent({
         setVideo(newVideo);
         updateCentralList(newVideo);
         updateModeratorList(newVideo);
+        updateWatchList(newVideo);
     }
     function update() {
         const newVideo = { ...video, wantRecommended: !video.wantRecommended };
         setVideo(newVideo);
         updateCentralList(newVideo);
         updateModeratorList(newVideo);
+        updateWatchList(newVideo);
     }
     function updateReported() {
         const newVideo = { ...video, isReported: !video.isReported };
         setVideo(newVideo);
         updateCentralList(newVideo);
         updateModeratorList(newVideo);
+        updateWatchList(newVideo);
     }
 
     const [{ isDragging }, drag] = useDrag(() => ({
@@ -141,6 +156,28 @@ function VideoComponent({
                     ) : (
                         <span />
                     )}
+                </span>
+                <span hidden={role !== "moderator"}>
+                    <Button
+                        onClick={() => {
+                            deleteCentralVid(video);
+                            deleteCreatorVid(video);
+                            deleteReviewVid(video);
+                            deleteWatchVid(video);
+                        }}
+                    >
+                        Delete❌
+                    </Button>
+                </span>
+                <span hidden={role !== "moderator"}>
+                    <Button
+                        onClick={() => {
+                            updateReported();
+                            deleteReviewVid(video);
+                        }}
+                    >
+                        Reviewed✔️
+                    </Button>
                 </span>
             </div>
         </div>
