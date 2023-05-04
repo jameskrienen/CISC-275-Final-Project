@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDrag } from "react-dnd";
 import { Video } from "../interfaces/VideoInterface";
