@@ -23,6 +23,9 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         flaggedVideos: [],
         blockedUsers: []
     });
+    const [currentUser, setCurrentUser] = useState<string>("Dan");
+    const [allVideos, setAllVideos] = useState<Video[]>(VIDEOS);
+    const [watchList, setWatchList] = useState<Video[]>([]);
 
     const [uploadMode, setUploadMode] = useState<boolean>(false);
     function updateMode(event: React.ChangeEvent<HTMLInputElement>) {
@@ -45,31 +48,45 @@ function DragDrop({ role }: { role: string }): JSX.Element {
     }
 
     function updateCreatorVideos(newVideo: Video) {
-        const newCreator = {
-            ...currentCreator,
-            createdVideos: [...currentCreator.createdVideos, newVideo]
-        };
-        setCurrentCreator(newCreator);
-        addVideoToCentralList(newVideo);
+        const videoNames: string[] = currentCreator.createdVideos.map(
+            (vid: Video) => vid.name
+        );
+        if (
+            !videoNames.includes(newVideo.name) &&
+            newVideo.creator === currentCreator.username
+        ) {
+            const newCreator = {
+                ...currentCreator,
+                createdVideos: [...currentCreator.createdVideos, newVideo]
+            };
+            setCurrentCreator(newCreator);
+            addVideoToCentralList(newVideo);
+        } else {
+            const newList = currentCreator.createdVideos.map((video: Video) => {
+                return video.name === newVideo.name ? newVideo : video;
+            });
+            setCurrentCreator({ ...currentCreator, createdVideos: newList });
+        }
     }
 
     function updateModeratorVideos(newVideo: Video) {
-        let newModerator: Moderator = currentModerator;
         const videoNames: string[] = currentModerator.review_list.map(
             (vid: Video) => vid.name
         );
-        if (!videoNames.includes(newVideo.name)) {
-            newModerator = {
+        if (!videoNames.includes(newVideo.name) && newVideo.isReported) {
+            const newModerator = {
                 ...currentModerator,
                 review_list: [...currentModerator.review_list, newVideo]
             };
+            setCurrentModerator(newModerator);
+        } else {
+            const newList = currentModerator.review_list.map((video: Video) => {
+                return video.name === newVideo.name ? newVideo : video;
+            });
+            setCurrentModerator({ ...currentModerator, review_list: newList });
         }
-        setCurrentModerator(newModerator);
     }
 
-    const [currentUser, setCurrentUser] = useState<string>("Dan");
-    const [allVideos, setAllVideos] = useState<Video[]>(VIDEOS);
-    const [watchList, setWatchList] = useState<Video[]>([]);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [{ isOver }, drop] = useDrop(() => ({
         accept: "VIDEO",
@@ -102,6 +119,13 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         setCurrentModerator(newModerator);
     }
 
+    function approveVideo(vid: Video) {
+        deleteFromReviewList(vid);
+        updateCentralList({ ...vid, isReported: false });
+        updateCreatorVideos({ ...vid, isReported: false });
+        updateWatchList({ ...vid, isReported: false });
+    }
+
     function deleteFromWatchList(vid: Video) {
         const newList = watchList.filter(
             (video: Video) => video.name !== vid.name
@@ -114,21 +138,29 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         setAllVideos(newVideos);
     }
     function updateCentralList(toEdit: Video) {
-        const newVideos = allVideos.map((video: Video) => {
-            return video.name === toEdit.name ? { ...toEdit } : video;
-        });
-        setAllVideos(newVideos);
+        const vidNames = allVideos.map((video: Video) => video.name);
+        if (vidNames.includes(toEdit.name)) {
+            const newVideos = allVideos.map((video: Video) => {
+                return video.name === toEdit.name ? toEdit : video;
+            });
+            setAllVideos(newVideos);
+        }
     }
 
     function updateWatchList(toEdit: Video) {
-        const newVideos = watchList.map((video: Video) => {
-            return video.name === toEdit.name ? { ...toEdit } : video;
-        });
-        setWatchList(newVideos);
+        const vidNames = watchList.map((video: Video) => video.name);
+        if (vidNames.includes(toEdit.name)) {
+            const newVideos = watchList.map((video: Video) => {
+                return video.name === toEdit.name ? toEdit : video;
+            });
+            setWatchList(newVideos);
+        }
     }
 
     function addVideoToWatchlist(name: string) {
-        const videoToAdd = VIDEOS.filter((video: Video) => name === video.name);
+        const videoToAdd = allVideos.filter(
+            (video: Video) => name === video.name
+        );
         setWatchList((watchList) => [...watchList, videoToAdd[0]]);
     }
 
@@ -170,11 +202,15 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                     video.wantRecommended
                                                 }
                                                 likes={video.likes}
+                                                creator={video.creator}
                                                 updateCentralList={
                                                     updateCentralList
                                                 }
                                                 updateModeratorList={
                                                     updateModeratorVideos
+                                                }
+                                                updateCreatorList={
+                                                    updateCreatorVideos
                                                 }
                                                 updateWatchList={
                                                     updateWatchList
@@ -191,6 +227,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 deleteWatchVid={
                                                     deleteFromWatchList
                                                 }
+                                                approveVid={approveVideo}
                                                 role={role}
                                             ></VideoComponent>
                                         </ul>
@@ -225,11 +262,15 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                     video.wantRecommended
                                                 }
                                                 likes={video.likes}
+                                                creator={video.creator}
                                                 updateCentralList={
                                                     updateCentralList
                                                 }
                                                 updateModeratorList={
                                                     updateModeratorVideos
+                                                }
+                                                updateCreatorList={
+                                                    updateCreatorVideos
                                                 }
                                                 updateWatchList={
                                                     updateWatchList
@@ -246,6 +287,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 deleteWatchVid={
                                                     deleteFromWatchList
                                                 }
+                                                approveVid={approveVideo}
                                                 role={role}
                                             ></VideoComponent>
                                         </div>
@@ -317,11 +359,15 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                         video.wantRecommended
                                                     }
                                                     likes={video.likes}
+                                                    creator={video.creator}
                                                     updateCentralList={
                                                         updateCentralList
                                                     }
                                                     updateModeratorList={
                                                         updateModeratorVideos
+                                                    }
+                                                    updateCreatorList={
+                                                        updateCreatorVideos
                                                     }
                                                     updateWatchList={
                                                         updateWatchList
@@ -338,6 +384,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                     deleteWatchVid={
                                                         deleteFromWatchList
                                                     }
+                                                    approveVid={approveVideo}
                                                     role={role}
                                                 ></VideoComponent>
                                             </div>
@@ -403,11 +450,15 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                     video.wantRecommended
                                                 }
                                                 likes={video.likes}
+                                                creator={video.creator}
                                                 updateCentralList={
                                                     updateCentralList
                                                 }
                                                 updateModeratorList={
                                                     updateModeratorVideos
+                                                }
+                                                updateCreatorList={
+                                                    updateCreatorVideos
                                                 }
                                                 updateWatchList={
                                                     updateWatchList
@@ -424,6 +475,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 deleteWatchVid={
                                                     deleteFromWatchList
                                                 }
+                                                approveVid={approveVideo}
                                                 role={role}
                                             ></VideoComponent>
                                         </div>
@@ -507,7 +559,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                         checked={videoGenre === "How-To"}
                                     />
                                     <Button
-                                        onClick={() =>
+                                        onClick={() => {
                                             updateCreatorVideos({
                                                 name: videoName,
                                                 description: videoDescription,
@@ -516,9 +568,10 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 isReported: false,
                                                 thumbnail: placeholderimage,
                                                 wantRecommended: false,
-                                                likes: 0
-                                            })
-                                        }
+                                                likes: 0,
+                                                creator: currentCreator.username
+                                            });
+                                        }}
                                     >
                                         Upload Video{" "}
                                     </Button>
