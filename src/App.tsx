@@ -25,12 +25,31 @@ function App(): JSX.Element {
                             src={require("./video-camera.png")}
                             alt="video camera website logo"
                             height={50}
+                            style={{ marginTop: "50px", marginLeft: "20px" }}
                         ></img>
                     </span>
-                    <span>Clipped!</span>
+                    <span
+                        style={{
+                            fontSize: "xx-large",
+                            fontWeight: "bolder",
+                            marginLeft: "20px"
+                        }}
+                    >
+                        Clipped!
+                    </span>
                     <span>
-                        <Form.Group controlId="userRoles">
-                            <Form.Label>Choose your role:</Form.Label>
+                        <Form.Group
+                            controlId="userRoles"
+                            style={{ marginTop: "100px", marginLeft: "30px" }}
+                        >
+                            <Form.Label
+                                style={{
+                                    fontSize: "large",
+                                    fontWeight: "bold"
+                                }}
+                            >
+                                Choose your role:
+                            </Form.Label>
                             <Form.Select value={role} onChange={updateRole}>
                                 <option value="viewer">Viewer</option>
                                 <option value="creator">Creator</option>

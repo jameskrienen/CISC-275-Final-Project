@@ -15,7 +15,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "My Favorite Rock and Roll Playlist",
@@ -30,7 +31,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "Who Deserves Album of the Year in 2023?",
@@ -45,7 +47,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "Top 10 Artists You’ve Never Heard Of",
@@ -60,7 +63,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "Why Drake is Overrated",
@@ -75,7 +79,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "A Look at the New GTA V Update",
@@ -90,7 +95,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "My Best Call of Duty Edit",
@@ -105,7 +111,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "This is the Best Minecraft Minigame",
@@ -120,7 +127,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "Fortnite Pro Tournament Highlights",
@@ -135,7 +143,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "Unboxing My New Xbox",
@@ -150,7 +159,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "Mets vs Marlins Highlights",
@@ -165,7 +175,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "Steelers 2023 Season Predictions",
@@ -180,7 +191,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "Pros and Cons the New MLB Rules",
@@ -195,7 +207,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "How Jon Rahm Won the Masters Tournament",
@@ -210,7 +223,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "Day in the Life of a D1 Athlete",
@@ -225,7 +239,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "Funny Standup Compilation",
@@ -240,7 +255,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "Impractical Jokers Compilation",
@@ -255,7 +271,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "The Office Best Moments",
@@ -270,7 +287,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "Try Not to Laugh",
@@ -285,7 +303,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "Kevin Hart Best Jokes",
@@ -300,7 +319,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "Learn Data Structures in 10 Minutes",
@@ -315,7 +335,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "Learn Algorithms in 10 Minutes",
@@ -330,7 +351,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "Beginners Guide to Integrals",
@@ -345,7 +367,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "How AI Works",
@@ -360,7 +383,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "Intro to Biology",
@@ -375,7 +399,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "How to Ace a Whiteboard Interview",
@@ -390,7 +415,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "How to Tie a Tie",
@@ -405,7 +431,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "How to Write a Better Essay",
@@ -420,7 +447,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "How to Pick a Lock",
@@ -435,7 +463,8 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     },
     {
         name: "How to Cook a Great Steak",
@@ -450,6 +479,7 @@ export const VIDEOS: Video[] = [
         isReported: false,
         thumbnail: placeholderthumbnail,
         wantRecommended: false,
-        likes: 0
+        likes: 0,
+        creator: "Clipped"
     }
 ];
