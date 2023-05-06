@@ -1,4 +1,4 @@
-import { Video } from "./VideoInterface";
+import { Video } from "../interfaces/VideoInterface";
 
 export interface Viewer {
     // The viewer's username

@@ -1,4 +1,4 @@
-import { Video } from "./VideoInterface";
+import { Video } from "../interfaces/VideoInterface";
 
 export interface Moderator {
     // List of videos that have bene flagged for review
