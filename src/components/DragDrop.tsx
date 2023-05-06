@@ -98,6 +98,25 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         setCurrentUser(event.target.value);
     }
 
+    const [filteredVideos, setFilteredVideos] = useState<string>("");
+    function filterAlphabet() {
+        setFilteredVideos("Name");
+        const sortedData = [...allVideos].sort((vid1, vid2) => {
+            return vid1.name.localeCompare(vid2.name);
+        });
+        setAllVideos(sortedData);
+    }
+
+    function filterGenre() {
+        setFilteredVideos("Genre");
+        const sortedData = [...allVideos].sort((vid1, vid2) => {
+            return vid1.genre === vid2.genre
+                ? vid1.name.localeCompare(vid2.name)
+                : vid1.genre.localeCompare(vid2.genre);
+        });
+        setAllVideos(sortedData);
+    }
+
     return (
         <>
             <div hidden={role !== "viewer"}>
@@ -113,6 +132,14 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                             Videos:
                         </div>
                         <Row>
+                            <div key="viewer">
+                                <Button onClick={filterAlphabet}>
+                                    Filter A-Z
+                                </Button>
+                                <Button onClick={filterGenre}>
+                                    Filter by Genre
+                                </Button>
+                            </div>
                             <Col style={{ columnCount: 3 }}>
                                 {allVideos.map((video: Video) => {
                                     return (
@@ -337,7 +364,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                 checked={uploadMode}
                                 onChange={updateMode}
                             />
-                            {uploadMode === true ? (
+                            {uploadMode === true && role === "creator" ? (
                                 <Form.Group controlId="formUserName">
                                     <Form.Label>Enter name:</Form.Label>
                                     <Form.Control
@@ -417,6 +444,9 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 likes: 0
                                             })
                                         }
+                                        disabled={
+                                            !creators.includes(currentUser)
+                                        }
                                     >
                                         Upload Video{" "}
                                     </Button>
@@ -432,3 +462,24 @@ function DragDrop({ role }: { role: string }): JSX.Element {
     );
 }
 export default DragDrop;
+
+/*
+                                                    videoGenre === "Music"
+                                                        ? musicRecommendations
+                                                        : videoGenre ===
+                                                          "Gaming"
+                                                        ? gamingRecommendations
+                                                        : videoGenre ===
+                                                          "Sports"
+                                                        ? sportsRecommendations
+                                                        : videoGenre ===
+                                                          "Comedy"
+                                                        ? comedyRecommendations
+                                                        : videoGenre ===
+                                                          "Education"
+                                                        ? educationRecommendations
+                                                        : videoGenre ===
+                                                          "How-To"
+                                                        ? howtoRecommendations
+                                                        : 
+*/
