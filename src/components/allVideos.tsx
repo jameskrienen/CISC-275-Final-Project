@@ -1,4 +1,34 @@
 import placeholderthumbnail from "../placeholder.jpeg";
+import music1 from "../music1.jpeg";
+import music2 from "../music2.jpeg";
+import music3 from "../music3.jpeg";
+import music4 from "../music4.jpeg";
+import music5 from "../music5.jpeg";
+import gaming1 from "../gaming1.jpeg";
+import gaming2 from "../gaming2.jpeg";
+import gaming3 from "../gaming3.jpeg";
+import gaming4 from "../gaming4.jpeg";
+import gaming5 from "../gaming5.jpeg";
+import sports1 from "../sports1.jpeg";
+import sports2 from "../sports2.jpeg";
+import sports3 from "../sports3.jpeg";
+import sports4 from "../sports4.jpeg";
+import sports5 from "../sports5.jpeg";
+import comedy1 from "../comedy1.jpeg";
+import comedy2 from "../comedy2.jpeg";
+import comedy3 from "../comedy3.jpeg";
+import comedy4 from "../comedy4.jpeg";
+import comedy5 from "../comedy5.jpeg";
+import education1 from "../education1.jpeg";
+import education2 from "../education2.jpeg";
+import education3 from "../education3.jpeg";
+import education4 from "../education4.jpeg";
+import education5 from "../education5.jpeg";
+import howto1 from "../howto1.jpeg";
+import howto2 from "../howto2.jpeg";
+import howto3 from "../howto3.jpeg";
+import howto4 from "../howto4.jpeg";
+import howto5 from "../howto5.jpeg";
 import { Video } from "../interfaces/VideoInterface";
 export const VIDEOS: Video[] = [
     {
@@ -12,7 +42,7 @@ export const VIDEOS: Video[] = [
             "Why Drake is Overrated"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: music1,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -28,7 +58,7 @@ export const VIDEOS: Video[] = [
             "Why Drake is Overrated"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: music2,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -44,7 +74,7 @@ export const VIDEOS: Video[] = [
             "Why Drake is Overrated"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: music3,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -60,7 +90,7 @@ export const VIDEOS: Video[] = [
             "Why Drake is Overrated"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: music4,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -76,7 +106,7 @@ export const VIDEOS: Video[] = [
             "Top 10 Artists You’ve Never Heard Of"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: music5,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -92,7 +122,7 @@ export const VIDEOS: Video[] = [
             "Unboxing My New Xbox"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: gaming1,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -108,7 +138,7 @@ export const VIDEOS: Video[] = [
             "Unboxing My New Xbox"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: gaming2,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -124,7 +154,7 @@ export const VIDEOS: Video[] = [
             "Unboxing My New Xbox"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: gaming3,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -140,7 +170,7 @@ export const VIDEOS: Video[] = [
             "Unboxing My New Xbox"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: gaming4,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -156,7 +186,7 @@ export const VIDEOS: Video[] = [
             "Fortnite Pro Tournament Highlights"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: gaming5,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -172,7 +202,7 @@ export const VIDEOS: Video[] = [
             "Day in the Life of a D1 Athlete"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: sports1,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -188,7 +218,7 @@ export const VIDEOS: Video[] = [
             "Day in the Life of a D1 Athlete"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: sports2,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -204,7 +234,7 @@ export const VIDEOS: Video[] = [
             "Day in the Life of a D1 Athlete"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: sports3,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -220,7 +250,7 @@ export const VIDEOS: Video[] = [
             "Day in the Life of a D1 Athlete"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: sports4,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -236,7 +266,7 @@ export const VIDEOS: Video[] = [
             "How Jon Rahm Won the Masters Tournament"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: sports5,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -252,7 +282,7 @@ export const VIDEOS: Video[] = [
             "Kevin Hart Best Jokes"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: comedy1,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -268,7 +298,7 @@ export const VIDEOS: Video[] = [
             "Kevin Hart Best Jokes"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: comedy2,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -284,7 +314,7 @@ export const VIDEOS: Video[] = [
             "Kevin Hart Best Jokes"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: comedy3,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -300,7 +330,7 @@ export const VIDEOS: Video[] = [
             "Kevin Hart Best Jokes"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: comedy4,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -316,7 +346,7 @@ export const VIDEOS: Video[] = [
             "Try Not to Laugh"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: comedy5,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -332,7 +362,7 @@ export const VIDEOS: Video[] = [
             "Intro to Biology"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: education1,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -348,7 +378,7 @@ export const VIDEOS: Video[] = [
             "Intro to Biology"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: education2,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -364,7 +394,7 @@ export const VIDEOS: Video[] = [
             "Intro to Biology"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: education3,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -380,7 +410,7 @@ export const VIDEOS: Video[] = [
             "Intro to Biology"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: education4,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -396,7 +426,7 @@ export const VIDEOS: Video[] = [
             "How AI Works"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: education5,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -412,7 +442,7 @@ export const VIDEOS: Video[] = [
             "How to Cook a Great Steak"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: howto1,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -428,7 +458,7 @@ export const VIDEOS: Video[] = [
             "How to Cook a Great Steak"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: howto2,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -444,7 +474,7 @@ export const VIDEOS: Video[] = [
             "How to Cook a Great Steak"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: howto3,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -460,7 +490,7 @@ export const VIDEOS: Video[] = [
             "How to Cook a Great Steak"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: howto4,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
@@ -476,7 +506,7 @@ export const VIDEOS: Video[] = [
             "How to Pick a Lock"
         ],
         isReported: false,
-        thumbnail: placeholderthumbnail,
+        thumbnail: howto5,
         wantRecommended: false,
         likes: 0,
         creator: "Clipped"
