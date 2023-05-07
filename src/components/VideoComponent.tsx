@@ -96,7 +96,8 @@ function VideoComponent({
         <div
             ref={drag}
             style={{
-                border: isDragging ? "20px solid black" : "0px",
+                border: isDragging ? "5px solid black" : "0px",
+                opacity: isDragging ? "50%" : "100%",
                 marginTop: "10px",
                 paddingTop: 10,
                 paddingBottom: 10,
