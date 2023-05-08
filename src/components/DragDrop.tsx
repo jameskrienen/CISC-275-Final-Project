@@ -178,13 +178,15 @@ function DragDrop({ role }: { role: string }): JSX.Element {
     }
 
     function filterGenre() {
-        setFilteredVideos("Genre");
-        const sortedData = [...allVideos].sort((vid1, vid2) => {
-            return vid1.genre === vid2.genre
-                ? vid1.name.localeCompare(vid2.name)
-                : vid1.genre.localeCompare(vid2.genre);
-        });
-        setAllVideos(sortedData);
+        if (filteredVideos != null) {
+            setFilteredVideos("Genre");
+            const sortedData = [...allVideos].sort((vid1, vid2) => {
+                return vid1.genre === vid2.genre
+                    ? vid1.name.localeCompare(vid2.name)
+                    : vid1.genre.localeCompare(vid2.genre);
+            });
+            setAllVideos(sortedData);
+        }
     }
 
     return (
@@ -201,15 +203,13 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                         >
                             Videos:
                         </div>
+                        <span style={{ marginLeft: "50px" }}>
+                            <Button onClick={filterAlphabet}>Filter A-Z</Button>
+                            <Button onClick={filterGenre}>
+                                Filter by Genre
+                            </Button>
+                        </span>
                         <Row>
-                            <div key="viewer">
-                                <Button onClick={filterAlphabet}>
-                                    Filter A-Z
-                                </Button>
-                                <Button onClick={filterGenre}>
-                                    Filter by Genre
-                                </Button>
-                            </div>
                             <Col style={{ columnCount: 3 }}>
                                 {allVideos.map((video: Video) => {
                                     return (
@@ -597,11 +597,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 wantRecommended: false,
                                                 likes: 0,
                                                 creator: currentCreator.username
-                                            })
-                                        }
-                                        disabled={
-                                            !creators.includes(currentUser)
-                                        }
                                             });
                                         }}
                                     >
