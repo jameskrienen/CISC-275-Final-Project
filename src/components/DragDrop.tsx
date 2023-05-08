@@ -597,13 +597,11 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 wantRecommended: false,
                                                 likes: 0,
                                                 creator: currentCreator.username
-                                            })
-                                        }
+                                            });
+                                        }}
                                         disabled={
                                             !creators.includes(currentUser)
                                         }
-                                            });
-                                        }}
                                     >
                                         Upload Video{" "}
                                     </Button>
