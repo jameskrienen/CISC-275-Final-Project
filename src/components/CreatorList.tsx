@@ -179,7 +179,8 @@ export function CreatorList({
                                         isReported: false,
                                         thumbnail: placeholderimage,
                                         wantRecommended: false,
-                                        likes: 0
+                                        likes: 0,
+                                        creator: currentCreator.username
                                     })
                                 }
                             >
