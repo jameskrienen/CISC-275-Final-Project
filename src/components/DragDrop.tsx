@@ -162,6 +162,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
             (video: Video) => name === video.name
         );
         setWatchList((watchList) => [...watchList, videoToAdd[0]]);
+        console.log(watchList);
     }
 
     function updateUser(event: React.ChangeEvent<HTMLInputElement>) {
@@ -174,6 +175,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         const sortedData = [...watchList].sort((vid1, vid2) => {
             return vid1.name.localeCompare(vid2.name);
         });
+        console.log(watchList);
         setWatchList(sortedData);
     }
 
@@ -265,18 +267,20 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                     }}
                                 >
                                     Watchlist:
-                                </div>
-                                <div>
-                                    <Button onClick={filterWatchlistAlphabet}>
-                                        Filter A-Z
-                                    </Button>
-                                    <Button onClick={filterWatchlistGenre}>
-                                        Filter Genre
-                                    </Button>
+                                    <div>
+                                        <Button
+                                            onClick={filterWatchlistAlphabet}
+                                        >
+                                            Filter A-Z
+                                        </Button>
+                                        <Button onClick={filterWatchlistGenre}>
+                                            Filter Genre
+                                        </Button>
+                                    </div>
                                 </div>
                                 {watchList.map((video: Video) => {
                                     return (
-                                        <div key="viewer">
+                                        <div key={video.name}>
                                             <VideoComponent
                                                 key={`${video.likes}-${video.isReported}-${video.wantRecommended}`}
                                                 name={video.name}
