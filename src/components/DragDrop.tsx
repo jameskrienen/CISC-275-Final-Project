@@ -161,8 +161,9 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         const videoToAdd = allVideos.filter(
             (video: Video) => name === video.name
         );
-        setWatchList((watchList) => [...watchList, videoToAdd[0]]);
-        console.log(watchList);
+        if (videoToAdd.length > 0) {
+            setWatchList((watchList) => [...watchList, videoToAdd[0]]);
+        }
     }
 
     function updateUser(event: React.ChangeEvent<HTMLInputElement>) {
@@ -180,13 +181,15 @@ function DragDrop({ role }: { role: string }): JSX.Element {
     }
 
     function filterWatchlistGenre() {
-        setFilteredWatchlist("Genre");
-        const sortedData = [...watchList].sort((vid1, vid2) => {
-            return vid1.genre === vid2.genre
-                ? vid1.name.localeCompare(vid2.name)
-                : vid1.genre.localeCompare(vid2.genre);
-        });
-        setWatchList(sortedData);
+        if (filteredWatchlist != null) {
+            setFilteredWatchlist("Genre");
+            const sortedData = [...watchList].sort((vid1, vid2) => {
+                return vid1.genre === vid2.genre
+                    ? vid1.name.localeCompare(vid2.name)
+                    : vid1.genre.localeCompare(vid2.genre);
+            });
+            setWatchList(sortedData);
+        }
     }
     const [filteredVideos, setFilteredVideos] = useState<string>("");
     function filterAlphabet() {
@@ -238,7 +241,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                             style={{ breakInside: "avoid" }}
                                         >
                                             <VideoComponent
-                                                key={`${video.likes}-${video.isReported}-${video.wantRecommended}`}
+                                                key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}`}
                                                 name={video.name}
                                                 description={video.description}
                                                 genre={video.genre}
@@ -306,48 +309,42 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                 </div>
                                 {watchList.map((video: Video) => {
                                     return (
-                                        <div key={video.name}>
-                                            <VideoComponent
-                                                key={`${video.likes}-${video.isReported}-${video.wantRecommended}`}
-                                                name={video.name}
-                                                description={video.description}
-                                                genre={video.genre}
-                                                recommended={video.recommended}
-                                                isReported={video.isReported}
-                                                thumbnail={video.thumbnail}
-                                                wantRecommended={
-                                                    video.wantRecommended
-                                                }
-                                                likes={video.likes}
-                                                creator={video.creator}
-                                                updateCentralList={
-                                                    updateCentralList
-                                                }
-                                                updateModeratorList={
-                                                    updateModeratorVideos
-                                                }
-                                                updateCreatorList={
-                                                    updateCreatorVideos
-                                                }
-                                                updateWatchList={
-                                                    updateWatchList
-                                                }
-                                                deleteCentralVid={
-                                                    deleteVideoFromCentralList
-                                                }
-                                                deleteCreatorVid={
-                                                    deleteVideoFromCreatorList
-                                                }
-                                                deleteReviewVid={
-                                                    deleteFromReviewList
-                                                }
-                                                deleteWatchVid={
-                                                    deleteFromWatchList
-                                                }
-                                                approveVid={approveVideo}
-                                                role={role}
-                                            ></VideoComponent>
-                                        </div>
+                                        <VideoComponent
+                                            key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}`}
+                                            name={video.name}
+                                            description={video.description}
+                                            genre={video.genre}
+                                            recommended={video.recommended}
+                                            isReported={video.isReported}
+                                            thumbnail={video.thumbnail}
+                                            wantRecommended={
+                                                video.wantRecommended
+                                            }
+                                            likes={video.likes}
+                                            creator={video.creator}
+                                            updateCentralList={
+                                                updateCentralList
+                                            }
+                                            updateModeratorList={
+                                                updateModeratorVideos
+                                            }
+                                            updateCreatorList={
+                                                updateCreatorVideos
+                                            }
+                                            updateWatchList={updateWatchList}
+                                            deleteCentralVid={
+                                                deleteVideoFromCentralList
+                                            }
+                                            deleteCreatorVid={
+                                                deleteVideoFromCreatorList
+                                            }
+                                            deleteReviewVid={
+                                                deleteFromReviewList
+                                            }
+                                            deleteWatchVid={deleteFromWatchList}
+                                            approveVid={approveVideo}
+                                            role={role}
+                                        ></VideoComponent>
                                     );
                                 })}
                             </Col>
@@ -393,58 +390,50 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                     </Form.Label>
                                 </Form.Group>
                             </div>
-                            <div>
+                            <div key={allVideos.length.toString()}>
                                 {currentModerator.review_list.map(
                                     (video: Video) => {
                                         return (
-                                            <div key="moderator">
-                                                <VideoComponent
-                                                    key={`${video.likes}-${video.isReported}-${video.wantRecommended}`}
-                                                    name={video.name}
-                                                    description={
-                                                        video.description
-                                                    }
-                                                    genre={video.genre}
-                                                    recommended={
-                                                        video.recommended
-                                                    }
-                                                    isReported={
-                                                        video.isReported
-                                                    }
-                                                    thumbnail={video.thumbnail}
-                                                    wantRecommended={
-                                                        video.wantRecommended
-                                                    }
-                                                    likes={video.likes}
-                                                    creator={video.creator}
-                                                    updateCentralList={
-                                                        updateCentralList
-                                                    }
-                                                    updateModeratorList={
-                                                        updateModeratorVideos
-                                                    }
-                                                    updateCreatorList={
-                                                        updateCreatorVideos
-                                                    }
-                                                    updateWatchList={
-                                                        updateWatchList
-                                                    }
-                                                    deleteCentralVid={
-                                                        deleteVideoFromCentralList
-                                                    }
-                                                    deleteCreatorVid={
-                                                        deleteVideoFromCreatorList
-                                                    }
-                                                    deleteReviewVid={
-                                                        deleteFromReviewList
-                                                    }
-                                                    deleteWatchVid={
-                                                        deleteFromWatchList
-                                                    }
-                                                    approveVid={approveVideo}
-                                                    role={role}
-                                                ></VideoComponent>
-                                            </div>
+                                            <VideoComponent
+                                                key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}`}
+                                                name={video.name}
+                                                description={video.description}
+                                                genre={video.genre}
+                                                recommended={video.recommended}
+                                                isReported={video.isReported}
+                                                thumbnail={video.thumbnail}
+                                                wantRecommended={
+                                                    video.wantRecommended
+                                                }
+                                                likes={video.likes}
+                                                creator={video.creator}
+                                                updateCentralList={
+                                                    updateCentralList
+                                                }
+                                                updateModeratorList={
+                                                    updateModeratorVideos
+                                                }
+                                                updateCreatorList={
+                                                    updateCreatorVideos
+                                                }
+                                                updateWatchList={
+                                                    updateWatchList
+                                                }
+                                                deleteCentralVid={
+                                                    deleteVideoFromCentralList
+                                                }
+                                                deleteCreatorVid={
+                                                    deleteVideoFromCreatorList
+                                                }
+                                                deleteReviewVid={
+                                                    deleteFromReviewList
+                                                }
+                                                deleteWatchVid={
+                                                    deleteFromWatchList
+                                                }
+                                                approveVid={approveVideo}
+                                                role={role}
+                                            ></VideoComponent>
                                         );
                                     }
                                 )}
@@ -494,48 +483,42 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                             {currentCreator.createdVideos.map(
                                 (video: Video) => {
                                     return (
-                                        <div key="creator">
-                                            <VideoComponent
-                                                key={`${video.likes}-${video.isReported}-${video.wantRecommended}`}
-                                                name={video.name}
-                                                description={video.description}
-                                                genre={video.genre}
-                                                recommended={video.recommended}
-                                                isReported={video.isReported}
-                                                thumbnail={video.thumbnail}
-                                                wantRecommended={
-                                                    video.wantRecommended
-                                                }
-                                                likes={video.likes}
-                                                creator={video.creator}
-                                                updateCentralList={
-                                                    updateCentralList
-                                                }
-                                                updateModeratorList={
-                                                    updateModeratorVideos
-                                                }
-                                                updateCreatorList={
-                                                    updateCreatorVideos
-                                                }
-                                                updateWatchList={
-                                                    updateWatchList
-                                                }
-                                                deleteCentralVid={
-                                                    deleteVideoFromCentralList
-                                                }
-                                                deleteCreatorVid={
-                                                    deleteVideoFromCreatorList
-                                                }
-                                                deleteReviewVid={
-                                                    deleteFromReviewList
-                                                }
-                                                deleteWatchVid={
-                                                    deleteFromWatchList
-                                                }
-                                                approveVid={approveVideo}
-                                                role={role}
-                                            ></VideoComponent>
-                                        </div>
+                                        <VideoComponent
+                                            key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}`}
+                                            name={video.name}
+                                            description={video.description}
+                                            genre={video.genre}
+                                            recommended={video.recommended}
+                                            isReported={video.isReported}
+                                            thumbnail={video.thumbnail}
+                                            wantRecommended={
+                                                video.wantRecommended
+                                            }
+                                            likes={video.likes}
+                                            creator={video.creator}
+                                            updateCentralList={
+                                                updateCentralList
+                                            }
+                                            updateModeratorList={
+                                                updateModeratorVideos
+                                            }
+                                            updateCreatorList={
+                                                updateCreatorVideos
+                                            }
+                                            updateWatchList={updateWatchList}
+                                            deleteCentralVid={
+                                                deleteVideoFromCentralList
+                                            }
+                                            deleteCreatorVid={
+                                                deleteVideoFromCreatorList
+                                            }
+                                            deleteReviewVid={
+                                                deleteFromReviewList
+                                            }
+                                            deleteWatchVid={deleteFromWatchList}
+                                            approveVid={approveVideo}
+                                            role={role}
+                                        ></VideoComponent>
                                     );
                                 }
                             )}
