@@ -1,4 +1,4 @@
-import { Video } from "./VideoInterface";
+import { Video } from "../interfaces/VideoInterface";
 import { Viewer } from "./ViewerInterface";
 
 export interface Creator {

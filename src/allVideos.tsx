@@ -1,4 +1,3 @@
-import placeholderthumbnail from "./placeholder.jpeg";
 import music1 from "./music1.jpeg";
 import music2 from "./music2.jpeg";
 import music3 from "./music3.jpeg";
