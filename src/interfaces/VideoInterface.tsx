@@ -15,4 +15,6 @@ export interface Video {
     thumbnail: string;
     //The video's like count
     likes: number;
+    //The creator of the video
+    creator: string;
 }
