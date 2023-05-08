@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDrop } from "react-dnd";
 import "../App.css";
 import VideoComponent from "./VideoComponent";
@@ -9,21 +9,43 @@ import "./DragDrop.css";
 import { Creator } from "../interfaces/CreatorInterface";
 import { Moderator } from "../interfaces/ModeratorInterface";
 import placeholderimage from "../placeholder.jpeg";
+import { Viewer } from "../interfaces/ViewerInterface";
 
 function DragDrop({ role }: { role: string }): JSX.Element {
-    //const users = ["Dan", "Jess", "James"];
-    const creators = ["Dan", "Jess", "James"];
-    const moderators = ["Dan", "Jess", "James"];
+    const users = ["Dan", "Jess", "James"];
     const [currentModerator, setCurrentModerator] = useState<Moderator>({
-        review_list: []
+        review_list: [],
+        username: ""
     });
+
+    function updateModerator(event: React.ChangeEvent<HTMLInputElement>) {
+        setCurrentModerator({
+            ...currentModerator,
+            username: event.target.value
+        });
+    }
     const [currentCreator, setCurrentCreator] = useState<Creator>({
-        username: "Dan",
+        username: "",
         createdVideos: [],
         flaggedVideos: [],
         blockedUsers: []
     });
-    const [currentUser, setCurrentUser] = useState<string>("Dan");
+    function updateCreator(event: React.ChangeEvent<HTMLInputElement>) {
+        setCurrentCreator({
+            ...currentCreator,
+            username: event.target.value
+        });
+    }
+
+    const [currentViewer, setCurrentViewer] = useState<Viewer>({
+        username: "",
+        watchlist: []
+    });
+
+    function updateViewer(event: React.ChangeEvent<HTMLInputElement>) {
+        setCurrentViewer({ ...currentViewer, username: event.target.value });
+    }
+
     const [allVideos, setAllVideos] = useState<Video[]>(VIDEOS);
     const [watchList, setWatchList] = useState<Video[]>([]);
 
@@ -68,6 +90,10 @@ function DragDrop({ role }: { role: string }): JSX.Element {
             setCurrentCreator({ ...currentCreator, createdVideos: newList });
         }
     }
+
+    useEffect(() => {
+        console.log(allVideos);
+    }, [allVideos]);
 
     function updateModeratorVideos(newVideo: Video) {
         const videoNames: string[] = currentModerator.review_list.map(
@@ -137,6 +163,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         const newVideos = [...allVideos, video];
         setAllVideos(newVideos);
     }
+
     function updateCentralList(toEdit: Video) {
         const vidNames = allVideos.map((video: Video) => video.name);
         if (vidNames.includes(toEdit.name)) {
@@ -166,17 +193,12 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         }
     }
 
-    function updateUser(event: React.ChangeEvent<HTMLInputElement>) {
-        setCurrentUser(event.target.value);
-    }
-
     const [filteredWatchlist, setFilteredWatchlist] = useState<string>("");
     function filterWatchlistAlphabet() {
         setFilteredWatchlist("Name");
         const sortedData = [...watchList].sort((vid1, vid2) => {
             return vid1.name.localeCompare(vid2.name);
         });
-        console.log(watchList);
         setWatchList(sortedData);
     }
 
@@ -225,6 +247,32 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                             }}
                         >
                             Videos:
+                        </div>
+                        <div>
+                            <p
+                                style={{
+                                    fontWeight: "bold",
+                                    fontSize: "xx-large"
+                                }}
+                            >
+                                What is your username?
+                            </p>
+                            <Form.Group>
+                                <Form.Label>Username:</Form.Label>
+                                <Form.Control
+                                    value={currentViewer.username}
+                                    onChange={updateViewer}
+                                ></Form.Control>
+                                <Form.Label>
+                                    {users.includes(currentViewer.username)
+                                        ? "Welcome "
+                                        : ""}
+                                    {users.includes(currentViewer.username)
+                                        ? currentViewer.username
+                                        : "Not a viewer"}
+                                    {"!"}
+                                </Form.Label>
+                            </Form.Group>
                         </div>
                         <span style={{ marginLeft: "50px" }}>
                             <Button onClick={filterAlphabet}>Filter A-Z</Button>
@@ -376,16 +424,20 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                 <Form.Group>
                                     <Form.Label>Username:</Form.Label>
                                     <Form.Control
-                                        value={currentUser}
-                                        onChange={updateUser}
+                                        value={currentModerator.username}
+                                        onChange={updateModerator}
                                     ></Form.Control>
                                     <Form.Label>
-                                        {moderators.includes(currentUser)
+                                        {users.includes(
+                                            currentModerator.username
+                                        )
                                             ? "Welcome "
                                             : ""}
-                                        {moderators.includes(currentUser)
-                                            ? currentUser
-                                            : "Not a creator"}
+                                        {users.includes(
+                                            currentModerator.username
+                                        )
+                                            ? currentModerator.username
+                                            : "Not a moderator"}
                                         {"!"}
                                     </Form.Label>
                                 </Form.Group>
@@ -464,15 +516,15 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                         <Form.Group>
                             <Form.Label>Username:</Form.Label>
                             <Form.Control
-                                value={currentUser}
-                                onChange={updateUser}
+                                value={currentCreator.username}
+                                onChange={updateCreator}
                             ></Form.Control>
                             <Form.Label>
-                                {creators.includes(currentUser)
+                                {users.includes(currentCreator.username)
                                     ? "Welcome "
                                     : ""}
-                                {creators.includes(currentUser)
-                                    ? currentUser
+                                {users.includes(currentCreator.username)
+                                    ? currentCreator.username
                                     : "Not a creator"}
                                 {"!"}
                             </Form.Label>
