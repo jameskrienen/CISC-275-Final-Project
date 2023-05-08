@@ -170,6 +170,25 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         setCurrentUser(event.target.value);
     }
 
+    const [filteredWatchlist, setFilteredWatchlist] = useState<string>("");
+    function filterWatchlistAlphabet() {
+        setFilteredWatchlist("Name");
+        const sortedData = [...watchList].sort((vid1, vid2) => {
+            return vid1.name.localeCompare(vid2.name);
+        });
+        console.log(watchList);
+        setWatchList(sortedData);
+    }
+
+    function filterWatchlistGenre() {
+        setFilteredWatchlist("Genre");
+        const sortedData = [...watchList].sort((vid1, vid2) => {
+            return vid1.genre === vid2.genre
+                ? vid1.name.localeCompare(vid2.name)
+                : vid1.genre.localeCompare(vid2.genre);
+        });
+        setWatchList(sortedData);
+    }
     const [filteredVideos, setFilteredVideos] = useState<string>("");
     function filterAlphabet() {
         setFilteredVideos("Name");
@@ -275,6 +294,16 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                     }}
                                 >
                                     Watchlist:
+                                    <div>
+                                        <Button
+                                            onClick={filterWatchlistAlphabet}
+                                        >
+                                            Filter A-Z
+                                        </Button>
+                                        <Button onClick={filterWatchlistGenre}>
+                                            Filter Genre
+                                        </Button>
+                                    </div>
                                 </div>
                                 {watchList.map((video: Video) => {
                                     return (
