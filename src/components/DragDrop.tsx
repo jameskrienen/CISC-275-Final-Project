@@ -13,6 +13,7 @@ import placeholderimage from "../placeholder.jpeg";
 
 function DragDrop({ role }: { role: string }): JSX.Element {
     const viewers = ["Dan", "Jess", "James"];
+    //const [viewerName, setViewerName] = useState<string>(viewers[0]);
     const creators = ["Dan", "Jess", "James"];
     const moderators = ["Dan", "Jess", "James"];
 
@@ -35,39 +36,33 @@ function DragDrop({ role }: { role: string }): JSX.Element {
     });
     function updateViewer(event: React.ChangeEvent<HTMLSelectElement>) {
         //console.log(currentViewer);
-        //setCurrentUser(event.target.value);
+        // setCurrentUser(event.target.value);
+        //setViewerName(currentViewer.username);
         setCurrentViewer({
             username: event.target.value,
             watchlist: watchList
         });
-        //setWatchList(currentViewer.watchlist);
-        //if (role === "viewer") {
 
-        /*setCurrentUser(event.target.value);
+        console.log(event.target.value);
+        // console.log(viewerName);
+        console.log(currentViewer);
 
-            if (currentViewer.username !== currentUser) {
+        if (role === "viewer") {
+            // setCurrentUser(event.target.value);
+            if (currentViewer.username !== event.target.value) {
+                //clear watchlist
                 setWatchList([]);
             } else {
+                //or (re)set watchlist to previously saved viewer watchlist
                 setWatchList(currentViewer.watchlist);
             }
-*/
+        }
+        setWatchList(currentViewer.watchlist);
+
         //setCurrentUser(currentViewer.username);
         //console.log("watchlist", watchList);
         //console.log("currentViewer", currentViewer);
         //console.log("currentUser", currentUser); //console.log("currentUser", currentUser);
-
-        //let count = 0;
-        /*while (currentViewer.username !== currentUser) {
-                deleteFromWatchList(currentViewer.watchlist[count]);
-                count++;
-                if (currentViewer.watchlist.length === 0) {
-                    setCurrentUser(currentViewer.username);
-                }
-            }*/
-        //console.log(currentViewer);
-        //console.log(role);
-        //console.log("currentUser" + currentUser);
-        //}
     }
 
     const [uploadMode, setUploadMode] = useState<boolean>(false);
