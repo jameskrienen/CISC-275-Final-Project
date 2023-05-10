@@ -38,32 +38,43 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         //console.log(currentViewer);
         // setCurrentUser(event.target.value);
         //setViewerName(currentViewer.username);
+
+        //console.log(event.target.value);
+        // console.log(viewerName);
+        //console.log(currentViewer);
+        //setWatchList(currentViewer.watchlist);
         setCurrentViewer({
             username: event.target.value,
             watchlist: watchList
         });
+    }
 
-        console.log(event.target.value);
-        // console.log(viewerName);
-        console.log(currentViewer);
-
+    function updateViewerWatchlist(username: string) {
         if (role === "viewer") {
             // setCurrentUser(event.target.value);
-            if (currentViewer.username !== event.target.value) {
-                //clear watchlist
-                setWatchList([]);
-            } else {
-                //or (re)set watchlist to previously saved viewer watchlist
+            /*setCurrentViewer({
+                username: event.target.value,
+                watchlist: watchList
+            });*/
+            //if (currentViewer.username === event.target.value) {
+            //clear watchlist
+            if (currentViewer.username === username) {
+                //const newWatchlist = [...watchList];
                 setWatchList(currentViewer.watchlist);
+                setCurrentViewer({ ...currentViewer, watchlist: watchList });
+            } else {
+                setWatchList([]);
             }
+            setWatchList(currentViewer.watchlist);
         }
-        setWatchList(currentViewer.watchlist);
-
-        //setCurrentUser(currentViewer.username);
-        //console.log("watchlist", watchList);
-        //console.log("currentViewer", currentViewer);
-        //console.log("currentUser", currentUser); //console.log("currentUser", currentUser);
     }
+
+    //setWatchList(currentViewer.watchlist);
+
+    //setCurrentUser(currentViewer.username);
+    //console.log("watchlist", watchList);
+    //console.log("currentViewer", currentViewer);
+    //console.log("currentUser", currentUser); //console.log("currentUser", currentUser);
 
     const [uploadMode, setUploadMode] = useState<boolean>(false);
     function updateMode(event: React.ChangeEvent<HTMLInputElement>) {
@@ -193,7 +204,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                 return video.name === toEdit.name ? toEdit : video;
             });
             //console.log("newVideos", newVideos);
-            setCurrentViewer({ ...currentViewer, watchlist: newVideos });
+            //setCurrentViewer({ ...currentViewer, watchlist: newVideos });
             setWatchList(currentViewer.watchlist);
         }
     }
@@ -386,7 +397,9 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                 </div>
                                 {watchList.map((video: Video) => {
                                     return (
-                                        <div key={video.name}>
+                                        <div
+                                            key={`${video.name}-${currentViewer.username}`}
+                                        >
                                             <VideoComponent
                                                 key={`${video.likes}-${video.isReported}-${video.wantRecommended}`}
                                                 name={video.name}
