@@ -44,7 +44,8 @@ export const VIDEOS: Video[] = [
         thumbnail: music1,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "My Favorite Rock and Roll Playlist",
@@ -60,7 +61,8 @@ export const VIDEOS: Video[] = [
         thumbnail: music2,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "Who Deserves Album of the Year in 2023?",
@@ -76,7 +78,8 @@ export const VIDEOS: Video[] = [
         thumbnail: music3,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "Top 10 Artists You’ve Never Heard Of",
@@ -92,7 +95,8 @@ export const VIDEOS: Video[] = [
         thumbnail: music4,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "Why Drake is Overrated",
@@ -108,7 +112,8 @@ export const VIDEOS: Video[] = [
         thumbnail: music5,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "A Look at the New GTA V Update",
@@ -124,7 +129,8 @@ export const VIDEOS: Video[] = [
         thumbnail: gaming1,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "My Best Call of Duty Edit",
@@ -140,7 +146,8 @@ export const VIDEOS: Video[] = [
         thumbnail: gaming2,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "This is the Best Minecraft Minigame",
@@ -156,7 +163,8 @@ export const VIDEOS: Video[] = [
         thumbnail: gaming3,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "Fortnite Pro Tournament Highlights",
@@ -172,7 +180,8 @@ export const VIDEOS: Video[] = [
         thumbnail: gaming4,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "Unboxing My New Xbox",
@@ -188,7 +197,8 @@ export const VIDEOS: Video[] = [
         thumbnail: gaming5,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "Mets vs Marlins Highlights",
@@ -204,7 +214,8 @@ export const VIDEOS: Video[] = [
         thumbnail: sports1,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "Steelers 2023 Season Predictions",
@@ -220,7 +231,8 @@ export const VIDEOS: Video[] = [
         thumbnail: sports2,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "Pros and Cons the New MLB Rules",
@@ -236,7 +248,8 @@ export const VIDEOS: Video[] = [
         thumbnail: sports3,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "How Jon Rahm Won the Masters Tournament",
@@ -252,7 +265,8 @@ export const VIDEOS: Video[] = [
         thumbnail: sports4,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "Day in the Life of a D1 Athlete",
@@ -268,7 +282,8 @@ export const VIDEOS: Video[] = [
         thumbnail: sports5,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "Funny Standup Compilation",
@@ -284,7 +299,8 @@ export const VIDEOS: Video[] = [
         thumbnail: comedy1,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "Impractical Jokers Compilation",
@@ -300,7 +316,8 @@ export const VIDEOS: Video[] = [
         thumbnail: comedy2,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "The Office Best Moments",
@@ -316,7 +333,8 @@ export const VIDEOS: Video[] = [
         thumbnail: comedy3,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "Try Not to Laugh",
@@ -332,7 +350,8 @@ export const VIDEOS: Video[] = [
         thumbnail: comedy4,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "Kevin Hart Best Jokes",
@@ -348,7 +367,8 @@ export const VIDEOS: Video[] = [
         thumbnail: comedy5,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "Learn Data Structures in 10 Minutes",
@@ -364,7 +384,8 @@ export const VIDEOS: Video[] = [
         thumbnail: education1,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "Learn Algorithms in 10 Minutes",
@@ -380,7 +401,8 @@ export const VIDEOS: Video[] = [
         thumbnail: education2,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "Beginners Guide to Integrals",
@@ -396,7 +418,8 @@ export const VIDEOS: Video[] = [
         thumbnail: education3,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "How AI Works",
@@ -412,7 +435,8 @@ export const VIDEOS: Video[] = [
         thumbnail: education4,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "Intro to Biology",
@@ -428,7 +452,8 @@ export const VIDEOS: Video[] = [
         thumbnail: education5,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "How to Ace a Whiteboard Interview",
@@ -444,7 +469,8 @@ export const VIDEOS: Video[] = [
         thumbnail: howto1,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "How to Tie a Tie",
@@ -460,7 +486,8 @@ export const VIDEOS: Video[] = [
         thumbnail: howto2,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "How to Write a Better Essay",
@@ -476,7 +503,8 @@ export const VIDEOS: Video[] = [
         thumbnail: howto3,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "How to Pick a Lock",
@@ -492,7 +520,8 @@ export const VIDEOS: Video[] = [
         thumbnail: howto4,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     },
     {
         name: "How to Cook a Great Steak",
@@ -508,6 +537,7 @@ export const VIDEOS: Video[] = [
         thumbnail: howto5,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped"
+        creator: "Clipped",
+        comment: ""
     }
 ];
