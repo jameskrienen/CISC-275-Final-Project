@@ -17,4 +17,7 @@ export interface Video {
     likes: number;
     //The creator of the video
     creator: string;
+    //The user's comment on video
+    comment: string;
+    wantToComment: boolean;
 }

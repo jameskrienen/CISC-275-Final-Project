@@ -212,6 +212,39 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         }
     }
 
+    const [comment, setComment] = useState<string>("");
+    function updateComment(event: React.ChangeEvent<HTMLInputElement>) {
+        setComment(event.target.value);
+    }
+
+    const [textbox, setTextBox] = useState<boolean>(false);
+    function showTextBox(vid: Video) {
+        //const updateVid = { ...vid, wantToComment: !vid.wantToComment };
+        if (watchList.find((video) => video === vid)) {
+            // if (updateVid.wantToComment === true) {
+            setTextBox(!textbox);
+            setWatchList(
+                watchList.map((video: Video) =>
+                    video === vid
+                        ? { ...video, comment: comment }
+                        : { ...video }
+                )
+            );
+            // }
+        } else {
+            setTextBox(false);
+        }
+
+        //const newComment = comment;
+        /*onst vidName = watchList.find((vid) => vid.name === name);
+        console.log(vidName);
+        console.log(name);*/
+        // if (vidName.name === name) {
+
+        //setComment(newComment);
+        // }
+    }
+
     return (
         <>
             <div hidden={role !== "viewer"}>
@@ -253,6 +286,10 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 }
                                                 likes={video.likes}
                                                 creator={video.creator}
+                                                comment={video.comment}
+                                                wantToComment={
+                                                    video.wantToComment
+                                                }
                                                 updateCentralList={
                                                     updateCentralList
                                                 }
@@ -309,42 +346,76 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                 </div>
                                 {watchList.map((video: Video) => {
                                     return (
-                                        <VideoComponent
-                                            key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}`}
-                                            name={video.name}
-                                            description={video.description}
-                                            genre={video.genre}
-                                            recommended={video.recommended}
-                                            isReported={video.isReported}
-                                            thumbnail={video.thumbnail}
-                                            wantRecommended={
-                                                video.wantRecommended
-                                            }
-                                            likes={video.likes}
-                                            creator={video.creator}
-                                            updateCentralList={
-                                                updateCentralList
-                                            }
-                                            updateModeratorList={
-                                                updateModeratorVideos
-                                            }
-                                            updateCreatorList={
-                                                updateCreatorVideos
-                                            }
-                                            updateWatchList={updateWatchList}
-                                            deleteCentralVid={
-                                                deleteVideoFromCentralList
-                                            }
-                                            deleteCreatorVid={
-                                                deleteVideoFromCreatorList
-                                            }
-                                            deleteReviewVid={
-                                                deleteFromReviewList
-                                            }
-                                            deleteWatchVid={deleteFromWatchList}
-                                            approveVid={approveVideo}
-                                            role={role}
-                                        ></VideoComponent>
+                                        <div
+                                            key={`${video.name}-${currentUser}`}
+                                        >
+                                            <VideoComponent
+                                                key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}`}
+                                                name={video.name}
+                                                description={video.description}
+                                                genre={video.genre}
+                                                recommended={video.recommended}
+                                                isReported={video.isReported}
+                                                thumbnail={video.thumbnail}
+                                                wantRecommended={
+                                                    video.wantRecommended
+                                                }
+                                                likes={video.likes}
+                                                creator={video.creator}
+                                                comment={video.comment}
+                                                wantToComment={
+                                                    video.wantToComment
+                                                }
+                                                updateCentralList={
+                                                    updateCentralList
+                                                }
+                                                updateModeratorList={
+                                                    updateModeratorVideos
+                                                }
+                                                updateCreatorList={
+                                                    updateCreatorVideos
+                                                }
+                                                updateWatchList={
+                                                    updateWatchList
+                                                }
+                                                deleteCentralVid={
+                                                    deleteVideoFromCentralList
+                                                }
+                                                deleteCreatorVid={
+                                                    deleteVideoFromCreatorList
+                                                }
+                                                deleteReviewVid={
+                                                    deleteFromReviewList
+                                                }
+                                                deleteWatchVid={
+                                                    deleteFromWatchList
+                                                }
+                                                approveVid={approveVideo}
+                                                role={role}
+                                            ></VideoComponent>
+                                            <Button
+                                                onClick={() =>
+                                                    showTextBox(video)
+                                                }
+                                            >
+                                                {textbox === false ? (
+                                                    <span>Comment</span>
+                                                ) : (
+                                                    <span>Publish</span>
+                                                )}
+                                            </Button>
+                                            <Form.Group controlId="formVideoComment">
+                                                <Form.Control
+                                                    key={video.name}
+                                                    value={comment}
+                                                    onChange={updateComment}
+                                                    hidden={textbox === false}
+                                                />
+                                            </Form.Group>
+                                            <span>
+                                                Comments: {video.comment}
+                                            </span>
+                                        </div>
                                     );
                                 })}
                             </Col>
@@ -407,6 +478,10 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 }
                                                 likes={video.likes}
                                                 creator={video.creator}
+                                                comment={video.comment}
+                                                wantToComment={
+                                                    video.wantToComment
+                                                }
                                                 updateCentralList={
                                                     updateCentralList
                                                 }
@@ -496,6 +571,8 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                             }
                                             likes={video.likes}
                                             creator={video.creator}
+                                            comment={video.comment}
+                                            wantToComment={video.wantToComment}
                                             updateCentralList={
                                                 updateCentralList
                                             }
@@ -609,7 +686,10 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 thumbnail: placeholderimage,
                                                 wantRecommended: false,
                                                 likes: 0,
-                                                creator: currentCreator.username
+                                                creator:
+                                                    currentCreator.username,
+                                                comment: "",
+                                                wantToComment: false
                                             });
                                         }}
                                     >
