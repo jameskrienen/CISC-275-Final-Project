@@ -107,16 +107,24 @@ function VideoComponent({
                 borderRadius: "15px"
             }}
         >
-            <h5>{video.name}</h5>
+            <img
+                width={"190px"}
+                height={"110px"}
+                src={video.thumbnail}
+                alt={video.name}
+            ></img>
+            <div>
+                <b>{video.name}</b>
+            </div>
             <div>
                 <span style={{ fontWeight: "bold" }}>Description: </span>
-                <span>{video.description}</span>
+                <small>{video.description}</small>
             </div>
             <div>
                 <span style={{ fontWeight: "bold" }}>Genre: </span>
                 <span>{video.genre}</span>
             </div>
-            <img width={"170px"} src={video.thumbnail} alt={video.name}></img>
+
             <div style={{ marginTop: "10px" }}>
                 <span style={{ marginRight: "5px" }}>
                     <Button
