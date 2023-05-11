@@ -19,4 +19,5 @@ export interface Video {
     creator: string;
     //The user's comment on video
     comment: string;
+    wantToComment: boolean;
 }

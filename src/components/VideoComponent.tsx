@@ -14,6 +14,7 @@ function VideoComponent({
     likes,
     creator,
     comment,
+    wantToComment,
     updateCentralList,
     updateModeratorList,
     updateCreatorList,
@@ -35,6 +36,7 @@ function VideoComponent({
     likes: number;
     creator: string;
     comment: string;
+    wantToComment: boolean;
     updateCentralList: (vid: Video) => void;
     updateModeratorList: (vid: Video) => void;
     updateCreatorList: (vid: Video) => void;
@@ -56,7 +58,8 @@ function VideoComponent({
         thumbnail,
         likes,
         creator,
-        comment
+        comment,
+        wantToComment
     });
 
     function deleteFromSite(vid: Video) {

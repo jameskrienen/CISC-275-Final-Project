@@ -219,15 +219,22 @@ function DragDrop({ role }: { role: string }): JSX.Element {
 
     const [textbox, setTextBox] = useState<boolean>(false);
     function showTextBox(vid: Video) {
-        setTextBox(!textbox);
+        //const updateVid = { ...vid, wantToComment: !vid.wantToComment };
+        if (watchList.find((video) => video === vid)) {
+            // if (updateVid.wantToComment === true) {
+            setTextBox(!textbox);
+            setWatchList(
+                watchList.map((video: Video) =>
+                    video === vid
+                        ? { ...video, comment: comment }
+                        : { ...video }
+                )
+            );
+            // }
+        } else {
+            setTextBox(false);
+        }
 
-        setWatchList(
-            watchList.map((video: Video) =>
-                video === vid
-                    ? { ...video, comment: comment }
-                    : { ...video, comment: "" }
-            )
-        );
         //const newComment = comment;
         /*onst vidName = watchList.find((vid) => vid.name === name);
         console.log(vidName);
@@ -279,7 +286,10 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 }
                                                 likes={video.likes}
                                                 creator={video.creator}
-                                                comment={comment}
+                                                comment={video.comment}
+                                                wantToComment={
+                                                    video.wantToComment
+                                                }
                                                 updateCentralList={
                                                     updateCentralList
                                                 }
@@ -353,6 +363,9 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 likes={video.likes}
                                                 creator={video.creator}
                                                 comment={video.comment}
+                                                wantToComment={
+                                                    video.wantToComment
+                                                }
                                                 updateCentralList={
                                                     updateCentralList
                                                 }
@@ -392,19 +405,16 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 )}
                                             </Button>
                                             <Form.Group controlId="formVideoComment">
-                                                <Form.Label>
-                                                    Comment Section:
-                                                </Form.Label>
                                                 <Form.Control
                                                     key={video.name}
                                                     value={comment}
-                                                    onChange={() =>
-                                                        updateComment
-                                                    }
+                                                    onChange={updateComment}
                                                     hidden={textbox === false}
                                                 />
                                             </Form.Group>
-                                            <span>{comment}</span>
+                                            <span>
+                                                Comments: {video.comment}
+                                            </span>
                                         </div>
                                     );
                                 })}
@@ -469,6 +479,9 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 likes={video.likes}
                                                 creator={video.creator}
                                                 comment={video.comment}
+                                                wantToComment={
+                                                    video.wantToComment
+                                                }
                                                 updateCentralList={
                                                     updateCentralList
                                                 }
@@ -559,6 +572,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                             likes={video.likes}
                                             creator={video.creator}
                                             comment={video.comment}
+                                            wantToComment={video.wantToComment}
                                             updateCentralList={
                                                 updateCentralList
                                             }
@@ -674,7 +688,8 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 likes: 0,
                                                 creator:
                                                     currentCreator.username,
-                                                comment: ""
+                                                comment: "",
+                                                wantToComment: false
                                             });
                                         }}
                                     >
