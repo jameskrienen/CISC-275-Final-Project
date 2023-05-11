@@ -10,6 +10,7 @@
         "@types/node": "^16.18.25",
         "@types/react": "^18.2.0",
         "@types/react-dom": "^18.2.1",
+        "jest": "^27.5.1",
         "prettier": "^2.8.8",
         "react": "^18.2.0",
         "react-bootstrap": "^2.7.4",
@@ -53,5 +54,17 @@
         "eslint-config-prettier": "^8.8.0",
         "eslint-plugin-prettier": "^4.2.1",
         "gh-pages": "^5.0.0"
+    },
+    "jest": {
+        "collectCoverageFrom": [
+            "src/**/*.ts",
+            "src/**/*.tsx",
+            "!src/index.tsx",
+            "!src/reportWebVitals.ts",
+            "!src/react-app-env.d.ts"
+        ],
+        "transformIgnorePatterns": [
+            "/node_modules/(?!react-dnd|core-dnd|@react-dnd|dnd-core|react-dnd-html5-backend)"
+        ]
     }
 }

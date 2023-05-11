@@ -298,6 +298,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                     Watchlist:
                                     <div>
                                         <Button
+                                            data-testid="A-Z"
                                             onClick={filterWatchlistAlphabet}
                                         >
                                             Filter A-Z
