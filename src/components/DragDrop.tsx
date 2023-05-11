@@ -12,8 +12,26 @@ import { Moderator } from "../interfaces/ModeratorInterface";
 import placeholderimage from "../placeholder.jpeg";
 
 function DragDrop({ role }: { role: string }): JSX.Element {
+    const [currentUser, setCurrentUser] = useState<string>("");
+    const [allVideos, setAllVideos] = useState<Video[]>(VIDEOS);
+    const [watchList, setWatchList] = useState<Video[]>([]);
+
     const viewers = ["Dan", "Jess", "James"];
-    //const [viewerName, setViewerName] = useState<string>(viewers[0]);
+    const [viewerName, setViewerName] = useState<string>(viewers[0]);
+    const [currentViewer, setCurrentViewer] = useState<Viewer>({
+        username: "Dan",
+        watchlist: watchList
+    });
+    function updateViewerWatchlist(
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) {
+        setViewerName(event.target.value);
+        setCurrentViewer({
+            username: event.target.value,
+            watchlist: watchList
+        });
+        setWatchList(currentViewer.watchlist);
+    }
     const creators = ["Dan", "Jess", "James"];
     const moderators = ["Dan", "Jess", "James"];
 
@@ -26,55 +44,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         flaggedVideos: [],
         blockedUsers: []
     });
-    const [currentUser, setCurrentUser] = useState<string>("");
-    const [allVideos, setAllVideos] = useState<Video[]>(VIDEOS);
-    const [watchList, setWatchList] = useState<Video[]>([]);
-
-    const [currentViewer, setCurrentViewer] = useState<Viewer>({
-        username: "Dan",
-        watchlist: []
-    });
-    function updateViewer(event: React.ChangeEvent<HTMLSelectElement>) {
-        //console.log(currentViewer);
-        // setCurrentUser(event.target.value);
-        //setViewerName(currentViewer.username);
-
-        //console.log(event.target.value);
-        // console.log(viewerName);
-        //console.log(currentViewer);
-        //setWatchList(currentViewer.watchlist);
-        setCurrentViewer({
-            username: event.target.value,
-            watchlist: watchList
-        });
-    }
-
-    function updateViewerWatchlist(username: string) {
-        if (role === "viewer") {
-            // setCurrentUser(event.target.value);
-            /*setCurrentViewer({
-                username: event.target.value,
-                watchlist: watchList
-            });*/
-            //if (currentViewer.username === event.target.value) {
-            //clear watchlist
-            if (currentViewer.username === username) {
-                //const newWatchlist = [...watchList];
-                setWatchList(currentViewer.watchlist);
-                setCurrentViewer({ ...currentViewer, watchlist: watchList });
-            } else {
-                setWatchList([]);
-            }
-            setWatchList(currentViewer.watchlist);
-        }
-    }
-
-    //setWatchList(currentViewer.watchlist);
-
-    //setCurrentUser(currentViewer.username);
-    //console.log("watchlist", watchList);
-    //console.log("currentViewer", currentViewer);
-    //console.log("currentUser", currentUser); //console.log("currentUser", currentUser);
 
     const [uploadMode, setUploadMode] = useState<boolean>(false);
     function updateMode(event: React.ChangeEvent<HTMLInputElement>) {
@@ -203,9 +172,17 @@ function DragDrop({ role }: { role: string }): JSX.Element {
             const newVideos = watchList.map((video: Video) => {
                 return video.name === toEdit.name ? toEdit : video;
             });
-            //console.log("newVideos", newVideos);
-            //setCurrentViewer({ ...currentViewer, watchlist: newVideos });
-            setWatchList(currentViewer.watchlist);
+            const newViewerList = {
+                ...currentViewer,
+                watchlist: (currentViewer.watchlist, newVideos)
+            };
+            setWatchList(newViewerList.watchlist);
+            setCurrentViewer({ ...currentViewer, watchlist: watchList });
+        } else {
+            const newList = currentViewer.watchlist.map((vid: Video) => {
+                return vid.name === toEdit.name ? toEdit : vid;
+            });
+            setCurrentViewer({ ...currentViewer, watchlist: newList });
         }
     }
 
@@ -219,47 +196,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         }
     }
 
-    /* function updateWatchList(toEdit: Video) {
-        const vidNames = watchList.map((video: Video) => video.name);
-
-        if (vidNames.includes(toEdit.name)) {
-            const newVideos = watchList.map((video: Video) => {
-                return video.name === toEdit.name ? toEdit : video;
-            });
-            setWatchList(newVideos);
-        }
-
-        /*if (vidNames.includes(toEdit.name)) {
-            const newVideos = currentViewer.watchlist.map((video: Video) => {
-                return video.name === toEdit.name ? toEdit : video;
-            });
-            setWatchList(newVideos);
-            setCurrentViewer({ ...currentViewer, watchlist: newVideos });
-        }
-    }
-
-    function addVideoToWatchlist(name: string) {
-        const videoToAdd = allVideos.filter(
-            (video: Video) => name === video.name
-        );
-        //console.log("video", videoToAdd);
-        //if (currentViewer.username === viewer.username) {
-        //setWatchList(currentViewer.watchlist);
-        if (videoToAdd.length > 0) {
-            setWatchList([...watchList, videoToAdd[0]]);
-            //console.log(watchList);
-        }
-        //}
-        //const newViewer = { ...currentViewer, watchlist: watchList };
-        /*console.log(watchList);
-        //const watchListWithNewVid = ;
-        setWatchList([...watchList, videoToAdd[0]]);
-        console.log("new", watchList);
-        setCurrentViewer({ ...currentViewer });
-        console.log("viewer", currentViewer);
-        //setCurrentViewer(newViewer);
-    }
-*/
     function updateUser(event: React.ChangeEvent<HTMLInputElement>) {
         setCurrentUser(event.target.value);
     }
@@ -377,7 +313,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                             </Form.Label>
                                             <Form.Select
                                                 value={currentViewer.username}
-                                                onChange={updateViewer}
+                                                onChange={updateViewerWatchlist}
                                             >
                                                 {viewers.map(
                                                     (username: string) => (
