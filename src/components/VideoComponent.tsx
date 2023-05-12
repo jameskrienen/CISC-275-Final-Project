@@ -108,6 +108,7 @@ function VideoComponent({
     function updateComments(event: React.ChangeEvent<HTMLInputElement>) {
         setComments(event.target.value);
     }
+
     function updateCommentsOnLists() {
         const newVideo = {
             ...video,
@@ -117,6 +118,7 @@ function VideoComponent({
         updateCentralList(newVideo);
         updateModeratorList(newVideo);
         updateCreatorList(newVideo);
+        updateWatchList(newVideo);
     }
 
     return (
@@ -248,9 +250,8 @@ function VideoComponent({
                     />
                 </Form.Group>
                 <span>
-                    Comments:{" "}
                     {
-                        <ul>
+                        <div>
                             {video.commentList.map((comment: string) => (
                                 <li
                                     style={{
@@ -262,7 +263,7 @@ function VideoComponent({
                                     {comment}
                                 </li>
                             ))}
-                        </ul>
+                        </div>
                     }
                 </span>
             </div>
