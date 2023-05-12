@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { useDrag } from "react-dnd";
 import { Video } from "../interfaces/VideoInterface";
 
@@ -13,7 +13,6 @@ function VideoComponent({
     wantRecommended,
     likes,
     creator,
-    comment,
     wantToComment,
     updateCentralList,
     updateModeratorList,
@@ -35,7 +34,6 @@ function VideoComponent({
     wantRecommended: boolean;
     likes: number;
     creator: string;
-    comment: string;
     wantToComment: boolean;
     updateCentralList: (vid: Video) => void;
     updateModeratorList: (vid: Video) => void;
@@ -58,7 +56,6 @@ function VideoComponent({
         thumbnail,
         likes,
         creator,
-        comment,
         wantToComment
     });
 
@@ -98,106 +95,137 @@ function VideoComponent({
         })
     }));
 
+    const [textbox, setTextBox] = useState<boolean>(false);
+    function showTextBox() {
+        setTextBox(!textbox);
+    }
+    const [comment, setComment] = useState<string>("");
+    function updateComment(event: React.ChangeEvent<HTMLInputElement>) {
+        setComment(event.target.value);
+    }
+
     return (
-        <div
-            ref={drag}
-            style={{
-                border: isDragging ? "5px solid black" : "0px",
-                opacity: isDragging ? "50%" : "100%",
-                marginTop: "10px",
-                paddingTop: 10,
-                paddingBottom: 10,
-                paddingLeft: 20,
-                paddingRight: 20,
-                backgroundColor: "lightgray",
-                borderRadius: "15px"
-            }}
-        >
-            <h5>{video.name}</h5>
-            <div>
-                <span style={{ fontWeight: "bold" }}>Description: </span>
-                <span>{video.description}</span>
+        <>
+            <div
+                ref={drag}
+                style={{
+                    border: isDragging ? "5px solid black" : "0px",
+                    opacity: isDragging ? "50%" : "100%",
+                    marginTop: "10px",
+                    paddingTop: 10,
+                    paddingBottom: 10,
+                    paddingLeft: 20,
+                    paddingRight: 20,
+                    backgroundColor: "lightgray",
+                    borderRadius: "15px"
+                }}
+            >
+                <h5>{video.name}</h5>
+                <div>
+                    <span style={{ fontWeight: "bold" }}>Description: </span>
+                    <span>{video.description}</span>
+                </div>
+                <div>
+                    <span style={{ fontWeight: "bold" }}>Genre: </span>
+                    <span>{video.genre}</span>
+                </div>
+                <img
+                    width={"170px"}
+                    src={video.thumbnail}
+                    alt={video.name}
+                ></img>
+                <div style={{ marginTop: "10px" }}>
+                    <span style={{ marginRight: "5px" }}>
+                        <Button
+                            onClick={() => {
+                                updateReported();
+                            }}
+                            style={{
+                                backgroundColor: "#2a52be",
+                                color: "white",
+                                border: "2px solid black"
+                            }}
+                        >
+                            Report {video.isReported === true ? "🚩" : " "}
+                        </Button>
+                    </span>
+                    <span>
+                        <Button
+                            onClick={() => {
+                                updateLikes();
+                            }}
+                            style={{
+                                backgroundColor: "#2a52be",
+                                color: "white",
+                                border: "2px solid black"
+                            }}
+                        >
+                            👍
+                        </Button>
+                        {video.likes}
+                    </span>
+                    <span style={{ marginLeft: "10px" }}>
+                        <Button
+                            onClick={() => {
+                                update();
+                            }}
+                            style={{
+                                backgroundColor: "#2a52be",
+                                color: "white",
+                                border: "2px solid black"
+                            }}
+                        >
+                            Recommended
+                        </Button>
+                        {video.wantRecommended === true ? (
+                            <span>
+                                <li>{video.recommended[0]}</li>
+                                <li>{video.recommended[1]}</li>
+                                <li>{video.recommended[2]}</li>
+                                <li>{video.recommended[3]}</li>
+                            </span>
+                        ) : (
+                            <span />
+                        )}
+                    </span>
+                    <span hidden={role !== "moderator"}>
+                        <Button
+                            onClick={() => {
+                                deleteFromSite(video);
+                            }}
+                        >
+                            Delete❌
+                        </Button>
+                    </span>
+                    <span hidden={role !== "moderator"}>
+                        <Button
+                            onClick={() => {
+                                updateReported();
+                                approveVid(video);
+                            }}
+                        >
+                            Reviewed✔️
+                        </Button>
+                    </span>
+                </div>
             </div>
-            <div>
-                <span style={{ fontWeight: "bold" }}>Genre: </span>
-                <span>{video.genre}</span>
-            </div>
-            <img width={"170px"} src={video.thumbnail} alt={video.name}></img>
-            <div style={{ marginTop: "10px" }}>
-                <span style={{ marginRight: "5px" }}>
-                    <Button
-                        onClick={() => {
-                            updateReported();
-                        }}
-                        style={{
-                            backgroundColor: "#2a52be",
-                            color: "white",
-                            border: "2px solid black"
-                        }}
-                    >
-                        Report {video.isReported === true ? "🚩" : " "}
-                    </Button>
-                </span>
-                <span>
-                    <Button
-                        onClick={() => {
-                            updateLikes();
-                        }}
-                        style={{
-                            backgroundColor: "#2a52be",
-                            color: "white",
-                            border: "2px solid black"
-                        }}
-                    >
-                        👍
-                    </Button>
-                    {video.likes}
-                </span>
-                <span style={{ marginLeft: "10px" }}>
-                    <Button
-                        onClick={() => {
-                            update();
-                        }}
-                        style={{
-                            backgroundColor: "#2a52be",
-                            color: "white",
-                            border: "2px solid black"
-                        }}
-                    >
-                        Recommended
-                    </Button>
-                    {video.wantRecommended === true ? (
-                        <span>
-                            <li>{video.recommended[0]}</li>
-                            <li>{video.recommended[1]}</li>
-                            <li>{video.recommended[2]}</li>
-                            <li>{video.recommended[3]}</li>
-                        </span>
-                    ) : (
-                        <span />
-                    )}
-                </span>
-                <span hidden={role !== "moderator"}>
-                    <Button
-                        onClick={() => {
-                            deleteFromSite(video);
-                        }}
-                    >
-                        Delete❌
-                    </Button>
-                </span>
-                <span hidden={role !== "moderator"}>
-                    <Button
-                        onClick={() => {
-                            updateReported();
-                            approveVid(video);
-                        }}
-                    >
-                        Reviewed✔️
-                    </Button>
-                </span>
-            </div>
-        </div>
+            <Button onClick={() => showTextBox()}>
+                {textbox === false ? (
+                    <span>Comment</span>
+                ) : (
+                    <span>Publish</span>
+                )}
+            </Button>
+            <Form.Group controlId="formVideoComment">
+                <Form.Control
+                    key={video.name}
+                    value={comment}
+                    onChange={updateComment}
+                    hidden={textbox === false}
+                />
+            </Form.Group>
+            <span>Comments: {comment}</span>
+        </>
     );
 }
 export default VideoComponent;

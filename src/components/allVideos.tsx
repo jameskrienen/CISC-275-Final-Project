@@ -45,7 +45,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -63,7 +62,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -81,7 +79,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -99,7 +96,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -117,7 +113,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -135,7 +130,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -153,7 +147,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -171,7 +164,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -189,7 +181,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -207,7 +198,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -225,7 +215,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -243,7 +232,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -261,7 +249,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -279,7 +266,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -297,7 +283,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -315,7 +300,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -333,7 +317,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -351,7 +334,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -369,7 +351,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -387,7 +368,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -405,7 +385,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -423,7 +402,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -441,7 +419,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -459,7 +436,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -477,7 +453,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -495,7 +470,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -513,7 +487,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -531,7 +504,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -549,7 +521,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     },
     {
@@ -567,7 +538,6 @@ export const VIDEOS: Video[] = [
         wantRecommended: false,
         likes: 0,
         creator: "Clipped",
-        comment: "",
         wantToComment: false
     }
 ];
