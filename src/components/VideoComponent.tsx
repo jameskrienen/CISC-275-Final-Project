@@ -25,6 +25,7 @@ function VideoComponent({
     deleteReviewVid,
     deleteWatchVid,
     approveVid,
+    index,
     role
 }: {
     name: string;
@@ -46,8 +47,9 @@ function VideoComponent({
     deleteCentralVid: (vid: Video) => void;
     deleteCreatorVid: (vid: Video) => void;
     deleteReviewVid: (vid: Video) => void;
-    deleteWatchVid: (vid: Video) => void;
+    deleteWatchVid: (vid: Video, index: number, specific: boolean) => void;
     approveVid: (vid: Video) => void;
+    index: number;
     role: string;
 }) {
     const [video, setVideo] = useState<Video>({
@@ -68,7 +70,7 @@ function VideoComponent({
         deleteCentralVid(vid);
         deleteCreatorVid(vid);
         deleteReviewVid(vid);
-        deleteWatchVid(vid);
+        deleteWatchVid(vid, index, false);
     }
 
     function updateLikes() {
@@ -222,6 +224,16 @@ function VideoComponent({
                             }}
                         >
                             Reviewed✔️
+                        </Button>
+                    </span>
+                    <span>
+                        <Button
+                            onClick={() => deleteWatchVid(video, index, true)}
+                            style={{
+                                marginLeft: "5px"
+                            }}
+                        >
+                            ❌
                         </Button>
                     </span>
                 </div>
