@@ -44,6 +44,7 @@ export const VIDEOS: Video[] = [
         thumbnail: music1,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -61,6 +62,7 @@ export const VIDEOS: Video[] = [
         thumbnail: music2,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Cssslipped",
         wantToComment: false
     },
@@ -78,6 +80,7 @@ export const VIDEOS: Video[] = [
         thumbnail: music3,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -95,6 +98,7 @@ export const VIDEOS: Video[] = [
         thumbnail: music4,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -112,6 +116,7 @@ export const VIDEOS: Video[] = [
         thumbnail: music5,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -129,6 +134,7 @@ export const VIDEOS: Video[] = [
         thumbnail: gaming1,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -146,6 +152,7 @@ export const VIDEOS: Video[] = [
         thumbnail: gaming2,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -163,6 +170,7 @@ export const VIDEOS: Video[] = [
         thumbnail: gaming3,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -180,6 +188,7 @@ export const VIDEOS: Video[] = [
         thumbnail: gaming4,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -197,6 +206,7 @@ export const VIDEOS: Video[] = [
         thumbnail: gaming5,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -214,6 +224,7 @@ export const VIDEOS: Video[] = [
         thumbnail: sports1,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -231,6 +242,7 @@ export const VIDEOS: Video[] = [
         thumbnail: sports2,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -248,6 +260,7 @@ export const VIDEOS: Video[] = [
         thumbnail: sports3,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -265,6 +278,7 @@ export const VIDEOS: Video[] = [
         thumbnail: sports4,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -282,6 +296,7 @@ export const VIDEOS: Video[] = [
         thumbnail: sports5,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -299,6 +314,7 @@ export const VIDEOS: Video[] = [
         thumbnail: comedy1,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -316,6 +332,7 @@ export const VIDEOS: Video[] = [
         thumbnail: comedy2,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -333,6 +350,7 @@ export const VIDEOS: Video[] = [
         thumbnail: comedy3,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -350,6 +368,7 @@ export const VIDEOS: Video[] = [
         thumbnail: comedy4,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -367,6 +386,7 @@ export const VIDEOS: Video[] = [
         thumbnail: comedy5,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -384,6 +404,7 @@ export const VIDEOS: Video[] = [
         thumbnail: education1,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -401,6 +422,7 @@ export const VIDEOS: Video[] = [
         thumbnail: education2,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -418,6 +440,7 @@ export const VIDEOS: Video[] = [
         thumbnail: education3,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -435,6 +458,7 @@ export const VIDEOS: Video[] = [
         thumbnail: education4,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -452,6 +476,7 @@ export const VIDEOS: Video[] = [
         thumbnail: education5,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -469,6 +494,7 @@ export const VIDEOS: Video[] = [
         thumbnail: howto1,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -486,6 +512,7 @@ export const VIDEOS: Video[] = [
         thumbnail: howto2,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -503,6 +530,7 @@ export const VIDEOS: Video[] = [
         thumbnail: howto3,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -520,6 +548,7 @@ export const VIDEOS: Video[] = [
         thumbnail: howto4,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     },
@@ -537,6 +566,7 @@ export const VIDEOS: Video[] = [
         thumbnail: howto5,
         wantRecommended: false,
         likes: 0,
+        commentList: [],
         creator: "Clipped",
         wantToComment: false
     }
