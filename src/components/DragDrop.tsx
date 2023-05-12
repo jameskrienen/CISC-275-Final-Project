@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDrop } from "react-dnd";
 import "../App.css";
 import VideoComponent from "./VideoComponent";
@@ -90,10 +90,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
             setCurrentCreator({ ...currentCreator, createdVideos: newList });
         }
     }
-
-    useEffect(() => {
-        console.log(allVideos);
-    }, [allVideos]);
 
     function updateModeratorVideos(newVideo: Video) {
         const videoNames: string[] = currentModerator.review_list.map(
@@ -188,6 +184,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         const videoToAdd = allVideos.filter(
             (video: Video) => name === video.name
         );
+        console.log(videoToAdd[0]);
         if (videoToAdd.length > 0) {
             setWatchList((watchList) => [...watchList, videoToAdd[0]]);
         }
@@ -289,7 +286,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                             style={{ breakInside: "avoid" }}
                                         >
                                             <VideoComponent
-                                                key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}`}
+                                                key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}-${video.commentList}`}
                                                 name={video.name}
                                                 description={video.description}
                                                 genre={video.genre}
@@ -301,6 +298,8 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 }
                                                 likes={video.likes}
                                                 creator={video.creator}
+                                                commentList={video.commentList}
+                                                inWatchlist={false}
                                                 wantToComment={
                                                     video.wantToComment
                                                 }
@@ -363,7 +362,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                     return (
                                         <div key={video.name}>
                                             <VideoComponent
-                                                key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}`}
+                                                key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}-${video.commentList}`}
                                                 name={video.name}
                                                 description={video.description}
                                                 genre={video.genre}
@@ -375,6 +374,8 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 }
                                                 likes={video.likes}
                                                 creator={video.creator}
+                                                commentList={video.commentList}
+                                                inWatchlist={true}
                                                 wantToComment={
                                                     video.wantToComment
                                                 }
@@ -460,7 +461,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                     (video: Video) => {
                                         return (
                                             <VideoComponent
-                                                key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}`}
+                                                key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}-${video.commentList}`}
                                                 name={video.name}
                                                 description={video.description}
                                                 genre={video.genre}
@@ -472,6 +473,8 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 }
                                                 likes={video.likes}
                                                 creator={video.creator}
+                                                commentList={video.commentList}
+                                                inWatchlist={false}
                                                 wantToComment={
                                                     video.wantToComment
                                                 }
@@ -552,7 +555,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                 (video: Video) => {
                                     return (
                                         <VideoComponent
-                                            key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}`}
+                                            key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}-${video.commentList}`}
                                             name={video.name}
                                             description={video.description}
                                             genre={video.genre}
@@ -564,6 +567,8 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                             }
                                             likes={video.likes}
                                             creator={video.creator}
+                                            commentList={video.commentList}
+                                            inWatchlist={false}
                                             wantToComment={video.wantToComment}
                                             updateCentralList={
                                                 updateCentralList
@@ -677,6 +682,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 isReported: false,
                                                 thumbnail: placeholderimage,
                                                 wantRecommended: false,
+                                                commentList: [],
                                                 likes: 0,
                                                 creator:
                                                     currentCreator.username,
@@ -698,24 +704,3 @@ function DragDrop({ role }: { role: string }): JSX.Element {
     );
 }
 export default DragDrop;
-
-/*
-                                                    videoGenre === "Music"
-                                                        ? musicRecommendations
-                                                        : videoGenre ===
-                                                          "Gaming"
-                                                        ? gamingRecommendations
-                                                        : videoGenre ===
-                                                          "Sports"
-                                                        ? sportsRecommendations
-                                                        : videoGenre ===
-                                                          "Comedy"
-                                                        ? comedyRecommendations
-                                                        : videoGenre ===
-                                                          "Education"
-                                                        ? educationRecommendations
-                                                        : videoGenre ===
-                                                          "How-To"
-                                                        ? howtoRecommendations
-                                                        : 
-*/

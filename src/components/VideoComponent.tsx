@@ -13,6 +13,8 @@ function VideoComponent({
     wantRecommended,
     likes,
     creator,
+    inWatchlist,
+    commentList,
     wantToComment,
     updateCentralList,
     updateModeratorList,
@@ -34,6 +36,8 @@ function VideoComponent({
     wantRecommended: boolean;
     likes: number;
     creator: string;
+    commentList: string[];
+    inWatchlist: boolean;
     wantToComment: boolean;
     updateCentralList: (vid: Video) => void;
     updateModeratorList: (vid: Video) => void;
@@ -55,6 +59,7 @@ function VideoComponent({
         isReported,
         thumbnail,
         likes,
+        commentList,
         creator,
         wantToComment
     });
@@ -99,9 +104,21 @@ function VideoComponent({
     function showTextBox() {
         setTextBox(!textbox);
     }
-    const [comment, setComment] = useState<string>("");
-    function updateComment(event: React.ChangeEvent<HTMLInputElement>) {
-        setComment(event.target.value);
+    const [comments, setComments] = useState<string>("");
+    function updateComments(event: React.ChangeEvent<HTMLInputElement>) {
+        setComments(event.target.value);
+    }
+
+    function updateCommentsOnLists() {
+        const newVideo = {
+            ...video,
+            commentList: [...video.commentList, comments]
+        };
+        setVideo(newVideo);
+        updateCentralList(newVideo);
+        updateModeratorList(newVideo);
+        updateCreatorList(newVideo);
+        updateWatchList(newVideo);
     }
 
     return (
@@ -209,22 +226,47 @@ function VideoComponent({
                     </span>
                 </div>
             </div>
-            <Button onClick={() => showTextBox()}>
-                {textbox === false ? (
-                    <span>Comment</span>
-                ) : (
-                    <span>Publish</span>
-                )}
-            </Button>
-            <Form.Group controlId="formVideoComment">
-                <Form.Control
-                    key={video.name}
-                    value={comment}
-                    onChange={updateComment}
-                    hidden={textbox === false}
-                />
-            </Form.Group>
-            <span>Comments: {comment}</span>
+            <div hidden={!inWatchlist}>
+                <Button
+                    onClick={() => {
+                        showTextBox();
+                        textbox === true
+                            ? updateCommentsOnLists()
+                            : showTextBox();
+                    }}
+                >
+                    {textbox === false ? (
+                        <span>Comment</span>
+                    ) : (
+                        <span>Publish</span>
+                    )}
+                </Button>
+                <Form.Group controlId="formVideoComment">
+                    <Form.Control
+                        key={video.name}
+                        value={comments}
+                        onChange={updateComments}
+                        hidden={textbox === false}
+                    />
+                </Form.Group>
+                <span>
+                    {
+                        <div>
+                            {video.commentList.map((comment: string) => (
+                                <li
+                                    style={{
+                                        listStyleType: "none",
+                                        borderBottom: "1px solid black"
+                                    }}
+                                    key={comment}
+                                >
+                                    {comment}
+                                </li>
+                            ))}
+                        </div>
+                    }
+                </span>
+            </div>
         </>
     );
 }
