@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDrag } from "react-dnd";
 import { Video } from "../interfaces/VideoInterface";
+import { relative } from "path";
 
 function VideoComponent({
     name,
@@ -92,6 +93,11 @@ function VideoComponent({
         })
     }));
 
+    const [show, setShow] = useState<boolean>(false);
+    function updateShow() {
+        setShow(!show);
+    }
+
     return (
         <div
             ref={drag}
@@ -117,14 +123,26 @@ function VideoComponent({
                 <b>{video.name}</b>
             </div>
             <div>
-                <span style={{ fontWeight: "bold" }}>Description: </span>
-                <small>{video.description}</small>
+                <Button onClick={updateShow}>
+                    {show === false ? "🔽" : "🔼"}
+                </Button>
+                {show === true ? (
+                    <div>
+                        <small style={{ fontWeight: "bold" }}>
+                            Description:{" "}
+                        </small>
+                        <small>{video.description}</small>
+                        <div>
+                            <small style={{ fontWeight: "bold" }}>
+                                Genre:{" "}
+                            </small>
+                            <small>{video.genre}</small>
+                        </div>
+                    </div>
+                ) : (
+                    <span> </span>
+                )}
             </div>
-            <div>
-                <span style={{ fontWeight: "bold" }}>Genre: </span>
-                <span>{video.genre}</span>
-            </div>
-
             <div style={{ marginTop: "10px" }}>
                 <span style={{ marginRight: "5px" }}>
                     <Button
