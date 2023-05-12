@@ -392,7 +392,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                 {watchList.map(
                                     (video: Video, index: number) => {
                                         return (
-                                            <div key={`${video.name}`}>
+                                            <div key={`${video.name}-${index}`}>
                                                 <VideoComponent
                                                     key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}`}
                                                     name={video.name}
