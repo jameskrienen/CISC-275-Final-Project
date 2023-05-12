@@ -61,7 +61,7 @@ export const VIDEOS: Video[] = [
         thumbnail: music2,
         wantRecommended: false,
         likes: 0,
-        creator: "Clipped",
+        creator: "Cssslipped",
         wantToComment: false
     },
     {
