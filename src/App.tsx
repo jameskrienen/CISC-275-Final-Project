@@ -39,6 +39,7 @@ function App(): JSX.Element {
                     </span>
                     <span>
                         <Form.Group
+                            data-testid="role-selector"
                             controlId="userRoles"
                             style={{ marginTop: "100px", marginLeft: "30px" }}
                         >

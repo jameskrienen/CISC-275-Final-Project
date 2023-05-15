@@ -370,12 +370,15 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                     Watchlist:
                                     <div>
                                         <Button
-                                            data-testid="A-Z"
+                                            data-testid="a-z_button"
                                             onClick={filterWatchlistAlphabet}
                                         >
                                             Filter A-Z
                                         </Button>
-                                        <Button onClick={filterWatchlistGenre}>
+                                        <Button
+                                            data-testid="genere_button"
+                                            onClick={filterWatchlistGenre}
+                                        >
                                             Filter Genre
                                         </Button>
                                         <Button
@@ -392,7 +395,10 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                 {watchList.map(
                                     (video: Video, index: number) => {
                                         return (
-                                            <div key={`${video.name}-${index}`}>
+                                            <div
+                                                data-testId="viewer-component"
+                                                key={`${video.name}-${index}`}
+                                            >
                                                 <VideoComponent
                                                     key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}`}
                                                     name={video.name}
