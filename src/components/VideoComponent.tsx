@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useDrag } from "react-dnd";
 import { Video } from "../interfaces/VideoInterface";
+import { relative } from "path";
 
 function VideoComponent({
     name,
