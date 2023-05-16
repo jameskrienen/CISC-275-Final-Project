@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { render, screen } from "@testing-library/react";
 import App from "./App";
 import { Video } from "./interfaces/VideoInterface";
 import placeholderimage from "./placeholder.jpeg";
-import DragDrop from "./components/DragDrop";
 import { VIDEOS } from "./components/allVideos";
 
 const sampleVideo: Video = {
@@ -71,18 +70,24 @@ describe("Test lists are rendered in some way", () => {
         expect(list).toBeInTheDocument();
     });
     test("Role Selector Inital Value", () => {
-        render(<App />);
         expect(screen.getByTestId("role-selector")).toBeInTheDocument();
     });
 
     test("Role selector form", () => {
-        render(<App />);
         expect(screen.getByTestId("role-selector")).toHaveDisplayValue(
             "Viewer"
         );
     });
     test("Renders the Website Name", () => {
-        render(<App />);
         expect(screen.getByText(/Clipped!/i)).toBeInTheDocument();
+    });
+});
+
+describe("tests lists are updated properly", () => {
+    test("uploading video adds to central list", () => {
+        const upload = screen.getByRole("upload-button", { ...sampleVideo });
+        upload.click();
+        const list = screen.getAllByTestId("central list");
+        expect(list).toEqual([...VIDEOS, sampleVideo]);
     });
 });
