@@ -39,7 +39,6 @@ function App(): JSX.Element {
                     </span>
                     <span>
                         <Form.Group
-                            data-testid="role-selector"
                             controlId="userRoles"
                             style={{ marginTop: "100px", marginLeft: "30px" }}
                         >
@@ -51,7 +50,11 @@ function App(): JSX.Element {
                             >
                                 Choose your role:
                             </Form.Label>
-                            <Form.Select value={role} onChange={updateRole}>
+                            <Form.Select
+                                value={role}
+                                onChange={updateRole}
+                                data-testid="role-selector"
+                            >
                                 <option value="viewer">Viewer</option>
                                 <option value="creator">Creator</option>
                                 <option value="moderator">Moderator</option>

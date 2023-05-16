@@ -11,3 +11,8 @@ test("Role Selector Inital Value", () => {
     render(<App />);
     expect(screen.getByTestId("role-selector")).toBeInTheDocument();
 });
+
+test("Role selector form", () => {
+    render(<App />);
+    expect(screen.getByTestId("role-selector")).toHaveDisplayValue("Viewer");
+});
