@@ -244,7 +244,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
 
     return (
         <>
-            <div hidden={role !== "viewer"}>
+            <div hidden={role !== "viewer"} data-testid="viewer-component">
                 <div className="lists">
                     <div className="centralList">
                         <div
@@ -370,12 +370,15 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                     Watchlist:
                                     <div>
                                         <Button
-                                            data-testid="A-Z"
+                                            data-testid="a-z_button"
                                             onClick={filterWatchlistAlphabet}
                                         >
                                             Filter A-Z
                                         </Button>
-                                        <Button onClick={filterWatchlistGenre}>
+                                        <Button
+                                            data-testid="genere_button"
+                                            onClick={filterWatchlistGenre}
+                                        >
                                             Filter Genre
                                         </Button>
                                         <Button
@@ -456,7 +459,10 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                     </div>
                 </div>
             </div>
-            <div hidden={role !== "moderator"}>
+            <div
+                hidden={role !== "moderator"}
+                data-testid="moderator-component"
+            >
                 <div className="moderatorList">
                     <Row>
                         <Col style={{ columnCount: 1 }}>
@@ -556,7 +562,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                     </Row>
                 </div>
             </div>
-            <div hidden={role !== "creator"}>
+            <div hidden={role !== "creator"} data-testid="creator-component">
                 <div className="creatorList">
                     <span
                         style={{

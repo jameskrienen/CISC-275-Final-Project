@@ -2,14 +2,17 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import App from "./App";
 
-test("renders the course name somewhere", () => {
+test("Renders the Website Name", () => {
     render(<App />);
-    const linkElement = screen.getByText(/Clipped!/i);
-    expect(linkElement).toBeInTheDocument();
+    expect(screen.getByText(/Clipped!/i)).toBeInTheDocument();
 });
 
-test("check Filter a to z", () => {
+test("Role Selector Inital Value", () => {
     render(<App />);
-    const button = screen.getByTestId("A-Z");
-    expect(button).toBeInTheDocument();
+    expect(screen.getByTestId("role-selector")).toBeInTheDocument();
+});
+
+test("Role selector form", () => {
+    render(<App />);
+    expect(screen.getByTestId("role-selector")).toHaveDisplayValue("Viewer");
 });
