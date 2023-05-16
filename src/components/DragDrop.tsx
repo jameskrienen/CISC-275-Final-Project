@@ -246,7 +246,10 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         <>
             <div hidden={role !== "viewer"} data-testid="viewer-component">
                 <div className="lists">
-                    <div className="centralList">
+                    <div
+                        className="centralList"
+                        data-testid="central item list"
+                    >
                         <div
                             style={{
                                 fontWeight: "bold",
@@ -358,7 +361,11 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                             </Col>
                         </Row>
                     </div>
-                    <div className="watchList" ref={drop}>
+                    <div
+                        className="watchList"
+                        ref={drop}
+                        data-testid="user watchlist"
+                    >
                         <Row>
                             <Col style={{ columnCount: 1 }}>
                                 <div
@@ -376,13 +383,14 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                             Filter A-Z
                                         </Button>
                                         <Button
-                                            data-testid="genere_button"
+                                            data-testid="by genre"
                                             onClick={filterWatchlistGenre}
                                         >
                                             Filter Genre
                                         </Button>
                                         <Button
                                             onClick={clearWatchlist}
+                                            data-testId="clear watchlist"
                                             style={{
                                                 color: "red",
                                                 marginLeft: "25px"
@@ -459,10 +467,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                     </div>
                 </div>
             </div>
-            <div
-                hidden={role !== "moderator"}
-                data-testid="moderator-component"
-            >
+            <div hidden={role !== "moderator"} data-testid="moderator list">
                 <div className="moderatorList">
                     <Row>
                         <Col style={{ columnCount: 1 }}>
@@ -562,7 +567,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                     </Row>
                 </div>
             </div>
-            <div hidden={role !== "creator"} data-testid="creator-component">
+            <div hidden={role !== "creator"} data-testid="creator list">
                 <div className="creatorList">
                     <span
                         style={{
@@ -642,6 +647,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                             approveVid={approveVideo}
                                             index={index}
                                             role={role}
+                                            data-testid="creator-list"
                                         ></VideoComponent>
                                     );
                                 }
@@ -650,7 +656,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                         <Col>
                             <Form.Switch
                                 type="switch"
-                                id="uploaf-mode-check"
+                                id="upload-mode-check"
                                 label="Enter Upload Mode"
                                 checked={uploadMode}
                                 onChange={updateMode}
