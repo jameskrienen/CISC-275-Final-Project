@@ -15,7 +15,8 @@ function DragDrop({ role }: { role: string }): JSX.Element {
     const creators = ["Dan", "Jess", "James"];
     const moderators = ["Dan", "Jess", "James"];
     const [currentModerator, setCurrentModerator] = useState<Moderator>({
-        review_list: []
+        review_list: [],
+        username: ""
     });
     const [currentCreator, setCurrentCreator] = useState<Creator>({
         username: "Dan",
