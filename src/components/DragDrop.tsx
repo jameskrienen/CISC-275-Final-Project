@@ -244,7 +244,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
 
     return (
         <>
-            <div hidden={role !== "viewer"}>
+            <div hidden={role !== "viewer"} data-testid="viewer-component">
                 <div className="lists">
                     <div className="centralList">
                         <div
@@ -395,10 +395,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                 {watchList.map(
                                     (video: Video, index: number) => {
                                         return (
-                                            <div
-                                                data-testId="viewer-component"
-                                                key={`${video.name}-${index}`}
-                                            >
+                                            <div key={`${video.name}-${index}`}>
                                                 <VideoComponent
                                                     key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}`}
                                                     name={video.name}
@@ -462,7 +459,10 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                     </div>
                 </div>
             </div>
-            <div hidden={role !== "moderator"}>
+            <div
+                hidden={role !== "moderator"}
+                data-testid="moderator-component"
+            >
                 <div className="moderatorList">
                     <Row>
                         <Col style={{ columnCount: 1 }}>
@@ -562,7 +562,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                     </Row>
                 </div>
             </div>
-            <div hidden={role !== "creator"}>
+            <div hidden={role !== "creator"} data-testid="creator-component">
                 <div className="creatorList">
                     <span
                         style={{

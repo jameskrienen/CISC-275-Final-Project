@@ -14,5 +14,15 @@ test("Genere Button Presence", () => {
 
 test("Viewer list compenent", () => {
     render(<App />);
-    expect(screen.getByTestId("viewer-component").toBeInTheDocument());
+    expect(screen.getByTestId("viewer-component")).toBeInTheDocument();
+});
+
+test("Creator list compenent", () => {
+    render(<App />);
+    expect(screen.getByTestId("creator-component")).toBeInTheDocument();
+});
+
+test("Creator list compenent", () => {
+    render(<App />);
+    expect(screen.getByTestId("moderator-component")).toBeInTheDocument();
 });
