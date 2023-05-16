@@ -70,4 +70,19 @@ describe("Test lists are rendered in some way", () => {
         const list = screen.getByTestId("creator list");
         expect(list).toBeInTheDocument();
     });
+    test("Role Selector Inital Value", () => {
+        render(<App />);
+        expect(screen.getByTestId("role-selector")).toBeInTheDocument();
+    });
+
+    test("Role selector form", () => {
+        render(<App />);
+        expect(screen.getByTestId("role-selector")).toHaveDisplayValue(
+            "Viewer"
+        );
+    });
+    test("Renders the Website Name", () => {
+        render(<App />);
+        expect(screen.getByText(/Clipped!/i)).toBeInTheDocument();
+    });
 });

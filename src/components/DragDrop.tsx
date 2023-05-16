@@ -244,7 +244,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
 
     return (
         <>
-            <div hidden={role !== "viewer"}>
+            <div hidden={role !== "viewer"} data-testid="viewer-component">
                 <div className="lists">
                     <div
                         className="centralList"
@@ -377,7 +377,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                     Watchlist:
                                     <div>
                                         <Button
-                                            data-testid="A-Z"
+                                            data-testid="a-z_button"
                                             onClick={filterWatchlistAlphabet}
                                         >
                                             Filter A-Z
