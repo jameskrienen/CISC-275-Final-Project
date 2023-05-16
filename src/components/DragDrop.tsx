@@ -10,6 +10,7 @@ import { Viewer } from "../interfaces/ViewerInterface";
 import { Creator } from "../interfaces/CreatorInterface";
 import { Moderator } from "../interfaces/ModeratorInterface";
 import placeholderimage from "../placeholder.jpeg";
+import { useEffect } from "react";
 
 function DragDrop({ role }: { role: string }): JSX.Element {
     const [currentUser, setCurrentUser] = useState<string>("");
@@ -30,8 +31,9 @@ function DragDrop({ role }: { role: string }): JSX.Element {
             username: event.target.value,
             watchlist: watchList
         });
-        setWatchList(currentViewer.watchlist);
+        //setWatchList(currentViewer.watchlist);
     }
+
     const creators = ["Dan", "Jess", "James"];
     const moderators = ["Dan", "Jess", "James"];
 
@@ -166,6 +168,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
     }
 
     function updateWatchList(toEdit: Video) {
+        setWatchList(currentViewer.watchlist);
         const vidNames = watchList.map((video: Video) => video.name);
         //console.log(vidNames);
         if (vidNames.includes(toEdit.name)) {
