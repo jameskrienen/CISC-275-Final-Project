@@ -220,21 +220,69 @@ function DragDrop({ role }: { role: string }): JSX.Element {
     const [filteredVideos, setFilteredVideos] = useState<string>("");
     function filterAlphabet() {
         setFilteredVideos("Name");
-        const sortedData = [...allVideos].sort((vid1, vid2) => {
-            return vid1.name.localeCompare(vid2.name);
-        });
-        setAllVideos(sortedData);
+        if (role === "viewer") {
+            const sortedData = [...allVideos].sort((vid1, vid2) => {
+                return vid1.name.localeCompare(vid2.name);
+            });
+            setAllVideos(sortedData);
+        } else if (role === "moderator") {
+            const sortedReviewList = [...currentModerator.review_list].sort(
+                (vid1, vid2) => {
+                    return vid1.name.localeCompare(vid2.name);
+                }
+            );
+            setCurrentModerator({
+                ...currentModerator,
+                review_list: sortedReviewList
+            });
+        } else {
+            const sortedCreatorList = [...currentCreator.createdVideos].sort(
+                (vid1, vid2) => {
+                    return vid1.name.localeCompare(vid2.name);
+                }
+            );
+            setCurrentCreator({
+                ...currentCreator,
+                createdVideos: sortedCreatorList
+            });
+        }
     }
 
     function filterGenre() {
         if (filteredVideos != null) {
             setFilteredVideos("Genre");
-            const sortedData = [...allVideos].sort((vid1, vid2) => {
-                return vid1.genre === vid2.genre
-                    ? vid1.name.localeCompare(vid2.name)
-                    : vid1.genre.localeCompare(vid2.genre);
-            });
-            setAllVideos(sortedData);
+            if (role === "viewer") {
+                const sortedCentralList = [...allVideos].sort((vid1, vid2) => {
+                    return vid1.genre === vid2.genre
+                        ? vid1.name.localeCompare(vid2.name)
+                        : vid1.genre.localeCompare(vid2.genre);
+                });
+                setAllVideos(sortedCentralList);
+            } else if (role === "moderator") {
+                const sortedReviewList = [...currentModerator.review_list].sort(
+                    (vid1, vid2) => {
+                        return vid1.genre === vid2.genre
+                            ? vid1.name.localeCompare(vid2.name)
+                            : vid1.genre.localeCompare(vid2.genre);
+                    }
+                );
+                setCurrentModerator({
+                    ...currentModerator,
+                    review_list: sortedReviewList
+                });
+            } else {
+                const sortedCreatorList = [
+                    ...currentCreator.createdVideos
+                ].sort((vid1, vid2) => {
+                    return vid1.genre === vid2.genre
+                        ? vid1.name.localeCompare(vid2.name)
+                        : vid1.genre.localeCompare(vid2.genre);
+                });
+                setCurrentCreator({
+                    ...currentCreator,
+                    createdVideos: sortedCreatorList
+                });
+            }
         }
     }
 
@@ -511,6 +559,14 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                     </Form.Label>
                                 </Form.Group>
                             </div>
+                            <span style={{ marginLeft: "50px" }}>
+                                <Button onClick={filterAlphabet}>
+                                    Filter A-Z
+                                </Button>
+                                <Button onClick={filterGenre}>
+                                    Filter by Genre
+                                </Button>
+                            </span>
                             <div key={allVideos.length.toString()}>
                                 {currentModerator.review_list.map(
                                     (video: Video, index: number) => {
@@ -605,6 +661,10 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                 {"!"}
                             </Form.Label>
                         </Form.Group>
+                    </span>
+                    <span style={{ marginLeft: "50px" }}>
+                        <Button onClick={filterAlphabet}>Filter A-Z</Button>
+                        <Button onClick={filterGenre}>Filter by Genre</Button>
                     </span>
                     <Row>
                         <Col style={{ columnCount: 1, display: "flex" }}>
