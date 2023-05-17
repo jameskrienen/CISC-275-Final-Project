@@ -21,4 +21,6 @@ export interface Video {
     creator: string;
     //The user's comment on video
     wantToComment: boolean;
+    //If the description is shown
+    dropdown: boolean;
 }

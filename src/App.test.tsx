@@ -16,7 +16,8 @@ const sampleVideo: Video = {
     likes: 0,
     commentList: [],
     creator: "Clipped",
-    wantToComment: false
+    wantToComment: false,
+    dropdown: false
 };
 
 describe("Test lists are rendered in some way", () => {

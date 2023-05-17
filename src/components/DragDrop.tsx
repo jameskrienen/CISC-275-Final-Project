@@ -353,6 +353,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                     approveVid={approveVideo}
                                                     index={index}
                                                     role={role}
+                                                    dropdown={false}
                                                 ></VideoComponent>
                                             </ul>
                                         );
@@ -457,6 +458,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                     approveVid={approveVideo}
                                                     index={index}
                                                     role={role}
+                                                    dropdown={false}
                                                 ></VideoComponent>
                                             </div>
                                         );
@@ -558,6 +560,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 approveVid={approveVideo}
                                                 index={index}
                                                 role={role}
+                                                dropdown={false}
                                             ></VideoComponent>
                                         );
                                     }
@@ -647,6 +650,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                             approveVid={approveVideo}
                                             index={index}
                                             role={role}
+                                            dropdown={false}
                                             data-testid="creator-list"
                                         ></VideoComponent>
                                     );
@@ -742,7 +746,8 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 likes: 0,
                                                 creator:
                                                     currentCreator.username,
-                                                wantToComment: false
+                                                wantToComment: false,
+                                                dropdown: false
                                             });
                                         }}
                                     >
