@@ -26,7 +26,8 @@ function VideoComponent({
     deleteWatchVid,
     approveVid,
     index,
-    role
+    role,
+    dropdown
 }: {
     name: string;
     description: string;
@@ -51,6 +52,7 @@ function VideoComponent({
     approveVid: (vid: Video) => void;
     index: number;
     role: string;
+    dropdown: boolean;
 }) {
     const [video, setVideo] = useState<Video>({
         name,
@@ -63,7 +65,8 @@ function VideoComponent({
         likes,
         commentList,
         creator,
-        wantToComment
+        wantToComment,
+        dropdown
     });
 
     function deleteFromSite(vid: Video) {
@@ -71,6 +74,11 @@ function VideoComponent({
         deleteCreatorVid(vid);
         deleteReviewVid(vid);
         deleteWatchVid(vid, index, false);
+    }
+
+    function updateDropdown() {
+        const newVideo = { ...video, dropdown: !video.dropdown };
+        setVideo(newVideo);
     }
 
     function updateLikes() {
@@ -142,8 +150,14 @@ function VideoComponent({
             >
                 <h5>{video.name}</h5>
                 <div>
-                    <span style={{ fontWeight: "bold" }}>Description: </span>
-                    <span>{video.description}</span>
+                    <Button
+                        onClick={() => {
+                            updateDropdown();
+                        }}
+                    >
+                        Description⬇️
+                    </Button>
+                    <span>{video.dropdown ? video.description : ""}</span>
                 </div>
                 <div>
                     <span style={{ fontWeight: "bold" }}>Genre: </span>
@@ -227,7 +241,7 @@ function VideoComponent({
                             Reviewed✔️
                         </Button>
                     </span>
-                    <span>
+                    <span hidden={!inWatchlist}>
                         <Button
                             onClick={() => deleteWatchVid(video, index, true)}
                             style={{
