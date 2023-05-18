@@ -74,6 +74,11 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         setDescription(event.target.value);
     }
 
+    const [videoImage, setVideoImage] = useState<string>(placeholderimage);
+    function updateImage(event: React.ChangeEvent<HTMLInputElement>) {
+        setVideoImage(event.target.value);
+    }
+
     const [videoGenre, setGenre] = useState<string>("");
     function updateGenre(event: React.ChangeEvent<HTMLInputElement>) {
         setGenre(event.target.value);
@@ -216,6 +221,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
             );
             setAllViewers(updatedViewers);
         }
+        updatePrevWatchlist();
     }
 
     function addVideoToCentralList(video: Video) {
@@ -251,6 +257,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
             );
             setWatchList((prevWatchlist) => [...prevWatchlist, videoToAdd]);
         }
+        updatePrevWatchlist();
     }
 
     function updateWatchList(toEdit: Video) {
@@ -271,8 +278,8 @@ function DragDrop({ role }: { role: string }): JSX.Element {
             })
         );
 
-        setWatchList((prevWatchlist) =>
-            prevWatchlist.map((video: Video) => {
+        setWatchList((previous) =>
+            previous.map((video: Video) => {
                 return video.name === toEdit.name ? toEdit : video;
             })
         );
@@ -375,6 +382,68 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                     : { ...viewer }
             )
         );
+        updatePrevWatchlist();
+    }
+
+    const [prevWatchlist, setPrevWatchlist] = useState<Viewer[]>([
+        { username: "Dan", watchlist: [] },
+        { username: "Jess", watchlist: [] },
+        { username: "James", watchlist: [] }
+    ]);
+    function updatePrevWatchlist() {
+        if (viewerWatchlist.length != prevWatchlist.length) {
+            const newWatchlist = [...viewerWatchlist];
+            setPrevWatchlist(
+                prevWatchlist.map((viewer: Viewer) =>
+                    viewer.username === selectedViewer
+                        ? { ...viewer, watchlist: newWatchlist }
+                        : { ...viewer }
+                )
+            );
+        }
+    }
+    function revertWatchlist() {
+        const previousList = prevWatchlist.filter((viewer: Viewer) => {
+            return viewer.username === selectedViewer;
+        });
+        setAllViewers(
+            allViewers.map((viewer: Viewer) =>
+                viewer.username === selectedViewer
+                    ? { ...viewer, watchlist: previousList[0].watchlist }
+                    : { ...viewer }
+            )
+        );
+    }
+
+    const [currentSearch, setCurrentSearch] = useState<string>("");
+    function updateCurrentSearch(event: React.ChangeEvent<HTMLInputElement>) {
+        setCurrentSearch(event.target.value);
+    }
+    function searchWatchlist(search: string, type: string) {
+        if (type === "description") {
+            const newWatchlist = viewerWatchlist.filter((video: Video) =>
+                video.description.includes(search)
+            );
+            setAllViewers(
+                allViewers.map((viewer: Viewer) =>
+                    viewer.username === selectedViewer
+                        ? { ...viewer, watchlist: newWatchlist }
+                        : { ...viewer }
+                )
+            );
+        } else {
+            const newWatchlist = viewerWatchlist.filter((video: Video) =>
+                video.name.includes(search)
+            );
+            setAllViewers(
+                allViewers.map((viewer: Viewer) =>
+                    viewer.username === selectedViewer
+                        ? { ...viewer, watchlist: newWatchlist }
+                        : { ...viewer }
+                )
+            );
+        }
+        updatePrevWatchlist();
     }
 
     const [newViewerName, setNewViewerName] = useState<string>("");
@@ -537,6 +606,42 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                     {"'s"} Watchlist:
                                 </div>
                                 <div>
+                                    <Form.Group>
+                                        <Form.Label>Search:</Form.Label>
+                                        <Form.Control
+                                            value={currentSearch}
+                                            onChange={updateCurrentSearch}
+                                        ></Form.Control>
+                                        <span>
+                                            <Button
+                                                onClick={() =>
+                                                    searchWatchlist(
+                                                        currentSearch,
+                                                        "description"
+                                                    )
+                                                }
+                                            >
+                                                Search Descriptions
+                                            </Button>
+                                        </span>
+                                        <span>
+                                            <Button
+                                                onClick={() =>
+                                                    searchWatchlist(
+                                                        currentSearch,
+                                                        "title"
+                                                    )
+                                                }
+                                            >
+                                                Search Titles
+                                            </Button>
+                                        </span>
+                                        <span>
+                                            <Button onClick={revertWatchlist}>
+                                                View most recent watchlist:
+                                            </Button>
+                                        </span>
+                                    </Form.Group>
                                     <Button
                                         data-testid="A-Z"
                                         onClick={filterWatchlistAlphabet}
@@ -858,6 +963,14 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                         value={videoDescription}
                                         onChange={updateDescription}
                                     />
+                                    <Form.Label>
+                                        Enter thumbnail url:
+                                    </Form.Label>
+                                    <Form.Control
+                                        data-testid="name-form"
+                                        value={videoImage}
+                                        onChange={updateImage}
+                                    />
                                     <Form.Label>Choose genre:</Form.Label>
                                     <Form.Check
                                         data-testid="music-checkbox"
@@ -923,7 +1036,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 genre: videoGenre,
                                                 recommended: [],
                                                 isReported: false,
-                                                thumbnail: placeholderimage,
+                                                thumbnail: videoImage,
                                                 wantRecommended: false,
                                                 commentList: [],
                                                 likes: 0,
