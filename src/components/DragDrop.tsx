@@ -12,7 +12,7 @@ import { Moderator } from "../interfaces/ModeratorInterface";
 import placeholderimage from "../placeholder.jpeg";
 
 function DragDrop({ role }: { role: string }): JSX.Element {
-    const users = ["Dan", "Jess", "james"];
+    const users = ["Dan", "Jess", "James"];
     const [currentModerator, setCurrentModerator] = useState<Moderator>({
         review_list: [],
         username: ""
@@ -37,8 +37,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
             setWatchList(selectedViewerData.watchlist);
         }
     }
-    //const creators = ["Dan", "Jess", "James"];
-    //const moderators = ["Dan", "Jess", "James"];
     function updateModerator(event: React.ChangeEvent<HTMLInputElement>) {
         setCurrentModerator({
             ...currentModerator,
@@ -849,16 +847,19 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                 <Form.Group controlId="formUserName">
                                     <Form.Label>Enter name:</Form.Label>
                                     <Form.Control
+                                        data-testid="name-form"
                                         value={videoName}
                                         onChange={updateName}
                                     />
                                     <Form.Label>Enter description:</Form.Label>
                                     <Form.Control
+                                        data-testid="name-form"
                                         value={videoDescription}
                                         onChange={updateDescription}
                                     />
                                     <Form.Label>Choose genre:</Form.Label>
                                     <Form.Check
+                                        data-testid="music-checkbox"
                                         type="radio"
                                         name="genres"
                                         onChange={updateGenre}
@@ -913,6 +914,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                         checked={videoGenre === "How-To"}
                                     />
                                     <Button
+                                        data-testid={"upload-button"}
                                         onClick={() => {
                                             updateCreatorVideos({
                                                 name: videoName,
