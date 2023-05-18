@@ -25,16 +25,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         { username: "James", watchlist: [] }
     ]);
     const [selectedViewer, setSelectedViewer] = useState<string>("");
-    //const [currentViewer, setCurrentViewer] = useState<Viewer>(currentViewers[0]);
-
-    /*const watchlists: { [key: string]: Video[] } = {};
-
-    allViewers.forEach((viewer) => {
-        watchlists[viewer.username] = viewer.watchlist;
-    });*/
-    /*const currentViewer = allViewers.find(
-        (viewer) => viewer.username === viewerName
-    );*/
 
     function updateViewerName(event: React.ChangeEvent<HTMLSelectElement>) {
         const selectedViewerName = event.target.value;
@@ -184,7 +174,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
 
         if (videoToAdd && selectedViewer) {
             setAllViewers((prevViewers) =>
-                prevViewers.map((viewer) => {
+                prevViewers.map((viewer: Viewer) => {
                     if (viewer.username === selectedViewer) {
                         return {
                             ...viewer,
@@ -202,9 +192,11 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         setAllViewers((prevViewers) =>
             prevViewers.map((viewer) => {
                 if (viewer.username === selectedViewer) {
-                    const newWatchlist = viewer.watchlist.map((video) => {
-                        return video.name === toEdit.name ? toEdit : video;
-                    });
+                    const newWatchlist = viewer.watchlist.map(
+                        (video: Video) => {
+                            return video.name === toEdit.name ? toEdit : video;
+                        }
+                    );
                     return {
                         ...viewer,
                         watchlist: newWatchlist
@@ -215,13 +207,13 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         );
 
         setWatchList((prevWatchlist) =>
-            prevWatchlist.map((video) => {
+            prevWatchlist.map((video: Video) => {
                 return video.name === toEdit.name ? toEdit : video;
             })
         );
     }
     const selectedViewerData = allViewers.find(
-        (viewer) => viewer.username === selectedViewer
+        (viewer: Viewer) => viewer.username === selectedViewer
     );
     const viewerWatchlist = selectedViewerData
         ? selectedViewerData.watchlist
