@@ -1,8 +1,8 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import App from "./App";
-import { Video } from "./interfaces/VideoInterface";
-import placeholderimage from "./placeholder.jpeg";
+//import { Video } from "./interfaces/VideoInterface";
+//import placeholderimage from "./placeholder.jpeg";
 /*
 import { VIDEOS } from "./components/allVideos";
 
