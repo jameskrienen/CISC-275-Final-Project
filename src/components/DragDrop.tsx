@@ -12,12 +12,34 @@ import placeholderimage from "../placeholder.jpeg";
 import { Viewer } from "../interfaces/ViewerInterface";
 
 function DragDrop({ role }: { role: string }): JSX.Element {
-    const users = ["Dan", "Jess", "James"];
+    const users = ["Dan", "Jess", "james"];
+    //const [currentUser, setCurrentUser] = useState<string>("");
     const [currentModerator, setCurrentModerator] = useState<Moderator>({
         review_list: [],
         username: ""
     });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [allViewers, setAllViewers] = useState<Viewer[]>([
+        { username: "Dan", watchlist: [] },
+        { username: "Jess", watchlist: [] },
+        { username: "James", watchlist: [] }
+    ]);
+    const [selectedViewer, setSelectedViewer] = useState<string>("");
 
+    function updateViewerName(event: React.ChangeEvent<HTMLSelectElement>) {
+        const selectedViewerName = event.target.value;
+        setSelectedViewer(selectedViewerName);
+
+        const selectedViewerData = allViewers.find(
+            (viewer) => viewer.username === selectedViewerName
+        );
+
+        if (selectedViewerData) {
+            setWatchList(selectedViewerData.watchlist);
+        }
+    }
+    //const creators = ["Dan", "Jess", "James"];
+    //const moderators = ["Dan", "Jess", "James"];
     function updateModerator(event: React.ChangeEvent<HTMLInputElement>) {
         setCurrentModerator({
             ...currentModerator,
@@ -109,14 +131,26 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         }
     }
 
+    const selectedViewerData = allViewers.find(
+        (viewer) => viewer.username === selectedViewer
+    );
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [{ isOver }, drop] = useDrop(() => ({
-        accept: "VIDEO",
-        drop: (item: Video) => addVideoToWatchlist(item.name),
-        collect: (monitor) => ({
-            isOver: !!monitor.isOver()
-        })
-    }));
+    const viewerWatchlist = selectedViewerData
+        ? selectedViewerData.watchlist
+        : [];
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [{ isOver }, drop] = useDrop(
+        () => ({
+            accept: "VIDEO",
+            drop: (item: Video) => addVideoToWatchlist(item.name),
+            collect: (monitor) => ({
+                isOver: !!monitor.isOver()
+            })
+        }),
+        [addVideoToWatchlist]
+    );
 
     function deleteVideoFromCentralList(vid: Video) {
         const newCentralList = allVideos.filter(
@@ -290,6 +324,27 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         setWatchList([]);
     }
 
+    /*
+    const [newViewerName, setNewViewerName] = useState<string>("");
+
+    function handleNewViewer(event: React.ChangeEvent<HTMLInputElement>) {
+        setNewViewerName(event.target.value);
+    }
+
+    function addViewer() {
+        const newViewer = { username: newViewerName, watchlist: [] };
+        setAllViewers((prevViewers) => [...prevViewers, newViewer]);
+        setSelectedViewer(newViewerName);
+        setNewViewerName("");
+    }
+
+    function deleteViewer(username: string) {
+        setAllViewers((prevViewers) =>
+            prevViewers.filter((viewer) => viewer.username !== username)
+        );
+    }
+    */
+
     return (
         <>
             <div hidden={role !== "viewer"} data-testid="viewer-component">
@@ -423,31 +478,60 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                         fontSize: "xx-large"
                                     }}
                                 >
-                                    Watchlist:
                                     <div>
-                                        <Button
-                                            data-testid="a-z_button"
-                                            onClick={filterWatchlistAlphabet}
-                                        >
-                                            Filter A-Z
-                                        </Button>
-                                        <Button
-                                            data-testid="by genre"
-                                            onClick={filterWatchlistGenre}
-                                        >
-                                            Filter Genre
-                                        </Button>
-                                        <Button
-                                            onClick={clearWatchlist}
-                                            data-testId="clear watchlist"
-                                            style={{
-                                                color: "red",
-                                                marginLeft: "25px"
-                                            }}
-                                        >
-                                            Clear Watchlist
-                                        </Button>
+                                        <Form.Group controlId="currentViewer">
+                                            <Form.Label>
+                                                <small>
+                                                    Select your username:
+                                                </small>
+                                            </Form.Label>
+                                            <Form.Select
+                                                value={selectedViewer}
+                                                onChange={updateViewerName}
+                                            >
+                                                {allViewers.map(
+                                                    (viewer: Viewer) => (
+                                                        <option
+                                                            key={
+                                                                viewer.username
+                                                            }
+                                                            value={
+                                                                viewer.username
+                                                            }
+                                                        >
+                                                            {viewer.username}
+                                                        </option>
+                                                    )
+                                                )}
+                                            </Form.Select>
+                                        </Form.Group>
                                     </div>
+                                    {selectedViewer}
+                                    {"'s"} Watchlist:
+                                </div>
+                                <div>
+                                    <Button
+                                        data-testid="a-z_button"
+                                        onClick={filterWatchlistAlphabet}
+                                    >
+                                        Filter A-Z
+                                    </Button>
+                                    <Button
+                                        data-testid="by genre"
+                                        onClick={filterWatchlistGenre}
+                                    >
+                                        Filter Genre
+                                    </Button>
+                                    <Button
+                                        onClick={clearWatchlist}
+                                        data-testId="clear watchlist"
+                                        style={{
+                                            color: "red",
+                                            marginLeft: "25px"
+                                        }}
+                                    >
+                                        Clear Watchlist
+                                    </Button>
                                 </div>
                                 {watchList.map(
                                     (video: Video, index: number) => {
