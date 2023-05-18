@@ -37,8 +37,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
             setWatchList(selectedViewerData.watchlist);
         }
     }
-    //const creators = ["Dan", "Jess", "James"];
-    //const moderators = ["Dan", "Jess", "James"];
     function updateModerator(event: React.ChangeEvent<HTMLInputElement>) {
         setCurrentModerator({
             ...currentModerator,
@@ -172,17 +170,51 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         updateWatchList({ ...vid, isReported: false });
     }
 
-    function deleteFromWatchList(vid: Video, index: number, specific: boolean) {
+    function deleteFromWatchList(
+        vid: Video,
+        index: number,
+        specific: boolean,
+        name: string
+    ) {
         if (!specific) {
-            const newList = watchList.filter(
-                (video: Video) => video.name !== vid.name
+            const currentViewer = allViewers.filter((viewer: Viewer) => {
+                return viewer.username === name;
+            });
+            const newList = currentViewer[0].watchlist.filter(
+                (video: Video) => {
+                    return video.name != vid.name;
+                }
             );
-            setWatchList(newList);
+            const updatedViewers = allViewers.map((viewer: Viewer) =>
+                viewer.username === name
+                    ? { ...viewer, watchlist: newList }
+                    : { ...viewer }
+            );
+            setAllViewers(updatedViewers);
         } else {
+            /*
             const newList = watchList.filter(
                 (video: Video, num: number) => num !== index
             );
-            setWatchList(newList);
+            const updatedViewers = allViewers.map((viewer) => {
+                return { ...viewer, watchlist: newList };
+            });
+            setAllViewers(updatedViewers);
+            */
+            const currentViewer = allViewers.filter((viewer: Viewer) => {
+                return viewer.username === name;
+            });
+            const newList = currentViewer[0].watchlist.filter(
+                (video: Video, num: number) => {
+                    return num != index;
+                }
+            );
+            const updatedViewers = allViewers.map((viewer: Viewer) =>
+                viewer.username === name
+                    ? { ...viewer, watchlist: newList }
+                    : { ...viewer }
+            );
+            setAllViewers(updatedViewers);
         }
     }
 
@@ -205,9 +237,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         const videoToAdd = allVideos.find(
             (video: Video) => name === video.name
         );
-
-        //console.log(videoToAdd[0]);
-
         if (videoToAdd && selectedViewer) {
             setAllViewers((prevViewers) =>
                 prevViewers.map((viewer: Viewer) => {
@@ -338,8 +367,14 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         }
     }
 
-    function clearWatchlist() {
-        setWatchList([]);
+    function clearWatchlist(name: string) {
+        setAllViewers(
+            allViewers.map((viewer: Viewer) =>
+                viewer.username === name
+                    ? { ...viewer, watchlist: [] }
+                    : { ...viewer }
+            )
+        );
     }
 
     const [newViewerName, setNewViewerName] = useState<string>("");
@@ -446,6 +481,9 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                     index={index}
                                                     role={role}
                                                     dropdown={false}
+                                                    currentViewer={
+                                                        selectedViewer
+                                                    }
                                                 ></VideoComponent>
                                             </ul>
                                         );
@@ -512,7 +550,9 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                         Filter Genre
                                     </Button>
                                     <Button
-                                        onClick={clearWatchlist}
+                                        onClick={() =>
+                                            clearWatchlist(selectedViewer)
+                                        }
                                         data-testid="clear watchlist"
                                         style={{
                                             color: "red",
@@ -580,6 +620,9 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                     index={index}
                                                     role={role}
                                                     dropdown={false}
+                                                    currentViewer={
+                                                        selectedViewer
+                                                    }
                                                 ></VideoComponent>
                                             </div>
                                         );
@@ -694,6 +737,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 index={index}
                                                 role={role}
                                                 dropdown={false}
+                                                currentViewer={selectedViewer}
                                             ></VideoComponent>
                                         );
                                     }
@@ -785,6 +829,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                             index={index}
                                             role={role}
                                             dropdown={false}
+                                            currentViewer={selectedViewer}
                                             data-testid="creator-list"
                                         ></VideoComponent>
                                     );
@@ -803,16 +848,19 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                 <Form.Group controlId="formUserName">
                                     <Form.Label>Enter name:</Form.Label>
                                     <Form.Control
+                                        data-testid="name-form"
                                         value={videoName}
                                         onChange={updateName}
                                     />
                                     <Form.Label>Enter description:</Form.Label>
                                     <Form.Control
+                                        data-testid="name-form"
                                         value={videoDescription}
                                         onChange={updateDescription}
                                     />
                                     <Form.Label>Choose genre:</Form.Label>
                                     <Form.Check
+                                        data-testid="music-checkbox"
                                         type="radio"
                                         name="genres"
                                         onChange={updateGenre}
@@ -867,6 +915,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                         checked={videoGenre === "How-To"}
                                     />
                                     <Button
+                                        data-testid={"upload-button"}
                                         onClick={() => {
                                             updateCreatorVideos({
                                                 name: videoName,

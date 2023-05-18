@@ -1,10 +1,11 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import App from "./App";
-//import { Video } from "./interfaces/VideoInterface";
-//import placeholderimage from "./placeholder.jpeg";
-/*
+import { Video } from "./interfaces/VideoInterface";
+import placeholderimage from "./placeholder.jpeg";
+
 import { VIDEOS } from "./components/allVideos";
+import userEvent from "@testing-library/user-event";
 
 const sampleVideo: Video = {
     name: "Sample",
@@ -20,7 +21,6 @@ const sampleVideo: Video = {
     wantToComment: false,
     dropdown: false
 };
-*/
 describe("Test lists are rendered in some way", () => {
     beforeEach(() => {
         render(<App />);
@@ -84,13 +84,28 @@ describe("Test lists are rendered in some way", () => {
         expect(screen.getByText(/Clipped!/i)).toBeInTheDocument();
     });
 });
-/*
+
 describe("tests lists are updated properly", () => {
+    beforeEach(() => {
+        render(<App />);
+    });
     test("uploading video adds to central list", () => {
-        const upload = screen.getByRole("button", { ...sampleVideo });
-        upload.click();
-        const list = screen.getAllByTestId("central list");
-        expect(list).toEqual([...VIDEOS, sampleVideo]);
+        // check upload button
+        userEvent.click(screen.getByTestId("upload-mode-check"));
+        // type in a video name
+        userEvent.type(screen.getByTestId("name-form"), "sample name");
+        // type in a decsription
+        userEvent.type(
+            screen.getByTestId("desciption-form"),
+            "sample description"
+        );
+        // check a genre
+        userEvent.click(screen.getByLabelText("music-checkbox"));
+        // upload the video
+        userEvent.click(screen.getByText("Upload Video"));
+        expect(screen.getByTestId("central item list")).toEqual([
+            ...VIDEOS,
+            sampleVideo
+        ]);
     });
 });
-*/

@@ -28,7 +28,8 @@ function VideoComponent({
     approveVid,
     index,
     role,
-    dropdown
+    dropdown,
+    currentViewer
 }: {
     name: string;
     description: string;
@@ -49,11 +50,17 @@ function VideoComponent({
     deleteCentralVid: (vid: Video) => void;
     deleteCreatorVid: (vid: Video) => void;
     deleteReviewVid: (vid: Video) => void;
-    deleteWatchVid: (vid: Video, index: number, specific: boolean) => void;
+    deleteWatchVid: (
+        vid: Video,
+        index: number,
+        specific: boolean,
+        name: string
+    ) => void;
     approveVid: (vid: Video) => void;
     index: number;
     role: string;
     dropdown: boolean;
+    currentViewer: string;
 }) {
     const [video, setVideo] = useState<Video>({
         name,
@@ -74,7 +81,7 @@ function VideoComponent({
         deleteCentralVid(vid);
         deleteCreatorVid(vid);
         deleteReviewVid(vid);
-        deleteWatchVid(vid, index, false);
+        deleteWatchVid(vid, index, false, currentViewer);
     }
 
     function updateDropdown() {
@@ -244,7 +251,14 @@ function VideoComponent({
                     </span>
                     <span hidden={!inWatchlist}>
                         <Button
-                            onClick={() => deleteWatchVid(video, index, true)}
+                            onClick={() =>
+                                deleteWatchVid(
+                                    video,
+                                    index,
+                                    true,
+                                    currentViewer
+                                )
+                            }
                             style={{
                                 marginLeft: "5px"
                             }}
