@@ -15,6 +15,12 @@ export interface Video {
     thumbnail: string;
     //The video's like count
     likes: number;
+    //Comment list
+    commentList: string[];
     //The creator of the video
     creator: string;
+    //The user's comment on video
+    wantToComment: boolean;
+    //If the description is shown
+    dropdown: boolean;
 }
