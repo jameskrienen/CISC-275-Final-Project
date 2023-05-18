@@ -10,28 +10,43 @@ import { Viewer } from "../interfaces/ViewerInterface";
 import { Creator } from "../interfaces/CreatorInterface";
 import { Moderator } from "../interfaces/ModeratorInterface";
 import placeholderimage from "../placeholder.jpeg";
-import { useEffect } from "react";
+//import { useEffect } from "react";
+//import { watch } from "fs";
 
 function DragDrop({ role }: { role: string }): JSX.Element {
     const [currentUser, setCurrentUser] = useState<string>("");
+
     const [allVideos, setAllVideos] = useState<Video[]>(VIDEOS);
     const [watchList, setWatchList] = useState<Video[]>([]);
 
-    const viewers = ["Dan", "Jess", "James"];
-    const [viewerName, setViewerName] = useState<string>(viewers[0]);
-    const [currentViewer, setCurrentViewer] = useState<Viewer>({
-        username: "Dan",
-        watchlist: watchList
-    });
-    function updateViewerWatchlist(
-        event: React.ChangeEvent<HTMLSelectElement>
-    ) {
-        setViewerName(event.target.value);
-        setCurrentViewer({
-            username: event.target.value,
-            watchlist: watchList
-        });
-        //setWatchList(currentViewer.watchlist);
+    const [allViewers, setAllViewers] = useState<Viewer[]>([
+        { username: "Dan", watchlist: [] },
+        { username: "Jess", watchlist: [] },
+        { username: "James", watchlist: [] }
+    ]);
+    const [selectedViewer, setSelectedViewer] = useState<string>("");
+    //const [currentViewer, setCurrentViewer] = useState<Viewer>(currentViewers[0]);
+
+    /*const watchlists: { [key: string]: Video[] } = {};
+
+    allViewers.forEach((viewer) => {
+        watchlists[viewer.username] = viewer.watchlist;
+    });*/
+    /*const currentViewer = allViewers.find(
+        (viewer) => viewer.username === viewerName
+    );*/
+
+    function updateViewerName(event: React.ChangeEvent<HTMLSelectElement>) {
+        const selectedViewerName = event.target.value;
+        setSelectedViewer(selectedViewerName);
+
+        const selectedViewerData = allViewers.find(
+            (viewer) => viewer.username === selectedViewerName
+        );
+
+        if (selectedViewerData) {
+            setWatchList(selectedViewerData.watchlist);
+        }
     }
 
     const creators = ["Dan", "Jess", "James"];
@@ -108,13 +123,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [{ isOver }, drop] = useDrop(() => ({
-        accept: "VIDEO",
-        drop: (item: Video) => addVideoToWatchlist(item.name),
-        collect: (monitor) => ({
-            isOver: !!monitor.isOver()
-        })
-    }));
 
     function deleteVideoFromCentralList(vid: Video) {
         const newCentralList = allVideos.filter(
@@ -167,37 +175,68 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         }
     }
 
-    function updateWatchList(toEdit: Video) {
-        setWatchList(currentViewer.watchlist);
-        const vidNames = watchList.map((video: Video) => video.name);
-        //console.log(vidNames);
-        if (vidNames.includes(toEdit.name)) {
-            const newVideos = watchList.map((video: Video) => {
-                return video.name === toEdit.name ? toEdit : video;
-            });
-            const newViewerList = {
-                ...currentViewer,
-                watchlist: (currentViewer.watchlist, newVideos)
-            };
-            setWatchList(newViewerList.watchlist);
-            setCurrentViewer({ ...currentViewer, watchlist: watchList });
-        } else {
-            const newList = currentViewer.watchlist.map((vid: Video) => {
-                return vid.name === toEdit.name ? toEdit : vid;
-            });
-            setCurrentViewer({ ...currentViewer, watchlist: newList });
+    function addVideoToWatchlist(name: string) {
+        const videoToAdd = allVideos.find(
+            (video: Video) => name === video.name
+        );
+
+        //console.log(videoToAdd[0]);
+
+        if (videoToAdd && selectedViewer) {
+            setAllViewers((prevViewers) =>
+                prevViewers.map((viewer) => {
+                    if (viewer.username === selectedViewer) {
+                        return {
+                            ...viewer,
+                            watchlist: [...viewer.watchlist, videoToAdd]
+                        };
+                    }
+                    return viewer;
+                })
+            );
+            setWatchList((prevWatchlist) => [...prevWatchlist, videoToAdd]);
         }
     }
 
-    function addVideoToWatchlist(name: string) {
-        const videoToAdd = allVideos.filter(
-            (video: Video) => name === video.name
+    function updateWatchList(toEdit: Video) {
+        setAllViewers((prevViewers) =>
+            prevViewers.map((viewer) => {
+                if (viewer.username === selectedViewer) {
+                    const newWatchlist = viewer.watchlist.map((video) => {
+                        return video.name === toEdit.name ? toEdit : video;
+                    });
+                    return {
+                        ...viewer,
+                        watchlist: newWatchlist
+                    };
+                }
+                return viewer;
+            })
         );
-        if (videoToAdd.length > 0) {
-            setWatchList((watchList) => [...watchList, videoToAdd[0]]);
-            //console.log("addVideoToWatch", watchList);
-        }
+
+        setWatchList((prevWatchlist) =>
+            prevWatchlist.map((video) => {
+                return video.name === toEdit.name ? toEdit : video;
+            })
+        );
     }
+    const selectedViewerData = allViewers.find(
+        (viewer) => viewer.username === selectedViewer
+    );
+    const viewerWatchlist = selectedViewerData
+        ? selectedViewerData.watchlist
+        : [];
+
+    const [{ isOver }, drop] = useDrop(
+        () => ({
+            accept: "VIDEO",
+            drop: (item: Video) => addVideoToWatchlist(item.name),
+            collect: (monitor) => ({
+                isOver: !!monitor.isOver()
+            })
+        }),
+        [addVideoToWatchlist]
+    );
 
     function updateUser(event: React.ChangeEvent<HTMLInputElement>) {
         setCurrentUser(event.target.value);
@@ -220,6 +259,25 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                 : vid1.genre.localeCompare(vid2.genre);
         });
         setAllVideos(sortedData);
+    }
+
+    const [newViewerName, setNewViewerName] = useState<string>("");
+
+    function handleNewViewer(event: React.ChangeEvent<HTMLInputElement>) {
+        setNewViewerName(event.target.value);
+    }
+
+    function addViewer() {
+        const newViewer = { username: newViewerName, watchlist: [] };
+        setAllViewers((prevViewers) => [...prevViewers, newViewer]);
+        setSelectedViewer(newViewerName);
+        setNewViewerName("");
+    }
+
+    function deleteViewer(username: string) {
+        setAllViewers((prevViewers) =>
+            prevViewers.filter((viewer) => viewer.username !== username)
+        );
     }
 
     return (
@@ -315,30 +373,33 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 </small>
                                             </Form.Label>
                                             <Form.Select
-                                                value={currentViewer.username}
-                                                onChange={updateViewerWatchlist}
+                                                value={selectedViewer}
+                                                onChange={updateViewerName}
                                             >
-                                                {viewers.map(
-                                                    (username: string) => (
+                                                {allViewers.map(
+                                                    (viewer: Viewer) => (
                                                         <option
-                                                            key={username}
-                                                            value={username}
+                                                            key={
+                                                                viewer.username
+                                                            }
+                                                            value={
+                                                                viewer.username
+                                                            }
                                                         >
-                                                            {username}
+                                                            {viewer.username}
                                                         </option>
                                                     )
                                                 )}
                                             </Form.Select>
                                         </Form.Group>
                                     </div>
-                                    {currentViewer.username}
+                                    {selectedViewer}
                                     {"'s"} Watchlist:
                                 </div>
-                                {watchList.map((video: Video) => {
+
+                                {viewerWatchlist.map((video: Video) => {
                                     return (
-                                        <div
-                                            key={`${video.name}-${currentViewer.username}`}
-                                        >
+                                        <div key={video.name}>
                                             <VideoComponent
                                                 key={`${video.likes}-${video.isReported}-${video.wantRecommended}`}
                                                 name={video.name}
@@ -672,6 +733,43 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                 <span>{""}</span>
                             )}
                         </Col>
+                        <div>
+                            {" "}
+                            <Col>
+                                <Form.Group controlId="addViewer">
+                                    <Form.Label>
+                                        <small>Add a new viewer:</small>
+                                    </Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        value={newViewerName}
+                                        onChange={handleNewViewer}
+                                    />
+                                    <Button onClick={addViewer}>
+                                        Add Viewer
+                                    </Button>
+                                </Form.Group>
+                            </Col>
+                            <Col>
+                                <span>List of Viewers:</span>
+                                {allViewers.map((viewer: Viewer) => (
+                                    <div
+                                        key={viewer.username}
+                                        style={{ marginBottom: "4px" }}
+                                    >
+                                        {viewer.username}
+                                        <Button
+                                            onClick={() =>
+                                                deleteViewer(viewer.username)
+                                            }
+                                            size="sm"
+                                        >
+                                            Delete
+                                        </Button>
+                                    </div>
+                                ))}
+                            </Col>
+                        </div>
                     </Row>
                 </div>
             </div>
