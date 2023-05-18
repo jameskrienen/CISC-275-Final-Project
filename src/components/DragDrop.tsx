@@ -59,15 +59,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         });
     }
 
-    const [currentViewer, setCurrentViewer] = useState<Viewer>({
-        username: "",
-        watchlist: []
-    });
-
-    function updateViewer(event: React.ChangeEvent<HTMLInputElement>) {
-        setCurrentViewer({ ...currentViewer, username: event.target.value });
-    }
-
     const [allVideos, setAllVideos] = useState<Video[]>(VIDEOS);
     const [watchList, setWatchList] = useState<Video[]>([]);
 
@@ -222,12 +213,22 @@ function DragDrop({ role }: { role: string }): JSX.Element {
     }
 
     function addVideoToWatchlist(name: string) {
-        const videoToAdd = allVideos.filter(
+        const videoToAdd = allVideos.find(
             (video: Video) => name === video.name
         );
-        console.log(videoToAdd[0]);
-        if (videoToAdd.length > 0) {
-            setWatchList((watchList) => [...watchList, videoToAdd[0]]);
+        if (videoToAdd && selectedViewer) {
+            setAllViewers((prevViewers) =>
+                prevViewers.map((viewer) => {
+                    if (viewer.username === selectedViewer) {
+                        return {
+                            ...viewer,
+                            watchlist: [...viewer.watchlist, videoToAdd]
+                        };
+                    }
+                    return viewer;
+                })
+            );
+            setWatchList((prevWatchlist) => [...prevWatchlist, videoToAdd]);
         }
     }
 
@@ -361,32 +362,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                             }}
                         >
                             Videos:
-                        </div>
-                        <div>
-                            <p
-                                style={{
-                                    fontWeight: "bold",
-                                    fontSize: "xx-large"
-                                }}
-                            >
-                                What is your username?
-                            </p>
-                            <Form.Group>
-                                <Form.Label>Username:</Form.Label>
-                                <Form.Control
-                                    value={currentViewer.username}
-                                    onChange={updateViewer}
-                                ></Form.Control>
-                                <Form.Label>
-                                    {users.includes(currentViewer.username)
-                                        ? "Welcome "
-                                        : ""}
-                                    {users.includes(currentViewer.username)
-                                        ? currentViewer.username
-                                        : "Not a viewer"}
-                                    {"!"}
-                                </Form.Label>
-                            </Form.Group>
                         </div>
                         <span style={{ marginLeft: "50px" }}>
                             <Button onClick={filterAlphabet}>Filter A-Z</Button>
