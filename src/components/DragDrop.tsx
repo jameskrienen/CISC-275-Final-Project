@@ -24,7 +24,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         { username: "Jess", watchlist: [] },
         { username: "James", watchlist: [] }
     ]);
-    const [selectedViewer, setSelectedViewer] = useState<string>("");
+    const [selectedViewer, setSelectedViewer] = useState<string>("Dan");
 
     function updateViewerName(event: React.ChangeEvent<HTMLSelectElement>) {
         const selectedViewerName = event.target.value;
@@ -203,13 +203,26 @@ function DragDrop({ role }: { role: string }): JSX.Element {
     }
 
     function updateWatchList(toEdit: Video) {
-        const vidNames = watchList.map((video: Video) => video.name);
-        if (vidNames.includes(toEdit.name)) {
-            const newVideos = watchList.map((video: Video) => {
+        setAllViewers((prevViewers) =>
+            prevViewers.map((viewer) => {
+                if (viewer.username === selectedViewer) {
+                    const newWatchlist = viewer.watchlist.map((video) => {
+                        return video.name === toEdit.name ? toEdit : video;
+                    });
+                    return {
+                        ...viewer,
+                        watchlist: newWatchlist
+                    };
+                }
+                return viewer;
+            })
+        );
+
+        setWatchList((prevWatchlist) =>
+            prevWatchlist.map((video) => {
                 return video.name === toEdit.name ? toEdit : video;
-            });
-            setWatchList(newVideos);
-        }
+            })
+        );
     }
 
     function addVideoToWatchlist(name: string) {
@@ -325,7 +338,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         setWatchList([]);
     }
 
-    /*
     const [newViewerName, setNewViewerName] = useState<string>("");
 
     function handleNewViewer(event: React.ChangeEvent<HTMLInputElement>) {
@@ -344,7 +356,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
             prevViewers.filter((viewer) => viewer.username !== username)
         );
     }
-    */
 
     return (
         <>
@@ -877,6 +888,43 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                 <span>{""}</span>
                             )}
                         </Col>
+                        <div>
+                            {" "}
+                            <Col>
+                                <Form.Group controlId="addViewer">
+                                    <Form.Label>
+                                        <small>Add a new viewer:</small>
+                                    </Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        value={newViewerName}
+                                        onChange={handleNewViewer}
+                                    />
+                                    <Button onClick={addViewer}>
+                                        Add Viewer
+                                    </Button>
+                                </Form.Group>
+                            </Col>
+                            <Col>
+                                <span>List of Viewers:</span>
+                                {allViewers.map((viewer: Viewer) => (
+                                    <div
+                                        key={viewer.username}
+                                        style={{ marginBottom: "4px" }}
+                                    >
+                                        {viewer.username}
+                                        <Button
+                                            onClick={() =>
+                                                deleteViewer(viewer.username)
+                                            }
+                                            size="sm"
+                                        >
+                                            Delete
+                                        </Button>
+                                    </div>
+                                ))}
+                            </Col>
+                        </div>
                     </Row>
                 </div>
             </div>
