@@ -12,33 +12,6 @@ import { Moderator } from "../interfaces/ModeratorInterface";
 import placeholderimage from "../placeholder.jpeg";
 
 function DragDrop({ role }: { role: string }): JSX.Element {
-    const [currentUser, setCurrentUser] = useState<string>("");
-
-    const [allVideos, setAllVideos] = useState<Video[]>(VIDEOS);
-    const [watchList, setWatchList] = useState<Video[]>([]);
-
-    const [allViewers, setAllViewers] = useState<Viewer[]>([
-        { username: "Dan", watchlist: [] },
-        { username: "Jess", watchlist: [] },
-        { username: "James", watchlist: [] }
-    ]);
-    const [selectedViewer, setSelectedViewer] = useState<string>("");
-
-    function updateViewerName(event: React.ChangeEvent<HTMLSelectElement>) {
-        const selectedViewerName = event.target.value;
-        setSelectedViewer(selectedViewerName);
-
-        const selectedViewerData = allViewers.find(
-            (viewer) => viewer.username === selectedViewerName
-        );
-
-        if (selectedViewerData) {
-            setWatchList(selectedViewerData.watchlist);
-        }
-    }
-
-    const creators = ["Dan", "Jess", "James"];
-    const moderators = ["Dan", "Jess", "James"];
     const users = ["Dan", "Jess", "james"];
     const [currentModerator, setCurrentModerator] = useState<Moderator>({
         review_list: [],
@@ -275,23 +248,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
             })
         );
     }
-    const selectedViewerData = allViewers.find(
-        (viewer: Viewer) => viewer.username === selectedViewer
-    );
-    const viewerWatchlist = selectedViewerData
-        ? selectedViewerData.watchlist
-        : [];
-
-    const [{ isOver }, drop] = useDrop(
-        () => ({
-            accept: "VIDEO",
-            drop: (item: Video) => addVideoToWatchlist(item.name),
-            collect: (monitor) => ({
-                isOver: !!monitor.isOver()
-            })
-        }),
-        [addVideoToWatchlist]
-    );
 
     const [filteredWatchlist, setFilteredWatchlist] = useState<string>("");
     function filterWatchlistAlphabet() {
@@ -387,11 +343,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
     }
 
     const [newViewerName, setNewViewerName] = useState<string>("");
-
-    function handleNewViewer(event: React.ChangeEvent<HTMLInputElement>) {
-        setNewViewerName(event.target.value);
-    }
-
     function addViewer() {
         const newViewer = { username: newViewerName, watchlist: [] };
         setAllViewers((prevViewers) => [...prevViewers, newViewer]);
@@ -399,23 +350,8 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         setNewViewerName("");
     }
 
-    function deleteViewer(username: string) {
-        setAllViewers((prevViewers) =>
-            prevViewers.filter((viewer) => viewer.username !== username)
-        );
-    }
-
-    const [newViewerName, setNewViewerName] = useState<string>("");
-
     function handleNewViewer(event: React.ChangeEvent<HTMLInputElement>) {
         setNewViewerName(event.target.value);
-    }
-
-    function addViewer() {
-        const newViewer = { username: newViewerName, watchlist: [] };
-        setAllViewers((prevViewers) => [...prevViewers, newViewer]);
-        setSelectedViewer(newViewerName);
-        setNewViewerName("");
     }
 
     function deleteViewer(username: string) {
@@ -563,34 +499,35 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                     {"'s"} Watchlist:
                                 </div>
                                 <div>
-                                      <Button
-                                          data-testid="a-z_button"
-                                          onClick={filterWatchlistAlphabet}
-                                      >
-                                          Filter A-Z
-                                      </Button>
-                                      <Button
-                                          data-testid="by genre"
-                                          onClick={filterWatchlistGenre}
-                                      >
-                                          Filter Genre
-                                      </Button>
-                                      <Button
-                                          onClick={clearWatchlist}
-                                          data-testId="clear watchlist"
-                                          style={{
-                                              color: "red",
-                                              marginLeft: "25px"
-                                          }}
-                                      >
-                                          Clear Watchlist
-                                      </Button>
-                                  </div>
-                                {viewerWatchlist.map((video: Video) => {
-                                    return (
-                                        <div key={video.name}>
-                                            <VideoComponent
-                                                key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}`}
+                                    <Button
+                                        data-testid="A-Z"
+                                        onClick={filterWatchlistAlphabet}
+                                    >
+                                        Filter A-Z
+                                    </Button>
+                                    <Button
+                                        data-testid="by genre"
+                                        onClick={filterWatchlistGenre}
+                                    >
+                                        Filter Genre
+                                    </Button>
+                                    <Button
+                                        onClick={clearWatchlist}
+                                        data-testid="clear watchlist"
+                                        style={{
+                                            color: "red",
+                                            marginLeft: "25px"
+                                        }}
+                                    >
+                                        Clear Watchlist
+                                    </Button>
+                                </div>
+                                {viewerWatchlist.map(
+                                    (video: Video, index: number) => {
+                                        return (
+                                            <div key={video.name}>
+                                                <VideoComponent
+                                                    key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}`}
                                                     name={video.name}
                                                     description={
                                                         video.description
@@ -643,15 +580,16 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                     index={index}
                                                     role={role}
                                                     dropdown={false}
-                                            ></VideoComponent>
-                                        </div>
-                                    );
-                                })}
+                                                ></VideoComponent>
+                                            </div>
+                                        );
+                                    }
+                                )}
                             </Col>
                         </Row>
                     </div>
                 </div>
-            </div
+            </div>
             <div hidden={role !== "moderator"} data-testid="moderator list">
                 <div className="moderatorList">
                     <Row>
