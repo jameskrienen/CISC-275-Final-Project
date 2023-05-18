@@ -4,7 +4,7 @@ import "../App.css";
 import VideoComponent from "./VideoComponent";
 import { Video } from "../interfaces/VideoInterface";
 import { VIDEOS } from "./allVideos";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import "./DragDrop.css";
 import { Viewer } from "../interfaces/ViewerInterface";
 import { Creator } from "../interfaces/CreatorInterface";
