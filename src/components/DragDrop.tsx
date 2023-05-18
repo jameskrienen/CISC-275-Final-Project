@@ -4,7 +4,7 @@ import "../App.css";
 import VideoComponent from "./VideoComponent";
 import { Video } from "../interfaces/VideoInterface";
 import { VIDEOS } from "./allVideos";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import "./DragDrop.css";
 import { Viewer } from "../interfaces/ViewerInterface";
 import { Creator } from "../interfaces/CreatorInterface";
@@ -12,7 +12,7 @@ import { Moderator } from "../interfaces/ModeratorInterface";
 import placeholderimage from "../placeholder.jpeg";
 
 function DragDrop({ role }: { role: string }): JSX.Element {
-    const users = ["Dan", "Jess", "james"];
+    const users = ["Dan", "Jess", "James"];
     const [currentModerator, setCurrentModerator] = useState<Moderator>({
         review_list: [],
         username: ""
@@ -597,19 +597,23 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                             <div
                                 style={{
                                     fontWeight: "bold",
-                                    fontSize: "xx-large"
+                                    fontSize: "xx-large",
+                                    marginRight: "1000px"
                                 }}
                             >
-                                Review List:
+                                Review List
                             </div>
                             <div>
                                 <p
                                     style={{
                                         fontWeight: "bold",
-                                        fontSize: "xx-large"
+                                        fontSize: "large"
                                     }}
                                 >
-                                    What is your username?
+                                    Select username:{" "}
+                                    {users
+                                        .map((name: string) => ` ${name}`)
+                                        .join(", ")}
                                 </p>
                                 <Form.Group>
                                     <Form.Label>Username:</Form.Label>
@@ -704,43 +708,40 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                     <span
                         style={{
                             fontWeight: "bold",
-                            fontSize: "xx-large"
+                            fontSize: "xx-large",
+                            marginRight: "1000px"
                         }}
                     >
                         Creator List:
                     </span>
-                    <span>
-                        <p
-                            style={{
-                                fontWeight: "bold",
-                                fontSize: "xx-large"
-                            }}
-                        >
-                            What is your username?
-                        </p>
-                        <Form.Group>
-                            <Form.Label>Username:</Form.Label>
-                            <Form.Control
-                                value={currentCreator.username}
-                                onChange={updateCreator}
-                            ></Form.Control>
-                            <Form.Label>
-                                {users.includes(currentCreator.username)
-                                    ? "Welcome "
-                                    : ""}
-                                {users.includes(currentCreator.username)
-                                    ? currentCreator.username
-                                    : "Not a creator"}
-                                {"!"}
-                            </Form.Label>
-                        </Form.Group>
-                    </span>
-                    <span style={{ marginLeft: "50px" }}>
-                        <Button onClick={filterAlphabet}>Filter A-Z</Button>
-                        <Button onClick={filterGenre}>Filter by Genre</Button>
-                    </span>
+
+                    <p
+                        style={{
+                            fontWeight: "bold",
+                            fontSize: "large"
+                        }}
+                    >
+                        Select username:{" "}
+                        {users.map((name: string) => ` ${name}`).join(", ")}
+                    </p>
+                    <Form.Group>
+                        <Form.Label>Username:</Form.Label>
+                        <Form.Control
+                            value={currentCreator.username}
+                            onChange={updateCreator}
+                        ></Form.Control>
+                        <Form.Label>
+                            {users.includes(currentCreator.username)
+                                ? "Welcome "
+                                : ""}
+                            {users.includes(currentCreator.username)
+                                ? currentCreator.username
+                                : "Not a creator"}
+                            {"!"}
+                        </Form.Label>
+                    </Form.Group>
                     <Row>
-                        <Col style={{ columnCount: 1, display: "flex" }}>
+                        <Col>
                             {currentCreator.createdVideos.map(
                                 (video: Video, index: number) => {
                                     return (
@@ -883,6 +884,11 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 dropdown: false
                                             });
                                         }}
+                                        disabled={
+                                            !users.includes(
+                                                currentCreator.username
+                                            )
+                                        }
                                     >
                                         Upload Video{" "}
                                     </Button>
@@ -903,7 +909,14 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                         value={newViewerName}
                                         onChange={handleNewViewer}
                                     />
-                                    <Button onClick={addViewer}>
+                                    <Button
+                                        onClick={addViewer}
+                                        disabled={
+                                            !users.includes(
+                                                currentCreator.username
+                                            )
+                                        }
+                                    >
                                         Add Viewer
                                     </Button>
                                 </Form.Group>
@@ -921,6 +934,11 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 deleteViewer(viewer.username)
                                             }
                                             size="sm"
+                                            disabled={
+                                                !users.includes(
+                                                    currentCreator.username
+                                                )
+                                            }
                                         >
                                             Delete
                                         </Button>
@@ -935,3 +953,5 @@ function DragDrop({ role }: { role: string }): JSX.Element {
     );
 }
 export default DragDrop;
+
+// style={{ columnCount: 1, display: "flex" }}
