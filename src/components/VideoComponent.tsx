@@ -230,7 +230,7 @@ function VideoComponent({
                             <span />
                         )}
                     </span>
-                    <span hidden={role !== "moderator"}>
+                    <span hidden={role === "viewer"}>
                         <Button
                             onClick={() => {
                                 deleteFromSite(video);
