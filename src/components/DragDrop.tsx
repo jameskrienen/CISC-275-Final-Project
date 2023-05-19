@@ -12,7 +12,6 @@ import { Moderator } from "../interfaces/ModeratorInterface";
 import placeholderimage from "../placeholder.jpeg";
 
 function DragDrop({ role }: { role: string }): JSX.Element {
-    //
     const users = ["Dan", "Jess", "James"];
     const [currentModerator, setCurrentModerator] = useState<Moderator>({
         review_list: [],
@@ -24,8 +23,9 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         { username: "Jess", watchlist: [] },
         { username: "James", watchlist: [] }
     ]);
+    // State to keep track of the current viewer select box
     const [selectedViewer, setSelectedViewer] = useState<string>("Dan");
-
+    // Updates the state of the current viewer's username and watchlist
     function updateViewerName(event: React.ChangeEvent<HTMLSelectElement>) {
         const selectedViewerName = event.target.value;
         setSelectedViewer(selectedViewerName);
@@ -35,22 +35,38 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         );
 
         if (selectedViewerData) {
-            setWatchList(selectedViewerData.watchlist);
+            setAllViewers(
+                allViewers.map((viewer: Viewer) =>
+                    viewer.username === selectedViewer
+                        ? { ...viewer, watchlist: selectedViewerData.watchlist }
+                        : { ...viewer }
+                )
+            );
         }
     }
+
+    // State to keep track of the moderator username textbox
+    const [currentModerator, setCurrentModerator] = useState<Moderator>({
+        review_list: [],
+        username: ""
+    });
+    // Updates the state of the moderator in the username textbox
     function updateModerator(event: React.ChangeEvent<HTMLInputElement>) {
         setCurrentModerator({
             ...currentModerator,
             username: event.target.value
         });
     }
+
+    // State to keep track of creator being entered in username textbox
     const [currentCreator, setCurrentCreator] = useState<Creator>({
         username: "",
         createdVideos: [],
         flaggedVideos: [],
+        viewers: [],
         blockedUsers: []
     });
-
+    // Updates the state of the creator in the username textbox
     function updateCreator(event: React.ChangeEvent<HTMLInputElement>) {
         setCurrentCreator({
             ...currentCreator,
@@ -58,33 +74,45 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         });
     }
 
+    // State to keep track of the central item list
     const [allVideos, setAllVideos] = useState<Video[]>(VIDEOS);
-    const [watchList, setWatchList] = useState<Video[]>([]);
+
+    // State to keep track of whether or not the creator is in upload mode
     const [uploadMode, setUploadMode] = useState<boolean>(false);
+    // Updates the upload mode state
     function updateMode(event: React.ChangeEvent<HTMLInputElement>) {
         setUploadMode(event.target.checked);
     }
 
+    // State to keep track of the name of the video in creator's upload mode textbox
     const [videoName, setName] = useState<string>("");
+    // Updates video name state from upload mode textbox
     function updateName(event: React.ChangeEvent<HTMLInputElement>) {
         setName(event.target.value);
     }
 
+    // State to keep track of the description in creator's upload mode textbox
     const [videoDescription, setDescription] = useState<string>("");
+    // Updates description state from upload mode textbox
     function updateDescription(event: React.ChangeEvent<HTMLInputElement>) {
         setDescription(event.target.value);
     }
 
+    // State to keep track of the url in creator's upload mode textbox
     const [videoImage, setVideoImage] = useState<string>(placeholderimage);
+    // Updates url state from upload mode textbox
     function updateImage(event: React.ChangeEvent<HTMLInputElement>) {
         setVideoImage(event.target.value);
     }
 
+    // State to keep track of the genre in creator's upload mode textbox
     const [videoGenre, setGenre] = useState<string>("");
+    // Updates genre state from upload mode textbox
     function updateGenre(event: React.ChangeEvent<HTMLInputElement>) {
         setGenre(event.target.value);
     }
 
+    // Updates creator's uploaded list when video attributes are changed
     function updateCreatorVideos(newVideo: Video) {
         const videoNames: string[] = currentCreator.createdVideos.map(
             (vid: Video) => vid.name
@@ -107,6 +135,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         }
     }
 
+    // Updates moderator's review list when video attributes are changed
     function updateModeratorVideos(newVideo: Video) {
         const videoNames: string[] = currentModerator.review_list.map(
             (vid: Video) => vid.name
@@ -125,15 +154,18 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         }
     }
 
+    // Current viewer data
     const selectedViewerData = allViewers.find(
         (viewer) => viewer.username === selectedViewer
     );
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // Current viewer watchlist is set to current viewer data
     const viewerWatchlist = selectedViewerData
         ? selectedViewerData.watchlist
         : [];
 
+    // React DnD implementation. Viewers can drag and drop videos from the central item list
+    // into their own watchlist.
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [{ isOver }, drop] = useDrop(
         () => ({
@@ -146,6 +178,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         [addVideoToWatchlist]
     );
 
+    // Deletes video from the central item list when moderator deeltes video from whole website
     function deleteVideoFromCentralList(vid: Video) {
         const newCentralList = allVideos.filter(
             (video: Video) => video.name !== vid.name
@@ -153,6 +186,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         setAllVideos(newCentralList);
     }
 
+    // Deletes video from the creators uploaded list. Used when moderator deletes video from whole website
     function deleteVideoFromCreatorList(vid: Video) {
         const newCreatorList = currentCreator.createdVideos.filter(
             (video: Video) => video.name !== vid.name
@@ -161,6 +195,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         setCurrentCreator(newCreator);
     }
 
+    // Deletes a video from the review list. Used when moderator deletes video from whole website
     function deleteFromReviewList(vid: Video) {
         const newList = currentModerator.review_list.filter(
             (video: Video) => video.name !== vid.name
@@ -169,13 +204,16 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         setCurrentModerator(newModerator);
     }
 
+    // Removes a reported video from the review list and removes its flagged status on all lists
     function approveVideo(vid: Video) {
         deleteFromReviewList(vid);
         updateCentralList({ ...vid, isReported: false });
         updateCreatorVideos({ ...vid, isReported: false });
-        updateWatchList({ ...vid, isReported: false });
     }
 
+    // Deletes a video from the current users watchlist when they click delete button (red X) in their watchlist,
+    // or the moderator removes it from the entire Website. "Specific" parameter is for whether or not
+    // it is removed by the moderator
     function deleteFromWatchList(
         vid: Video,
         index: number,
@@ -198,15 +236,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
             );
             setAllViewers(updatedViewers);
         } else {
-            /*
-            const newList = watchList.filter(
-                (video: Video, num: number) => num !== index
-            );
-            const updatedViewers = allViewers.map((viewer) => {
-                return { ...viewer, watchlist: newList };
-            });
-            setAllViewers(updatedViewers);
-            */
             const currentViewer = allViewers.filter((viewer: Viewer) => {
                 return viewer.username === name;
             });
@@ -225,11 +254,13 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         updatePrevWatchlist();
     }
 
+    // Adds a video to the central item list when its uploaded
     function addVideoToCentralList(video: Video) {
         const newVideos = [...allVideos, video];
         setAllVideos(newVideos);
     }
 
+    // Updates the central item list when video attributes are changed
     function updateCentralList(toEdit: Video) {
         const vidNames = allVideos.map((video: Video) => video.name);
         if (vidNames.includes(toEdit.name)) {
@@ -240,6 +271,9 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         }
     }
 
+    // Adds a video to the current user's watchlist. If the video was made by a user (not the default website videos)
+    // then the viewer appears in the creator's list, with repeats allowed so that the creator can see how many times
+    // their video has been added
     function addVideoToWatchlist(name: string) {
         const videoToAdd = allVideos.find(
             (video: Video) => name === video.name
@@ -256,57 +290,66 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                     return viewer;
                 })
             );
-            setWatchList((prevWatchlist) => [...prevWatchlist, videoToAdd]);
         }
         updatePrevWatchlist();
+        if (videoToAdd?.creator !== "Clipped") {
+            const selectedViewerObj = allViewers.find((viewer: Viewer) => {
+                return viewer.username === selectedViewer;
+            });
+
+            if (selectedViewerObj) {
+                const newViewers = [
+                    ...currentCreator.viewers,
+                    selectedViewerObj
+                ];
+
+                setCurrentCreator({
+                    ...currentCreator,
+                    viewers: newViewers
+                });
+            }
+        }
     }
 
-    function updateWatchList(toEdit: Video) {
-        setAllViewers((prevViewers) =>
-            prevViewers.map((viewer) => {
-                if (viewer.username === selectedViewer) {
-                    const newWatchlist = viewer.watchlist.map(
-                        (video: Video) => {
-                            return video.name === toEdit.name ? toEdit : video;
-                        }
-                    );
-                    return {
-                        ...viewer,
-                        watchlist: newWatchlist
-                    };
-                }
-                return viewer;
-            })
-        );
-
-        setWatchList((previous) =>
-            previous.map((video: Video) => {
-                return video.name === toEdit.name ? toEdit : video;
-            })
-        );
-    }
-
+    // State to keep track of watchlist filter type
     const [filteredWatchlist, setFilteredWatchlist] = useState<string>("");
+    // Filters videos in the user's watchlist by alphabetical order
     function filterWatchlistAlphabet() {
         setFilteredWatchlist("Name");
-        const sortedData = [...watchList].sort((vid1, vid2) => {
+        const sortedData = [...viewerWatchlist].sort((vid1, vid2) => {
             return vid1.name.localeCompare(vid2.name);
         });
-        setWatchList(sortedData);
+        setAllViewers(
+            allViewers.map((viewer: Viewer) =>
+                viewer.username === selectedViewer
+                    ? { ...viewer, watchlist: sortedData }
+                    : { ...viewer }
+            )
+        );
     }
 
+    // Filters videos in the user's watchlist by genre
     function filterWatchlistGenre() {
         if (filteredWatchlist != null) {
             setFilteredWatchlist("Genre");
-            const sortedData = [...watchList].sort((vid1, vid2) => {
+            const sortedData = [...viewerWatchlist].sort((vid1, vid2) => {
                 return vid1.genre === vid2.genre
                     ? vid1.name.localeCompare(vid2.name)
                     : vid1.genre.localeCompare(vid2.genre);
             });
-            setWatchList(sortedData);
+            setAllViewers(
+                allViewers.map((viewer: Viewer) =>
+                    viewer.username === selectedViewer
+                        ? { ...viewer, watchlist: sortedData }
+                        : { ...viewer }
+                )
+            );
         }
     }
+
+    // State to keep track of all other filter types
     const [filteredVideos, setFilteredVideos] = useState<string>("");
+    // Filters videos in the central item list, creator list, and review list by alphabetical order
     function filterAlphabet() {
         setFilteredVideos("Name");
         if (role === "viewer") {
@@ -337,6 +380,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         }
     }
 
+    // Filters videos in the central item list, creator list, and review list by genre
     function filterGenre() {
         if (filteredVideos != null) {
             setFilteredVideos("Genre");
@@ -375,6 +419,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         }
     }
 
+    // Empties the current users watchlist
     function clearWatchlist(name: string) {
         setAllViewers(
             allViewers.map((viewer: Viewer) =>
@@ -386,11 +431,14 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         updatePrevWatchlist();
     }
 
+    // State to keep track of previous user watchlists for undo button
     const [prevWatchlist, setPrevWatchlist] = useState<Viewer[]>([
         { username: "Dan", watchlist: [] },
         { username: "Jess", watchlist: [] },
         { username: "James", watchlist: [] }
     ]);
+
+    // Updates state as current watchlists are changed, stays one step behind
     function updatePrevWatchlist() {
         const newWatchlist = [...viewerWatchlist];
         setPrevWatchlist(
@@ -401,6 +449,8 @@ function DragDrop({ role }: { role: string }): JSX.Element {
             )
         );
     }
+
+    // For undo button, only reverts once. Can be adjusted with a stack in the future
     function revertWatchlist() {
         const previousList = prevWatchlist.filter((viewer: Viewer) => {
             return viewer.username === selectedViewer;
@@ -414,10 +464,15 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         );
     }
 
+    // State for search bar textbox
     const [currentSearch, setCurrentSearch] = useState<string>("");
+    // updates the value that is being entered in the search bar
     function updateCurrentSearch(event: React.ChangeEvent<HTMLInputElement>) {
         setCurrentSearch(event.target.value);
     }
+
+    // Searches the watchlist for a video based on if the string entered is in the title or description
+    // Case-sensitive and must be entered exactly
     function searchWatchlist(search: string, type: string) {
         if (type === "description") {
             const newWatchlist = viewerWatchlist.filter((video: Video) =>
@@ -445,21 +500,31 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         updatePrevWatchlist();
     }
 
+    // State for new viewer textbox
     const [newViewerName, setNewViewerName] = useState<string>("");
+
+    // Allow creators to add a new user to the website
     function addViewer() {
         const newViewer = { username: newViewerName, watchlist: [] };
         setAllViewers((prevViewers) => [...prevViewers, newViewer]);
         setSelectedViewer(newViewerName);
         setNewViewerName("");
+        const newUsers = [...users, newViewerName];
+        setUsers(newUsers);
     }
 
+    // Update new user value
     function handleNewViewer(event: React.ChangeEvent<HTMLInputElement>) {
         setNewViewerName(event.target.value);
     }
 
+    // Allow creators to delete a viewer from the website
     function deleteViewer(username: string) {
         setAllViewers((prevViewers) =>
             prevViewers.filter((viewer) => viewer.username !== username)
+        );
+        setUsers((prevUsers) =>
+            prevUsers.filter((user: string) => user !== username)
         );
     }
 
@@ -487,6 +552,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                             </Button>
                         </span>
                         <Row>
+                            {/** Central item list */}
                             <Col style={{ columnCount: 3 }}>
                                 {allVideos.map(
                                     (video: Video, index: number) => {
@@ -496,7 +562,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 style={{ breakInside: "avoid" }}
                                             >
                                                 <VideoComponent
-                                                    key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}-${video.commentList}`}
+                                                    key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}-${video.commentList}-${currentCreator.viewers}`}
                                                     name={video.name}
                                                     description={
                                                         video.description
@@ -530,9 +596,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                     updateCreatorList={
                                                         updateCreatorVideos
                                                     }
-                                                    updateWatchList={
-                                                        updateWatchList
-                                                    }
                                                     deleteCentralVid={
                                                         deleteVideoFromCentralList
                                                     }
@@ -551,6 +614,9 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                     dropdown={false}
                                                     currentViewer={
                                                         selectedViewer
+                                                    }
+                                                    viewers={
+                                                        currentCreator.viewers
                                                     }
                                                 ></VideoComponent>
                                             </ul>
@@ -574,6 +640,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                     }}
                                 >
                                     <div>
+                                        {/** Prompt users to select a valid username in order to act (one is defaulted) */}
                                         <Form.Group controlId="currentViewer">
                                             <Form.Label>
                                                 <small>
@@ -666,12 +733,13 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                         Clear Watchlist
                                     </Button>
                                 </div>
+                                {/** User watchlist */}
                                 {viewerWatchlist.map(
                                     (video: Video, index: number) => {
                                         return (
                                             <div key={video.name}>
                                                 <VideoComponent
-                                                    key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}`}
+                                                    key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}-${currentCreator.viewers}`}
                                                     name={video.name}
                                                     description={
                                                         video.description
@@ -705,9 +773,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                     updateCreatorList={
                                                         updateCreatorVideos
                                                     }
-                                                    updateWatchList={
-                                                        updateWatchList
-                                                    }
                                                     deleteCentralVid={
                                                         deleteVideoFromCentralList
                                                     }
@@ -727,6 +792,9 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                     currentViewer={
                                                         selectedViewer
                                                     }
+                                                    viewers={
+                                                        currentCreator.viewers
+                                                    }
                                                 ></VideoComponent>
                                             </div>
                                         );
@@ -739,6 +807,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
             </div>
             <div hidden={role !== "moderator"} data-testid="moderator list">
                 <div className="moderatorList">
+                    {/** Moderators can review videos that show up in their list when reported  */}
                     <Row>
                         <Col style={{ columnCount: 1 }}>
                             <div
@@ -762,6 +831,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                         .map((name: string) => ` ${name}`)
                                         .join(", ")}
                                 </p>
+                                {/** Prompt users to enter a valid username */}
                                 <Form.Group>
                                     <Form.Label>Username:</Form.Label>
                                     <Form.Control
@@ -796,7 +866,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                     (video: Video, index: number) => {
                                         return (
                                             <VideoComponent
-                                                key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}-${video.commentList}`}
+                                                key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}-${video.commentList}-${currentCreator.viewers}`}
                                                 name={video.name}
                                                 description={video.description}
                                                 genre={video.genre}
@@ -822,9 +892,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 updateCreatorList={
                                                     updateCreatorVideos
                                                 }
-                                                updateWatchList={
-                                                    updateWatchList
-                                                }
                                                 deleteCentralVid={
                                                     deleteVideoFromCentralList
                                                 }
@@ -842,6 +909,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 role={role}
                                                 dropdown={false}
                                                 currentViewer={selectedViewer}
+                                                viewers={currentCreator.viewers}
                                             ></VideoComponent>
                                         );
                                     }
@@ -849,6 +917,66 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                             </div>
                         </Col>
                     </Row>
+                </div>
+                <span style={{ marginLeft: "50px" }}>
+                    <Button onClick={filterAlphabet}>Filter A-Z</Button>
+                    <Button onClick={filterGenre}>Filter by Genre</Button>
+                </span>
+                {/** Central item list */}
+                <div>
+                    <div
+                        style={{
+                            fontWeight: "bold",
+                            fontSize: "xx-large"
+                        }}
+                    >
+                        Videos:
+                    </div>
+                    <Col style={{ columnCount: 3, marginRight: "50px" }}>
+                        {allVideos.map((video: Video, index: number) => {
+                            return (
+                                <ul
+                                    key={video.name}
+                                    style={{ breakInside: "avoid" }}
+                                >
+                                    <VideoComponent
+                                        key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}-${video.commentList}-${currentCreator.viewers}`}
+                                        name={video.name}
+                                        description={video.description}
+                                        genre={video.genre}
+                                        recommended={video.recommended}
+                                        isReported={video.isReported}
+                                        thumbnail={video.thumbnail}
+                                        wantRecommended={video.wantRecommended}
+                                        likes={video.likes}
+                                        creator={video.creator}
+                                        commentList={video.commentList}
+                                        inWatchlist={false}
+                                        wantToComment={video.wantToComment}
+                                        updateCentralList={updateCentralList}
+                                        updateModeratorList={
+                                            updateModeratorVideos
+                                        }
+                                        updateCreatorList={updateCreatorVideos}
+                                        deleteCentralVid={
+                                            deleteVideoFromCentralList
+                                        }
+                                        deleteCreatorVid={
+                                            deleteVideoFromCreatorList
+                                        }
+                                        deleteReviewVid={deleteFromReviewList}
+                                        deleteWatchVid={deleteFromWatchList}
+                                        approveVid={approveVideo}
+                                        index={index}
+                                        role={role}
+                                        dropdown={false}
+                                        currentViewer={selectedViewer}
+                                        viewers={currentCreator.viewers}
+                                    ></VideoComponent>
+                                </ul>
+                            );
+                        })}
+                    </Col>
                 </div>
             </div>
             <div hidden={role !== "creator"} data-testid="creator list">
@@ -872,6 +1000,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                         Select username:{" "}
                         {users.map((name: string) => ` ${name}`).join(", ")}
                     </p>
+                    {/** Users must enter a valid username in order to upload/edit videos */}
                     <Form.Group>
                         <Form.Label>Username:</Form.Label>
                         <Form.Control
@@ -888,13 +1017,14 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                             {"!"}
                         </Form.Label>
                     </Form.Group>
+                    {/** Creator's uploaded video list */}
                     <Row>
                         <Col>
                             {currentCreator.createdVideos.map(
                                 (video: Video, index: number) => {
                                     return (
                                         <VideoComponent
-                                            key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}-${video.commentList}`}
+                                            key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}-${video.commentList}-${currentCreator.viewers}`}
                                             name={video.name}
                                             description={video.description}
                                             genre={video.genre}
@@ -918,7 +1048,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                             updateCreatorList={
                                                 updateCreatorVideos
                                             }
-                                            updateWatchList={updateWatchList}
                                             deleteCentralVid={
                                                 deleteVideoFromCentralList
                                             }
@@ -934,12 +1063,14 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                             role={role}
                                             dropdown={false}
                                             currentViewer={selectedViewer}
+                                            viewers={currentCreator.viewers}
                                             data-testid="creator-list"
                                         ></VideoComponent>
                                     );
                                 }
                             )}
                         </Col>
+                        {/** Creators can upload their own videos */}
                         <Col>
                             <Form.Switch
                                 type="switch"
@@ -1058,6 +1189,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                 <span>{""}</span>
                             )}
                         </Col>
+                        {/** Creators can add/delete users from the website */}
                         <div>
                             {" "}
                             <Col>
@@ -1108,6 +1240,63 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                             </Col>
                         </div>
                     </Row>
+                </div>
+                {/** Central item list */}
+                <div>
+                    {" "}
+                    <div
+                        style={{
+                            fontWeight: "bold",
+                            fontSize: "xx-large"
+                        }}
+                    >
+                        Videos:
+                    </div>
+                    <Col style={{ columnCount: 3, marginRight: "50px" }}>
+                        {allVideos.map((video: Video, index: number) => {
+                            return (
+                                <ul
+                                    key={video.name}
+                                    style={{ breakInside: "avoid" }}
+                                >
+                                    <VideoComponent
+                                        key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}-${video.commentList}-${currentCreator.viewers}`}
+                                        name={video.name}
+                                        description={video.description}
+                                        genre={video.genre}
+                                        recommended={video.recommended}
+                                        isReported={video.isReported}
+                                        thumbnail={video.thumbnail}
+                                        wantRecommended={video.wantRecommended}
+                                        likes={video.likes}
+                                        creator={video.creator}
+                                        commentList={video.commentList}
+                                        inWatchlist={false}
+                                        wantToComment={video.wantToComment}
+                                        updateCentralList={updateCentralList}
+                                        updateModeratorList={
+                                            updateModeratorVideos
+                                        }
+                                        updateCreatorList={updateCreatorVideos}
+                                        deleteCentralVid={
+                                            deleteVideoFromCentralList
+                                        }
+                                        deleteCreatorVid={
+                                            deleteVideoFromCreatorList
+                                        }
+                                        deleteReviewVid={deleteFromReviewList}
+                                        deleteWatchVid={deleteFromWatchList}
+                                        approveVid={approveVideo}
+                                        index={index}
+                                        role={role}
+                                        dropdown={false}
+                                        currentViewer={selectedViewer}
+                                        viewers={currentCreator.viewers}
+                                    ></VideoComponent>
+                                </ul>
+                            );
+                        })}
+                    </Col>
                 </div>
             </div>
         </>
