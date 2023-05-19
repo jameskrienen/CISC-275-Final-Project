@@ -12,6 +12,7 @@ import { Moderator } from "../interfaces/ModeratorInterface";
 import placeholderimage from "../placeholder.jpeg";
 
 function DragDrop({ role }: { role: string }): JSX.Element {
+    //
     const users = ["Dan", "Jess", "James"];
     const [currentModerator, setCurrentModerator] = useState<Moderator>({
         review_list: [],
