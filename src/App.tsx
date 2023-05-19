@@ -55,14 +55,23 @@ function App(): JSX.Element {
                                 onChange={updateRole}
                                 data-testid="role-selector"
                             >
-                                <option value="viewer">Viewer</option>
-                                <option value="creator">Creator</option>
-                                <option value="moderator">Moderator</option>
+                                <option value="viewer" data-testid="viewer">
+                                    Viewer
+                                </option>
+                                <option value="creator" data-testid="creator">
+                                    Creator
+                                </option>
+                                <option
+                                    value="moderator"
+                                    data-testid="moderator"
+                                >
+                                    Moderator
+                                </option>
                             </Form.Select>
                         </Form.Group>
                     </span>
                 </div>
-                <div className="lists">
+                <div className="lists" data-testid="drag-n-drop">
                     <DragDrop role={role} />
                 </div>
             </div>

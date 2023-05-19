@@ -142,7 +142,7 @@ function VideoComponent({
     return (
         <>
             <div
-                data-testId="video-component"
+                data-testid="video-component"
                 ref={drag}
                 style={{
                     border: isDragging ? "5px solid black" : "0px",

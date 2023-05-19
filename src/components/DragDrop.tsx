@@ -391,16 +391,14 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         { username: "James", watchlist: [] }
     ]);
     function updatePrevWatchlist() {
-        if (viewerWatchlist.length != prevWatchlist.length) {
-            const newWatchlist = [...viewerWatchlist];
-            setPrevWatchlist(
-                prevWatchlist.map((viewer: Viewer) =>
-                    viewer.username === selectedViewer
-                        ? { ...viewer, watchlist: newWatchlist }
-                        : { ...viewer }
-                )
-            );
-        }
+        const newWatchlist = [...viewerWatchlist];
+        setPrevWatchlist(
+            prevWatchlist.map((viewer: Viewer) =>
+                viewer.username === selectedViewer
+                    ? { ...viewer, watchlist: newWatchlist }
+                    : { ...viewer }
+            )
+        );
     }
     function revertWatchlist() {
         const previousList = prevWatchlist.filter((viewer: Viewer) => {
