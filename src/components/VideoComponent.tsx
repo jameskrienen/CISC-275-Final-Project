@@ -20,7 +20,6 @@ function VideoComponent({
     updateCentralList,
     updateModeratorList,
     updateCreatorList,
-    updateWatchList,
     deleteCentralVid,
     deleteCreatorVid,
     deleteReviewVid,
@@ -46,7 +45,6 @@ function VideoComponent({
     updateCentralList: (vid: Video) => void;
     updateModeratorList: (vid: Video) => void;
     updateCreatorList: (vid: Video) => void;
-    updateWatchList: (vid: Video) => void;
     deleteCentralVid: (vid: Video) => void;
     deleteCreatorVid: (vid: Video) => void;
     deleteReviewVid: (vid: Video) => void;
@@ -77,6 +75,10 @@ function VideoComponent({
         dropdown
     });
 
+    const [editMode, setEditMode] = useState<boolean>(false);
+    function updateEditMode(event: React.ChangeEvent<HTMLInputElement>) {
+        setEditMode(event.target.checked);
+    }
     function deleteFromSite(vid: Video) {
         deleteCentralVid(vid);
         deleteCreatorVid(vid);
@@ -94,7 +96,6 @@ function VideoComponent({
         setVideo(newVideo);
         updateCentralList(newVideo);
         updateModeratorList(newVideo);
-        updateWatchList(newVideo);
         updateCreatorList(newVideo);
     }
     function update() {
@@ -106,7 +107,6 @@ function VideoComponent({
         setVideo(newVideo);
         updateCentralList(newVideo);
         updateModeratorList(newVideo);
-        updateWatchList(newVideo);
         updateCreatorList(newVideo);
     }
 
@@ -136,7 +136,23 @@ function VideoComponent({
         updateCentralList(newVideo);
         updateModeratorList(newVideo);
         updateCreatorList(newVideo);
-        updateWatchList(newVideo);
+    }
+
+    const [currentTitle, setCurrentTitle] = useState<string>("");
+    const [currentGenre, setCurrentGenre] = useState<string>("");
+    function updateCurrentTitle(event: React.ChangeEvent<HTMLInputElement>) {
+        setCurrentTitle(event.target.value);
+    }
+    function updateWatchlistTitle() {
+        const newVideo = { ...video, name: currentTitle };
+        setVideo(newVideo);
+    }
+    function updateCurrentGenre(event: React.ChangeEvent<HTMLInputElement>) {
+        setCurrentGenre(event.target.value);
+    }
+    function updateWatchlistGenre() {
+        const newVideo = { ...video, genre: currentGenre };
+        setVideo(newVideo);
     }
 
     return (
@@ -265,6 +281,35 @@ function VideoComponent({
                         >
                             ❌
                         </Button>
+                        <Form.Switch
+                            type="switch"
+                            id="edit-mode-check"
+                            label="Enter Edit Mode"
+                            checked={editMode}
+                            onChange={updateEditMode}
+                        />
+                        <div hidden={!editMode}>
+                            <span>
+                                <Form.Label>New Title in your List:</Form.Label>
+                                <Form.Control
+                                    value={currentTitle}
+                                    onChange={updateCurrentTitle}
+                                ></Form.Control>
+                                <Button onClick={updateWatchlistTitle}>
+                                    Change Title
+                                </Button>
+                            </span>
+                            <span>
+                                <Form.Label>New Genre in your List:</Form.Label>
+                                <Form.Control
+                                    value={currentGenre}
+                                    onChange={updateCurrentGenre}
+                                ></Form.Control>
+                                <Button onClick={updateWatchlistGenre}>
+                                    Change Genre
+                                </Button>
+                            </span>
+                        </div>
                     </span>
                 </div>
             </div>

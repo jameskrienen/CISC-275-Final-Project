@@ -34,7 +34,13 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         );
 
         if (selectedViewerData) {
-            setWatchList(selectedViewerData.watchlist);
+            setAllViewers(
+                allViewers.map((viewer: Viewer) =>
+                    viewer.username === selectedViewer
+                        ? { ...viewer, watchlist: selectedViewerData.watchlist }
+                        : { ...viewer }
+                )
+            );
         }
     }
     function updateModerator(event: React.ChangeEvent<HTMLInputElement>) {
@@ -58,7 +64,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
     }
 
     const [allVideos, setAllVideos] = useState<Video[]>(VIDEOS);
-    const [watchList, setWatchList] = useState<Video[]>([]);
     const [uploadMode, setUploadMode] = useState<boolean>(false);
     function updateMode(event: React.ChangeEvent<HTMLInputElement>) {
         setUploadMode(event.target.checked);
@@ -128,7 +133,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         (viewer) => viewer.username === selectedViewer
     );
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const viewerWatchlist = selectedViewerData
         ? selectedViewerData.watchlist
         : [];
@@ -172,7 +176,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         deleteFromReviewList(vid);
         updateCentralList({ ...vid, isReported: false });
         updateCreatorVideos({ ...vid, isReported: false });
-        updateWatchList({ ...vid, isReported: false });
     }
 
     function deleteFromWatchList(
@@ -197,15 +200,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
             );
             setAllViewers(updatedViewers);
         } else {
-            /*
-            const newList = watchList.filter(
-                (video: Video, num: number) => num !== index
-            );
-            const updatedViewers = allViewers.map((viewer) => {
-                return { ...viewer, watchlist: newList };
-            });
-            setAllViewers(updatedViewers);
-            */
             const currentViewer = allViewers.filter((viewer: Viewer) => {
                 return viewer.username === name;
             });
@@ -255,54 +249,40 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                     return viewer;
                 })
             );
-            setWatchList((prevWatchlist) => [...prevWatchlist, videoToAdd]);
         }
         updatePrevWatchlist();
-    }
-
-    function updateWatchList(toEdit: Video) {
-        setAllViewers((prevViewers) =>
-            prevViewers.map((viewer) => {
-                if (viewer.username === selectedViewer) {
-                    const newWatchlist = viewer.watchlist.map(
-                        (video: Video) => {
-                            return video.name === toEdit.name ? toEdit : video;
-                        }
-                    );
-                    return {
-                        ...viewer,
-                        watchlist: newWatchlist
-                    };
-                }
-                return viewer;
-            })
-        );
-
-        setWatchList((previous) =>
-            previous.map((video: Video) => {
-                return video.name === toEdit.name ? toEdit : video;
-            })
-        );
     }
 
     const [filteredWatchlist, setFilteredWatchlist] = useState<string>("");
     function filterWatchlistAlphabet() {
         setFilteredWatchlist("Name");
-        const sortedData = [...watchList].sort((vid1, vid2) => {
+        const sortedData = [...viewerWatchlist].sort((vid1, vid2) => {
             return vid1.name.localeCompare(vid2.name);
         });
-        setWatchList(sortedData);
+        setAllViewers(
+            allViewers.map((viewer: Viewer) =>
+                viewer.username === selectedViewer
+                    ? { ...viewer, watchlist: sortedData }
+                    : { ...viewer }
+            )
+        );
     }
 
     function filterWatchlistGenre() {
         if (filteredWatchlist != null) {
             setFilteredWatchlist("Genre");
-            const sortedData = [...watchList].sort((vid1, vid2) => {
+            const sortedData = [...viewerWatchlist].sort((vid1, vid2) => {
                 return vid1.genre === vid2.genre
                     ? vid1.name.localeCompare(vid2.name)
                     : vid1.genre.localeCompare(vid2.genre);
             });
-            setWatchList(sortedData);
+            setAllViewers(
+                allViewers.map((viewer: Viewer) =>
+                    viewer.username === selectedViewer
+                        ? { ...viewer, watchlist: sortedData }
+                        : { ...viewer }
+                )
+            );
         }
     }
     const [filteredVideos, setFilteredVideos] = useState<string>("");
@@ -529,9 +509,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                     updateCreatorList={
                                                         updateCreatorVideos
                                                     }
-                                                    updateWatchList={
-                                                        updateWatchList
-                                                    }
                                                     deleteCentralVid={
                                                         deleteVideoFromCentralList
                                                     }
@@ -704,9 +681,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                     updateCreatorList={
                                                         updateCreatorVideos
                                                     }
-                                                    updateWatchList={
-                                                        updateWatchList
-                                                    }
                                                     deleteCentralVid={
                                                         deleteVideoFromCentralList
                                                     }
@@ -821,9 +795,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 updateCreatorList={
                                                     updateCreatorVideos
                                                 }
-                                                updateWatchList={
-                                                    updateWatchList
-                                                }
                                                 deleteCentralVid={
                                                     deleteVideoFromCentralList
                                                 }
@@ -917,7 +888,6 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                             updateCreatorList={
                                                 updateCreatorVideos
                                             }
-                                            updateWatchList={updateWatchList}
                                             deleteCentralVid={
                                                 deleteVideoFromCentralList
                                             }
