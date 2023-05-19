@@ -3,7 +3,6 @@ import { Button, Form } from "react-bootstrap";
 import { useDrag } from "react-dnd";
 import { Video } from "../interfaces/VideoInterface";
 import { Viewer } from "../interfaces/ViewerInterface";
-//import { Viewer } from "../interfaces/ViewerInterface";
 
 function VideoComponent({
     name,
@@ -63,6 +62,7 @@ function VideoComponent({
     currentViewer: string;
     viewers: Viewer[];
 }) {
+    // State to keep track of all current video attributes
     const [video, setVideo] = useState<Video>({
         name,
         description,
@@ -78,10 +78,14 @@ function VideoComponent({
         dropdown
     });
 
+    // State to keep track of if the user is editing in their watchlist
     const [editMode, setEditMode] = useState<boolean>(false);
+    // Updates state of edit mode
     function updateEditMode(event: React.ChangeEvent<HTMLInputElement>) {
         setEditMode(event.target.checked);
     }
+
+    // Deletes the video from all lists on the website
     function deleteFromSite(vid: Video) {
         deleteCentralVid(vid);
         deleteCreatorVid(vid);
@@ -89,11 +93,13 @@ function VideoComponent({
         deleteWatchVid(vid, index, false, currentViewer);
     }
 
+    // Updates visibility of description in current list when changed
     function updateDropdown() {
         const newVideo = { ...video, dropdown: !video.dropdown };
         setVideo(newVideo);
     }
 
+    // Updates the likes on a video in all lists when changed
     function updateLikes() {
         const newVideo = { ...video, likes: video.likes + 1 };
         setVideo(newVideo);
@@ -101,10 +107,14 @@ function VideoComponent({
         updateModeratorList(newVideo);
         updateCreatorList(newVideo);
     }
+
+    // Updates the visibility of recommended tab on video in all watchlist when changed
     function update() {
         const newVideo = { ...video, wantRecommended: !video.wantRecommended };
         setVideo(newVideo);
     }
+
+    // Updates the reported state on video in all lists when changed
     function updateReported() {
         const newVideo = { ...video, isReported: !video.isReported };
         setVideo(newVideo);
@@ -113,6 +123,7 @@ function VideoComponent({
         updateCreatorList(newVideo);
     }
 
+    // All videos can be dragged. They can be dropped into user watchlists
     const [{ isDragging }, drag] = useDrag(() => ({
         type: "VIDEO",
         item: { name: video.name },
@@ -121,15 +132,21 @@ function VideoComponent({
         })
     }));
 
+    // State to keep track of if the textbox is shown or not
     const [textbox, setTextBox] = useState<boolean>(false);
+    // Flips visibility of textbox
     function showTextBox() {
         setTextBox(!textbox);
     }
+
+    // State to keep track of comment in textbox
     const [comments, setComments] = useState<string>("");
+    // Updates state of comments
     function updateComments(event: React.ChangeEvent<HTMLInputElement>) {
         setComments(event.target.value);
     }
 
+    // Updates comments on each video in all lists
     function updateCommentsOnLists() {
         const newVideo = {
             ...video,
@@ -141,18 +158,25 @@ function VideoComponent({
         updateCreatorList(newVideo);
     }
 
+    // State to keep track of genre and title in textbox
     const [currentTitle, setCurrentTitle] = useState<string>("");
     const [currentGenre, setCurrentGenre] = useState<string>("");
+
+    // Update edited title in textbox
     function updateCurrentTitle(event: React.ChangeEvent<HTMLInputElement>) {
         setCurrentTitle(event.target.value);
     }
+    // Update edited title in watchlist
     function updateWatchlistTitle() {
         const newVideo = { ...video, name: currentTitle };
         setVideo(newVideo);
     }
+
+    // Update edited genre in textbox
     function updateCurrentGenre(event: React.ChangeEvent<HTMLInputElement>) {
         setCurrentGenre(event.target.value);
     }
+    // Update edited genre in watchlist
     function updateWatchlistGenre() {
         const newVideo = { ...video, genre: currentGenre };
         setVideo(newVideo);
