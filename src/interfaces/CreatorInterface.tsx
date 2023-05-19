@@ -8,5 +8,6 @@ export interface Creator {
     createdVideos: Video[];
     // List of videos that have been flagged from the created_videos list
     flaggedVideos: Video[];
+    viewers: Viewer[];
     blockedUsers: Viewer[];
 }

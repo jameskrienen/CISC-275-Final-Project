@@ -47,6 +47,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         username: "",
         createdVideos: [],
         flaggedVideos: [],
+        viewers: [],
         blockedUsers: []
     });
 
