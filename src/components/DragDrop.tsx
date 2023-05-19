@@ -53,6 +53,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         username: "",
         createdVideos: [],
         flaggedVideos: [],
+        viewers: [],
         blockedUsers: []
     });
 
@@ -251,6 +252,23 @@ function DragDrop({ role }: { role: string }): JSX.Element {
             );
         }
         updatePrevWatchlist();
+        if (videoToAdd?.creator !== "Clipped") {
+            const selectedViewerObj = allViewers.find((viewer: Viewer) => {
+                return viewer.username === selectedViewer;
+            });
+
+            if (selectedViewerObj) {
+                const newViewers = [
+                    ...currentCreator.viewers,
+                    selectedViewerObj
+                ];
+
+                setCurrentCreator({
+                    ...currentCreator,
+                    viewers: newViewers
+                });
+            }
+        }
     }
 
     const [filteredWatchlist, setFilteredWatchlist] = useState<string>("");
@@ -475,7 +493,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 style={{ breakInside: "avoid" }}
                                             >
                                                 <VideoComponent
-                                                    key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}-${video.commentList}`}
+                                                    key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}-${video.commentList}-${currentCreator.viewers}`}
                                                     name={video.name}
                                                     description={
                                                         video.description
@@ -527,6 +545,9 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                     dropdown={false}
                                                     currentViewer={
                                                         selectedViewer
+                                                    }
+                                                    viewers={
+                                                        currentCreator.viewers
                                                     }
                                                 ></VideoComponent>
                                             </ul>
@@ -647,7 +668,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                         return (
                                             <div key={video.name}>
                                                 <VideoComponent
-                                                    key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}`}
+                                                    key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}-${currentCreator.viewers}`}
                                                     name={video.name}
                                                     description={
                                                         video.description
@@ -699,6 +720,9 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                     dropdown={false}
                                                     currentViewer={
                                                         selectedViewer
+                                                    }
+                                                    viewers={
+                                                        currentCreator.viewers
                                                     }
                                                 ></VideoComponent>
                                             </div>
@@ -769,7 +793,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                     (video: Video, index: number) => {
                                         return (
                                             <VideoComponent
-                                                key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}-${video.commentList}`}
+                                                key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}-${video.commentList}-${currentCreator.viewers}`}
                                                 name={video.name}
                                                 description={video.description}
                                                 genre={video.genre}
@@ -812,6 +836,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 role={role}
                                                 dropdown={false}
                                                 currentViewer={selectedViewer}
+                                                viewers={currentCreator.viewers}
                                             ></VideoComponent>
                                         );
                                     }
@@ -864,7 +889,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                 (video: Video, index: number) => {
                                     return (
                                         <VideoComponent
-                                            key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}-${video.commentList}`}
+                                            key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}-${video.commentList}-${currentCreator.viewers}`}
                                             name={video.name}
                                             description={video.description}
                                             genre={video.genre}
@@ -903,6 +928,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                             role={role}
                                             dropdown={false}
                                             currentViewer={selectedViewer}
+                                            viewers={currentCreator.viewers}
                                             data-testid="creator-list"
                                         ></VideoComponent>
                                     );

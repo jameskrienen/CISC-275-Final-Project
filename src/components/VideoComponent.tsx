@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useDrag } from "react-dnd";
 import { Video } from "../interfaces/VideoInterface";
+import { Viewer } from "../interfaces/ViewerInterface";
 //import { Viewer } from "../interfaces/ViewerInterface";
 
 function VideoComponent({
@@ -28,7 +29,8 @@ function VideoComponent({
     index,
     role,
     dropdown,
-    currentViewer
+    currentViewer,
+    viewers
 }: {
     name: string;
     description: string;
@@ -59,6 +61,7 @@ function VideoComponent({
     role: string;
     dropdown: boolean;
     currentViewer: string;
+    viewers: Viewer[];
 }) {
     const [video, setVideo] = useState<Video>({
         name,
@@ -264,6 +267,14 @@ function VideoComponent({
                         >
                             Reviewed✔️
                         </Button>
+                    </span>
+                    <span hidden={role !== "creator"}>
+                        <div>
+                            Viewers:
+                            {viewers.map((viewer: Viewer) => (
+                                <ul key={viewer.username}>{viewer.username}</ul>
+                            ))}
+                        </div>
                     </span>
                     <span hidden={!inWatchlist}>
                         <Button
