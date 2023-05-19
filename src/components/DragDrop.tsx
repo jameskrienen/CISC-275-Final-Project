@@ -12,9 +12,11 @@ import { Moderator } from "../interfaces/ModeratorInterface";
 import placeholderimage from "../placeholder.jpeg";
 
 function DragDrop({ role }: { role: string }): JSX.Element {
-    // State to keep track of possible usernames
-    const [users, setUsers] = useState<string[]>(["Dan", "Jess", "James"]);
-    // State to keep track of the viewers and their watchlists when added or updated
+    const users = ["Dan", "Jess", "James"];
+    const [currentModerator, setCurrentModerator] = useState<Moderator>({
+        review_list: [],
+        username: ""
+    });
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [allViewers, setAllViewers] = useState<Viewer[]>([
         { username: "Dan", watchlist: [] },
