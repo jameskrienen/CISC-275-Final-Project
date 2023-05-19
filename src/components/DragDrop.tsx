@@ -12,7 +12,7 @@ import { Moderator } from "../interfaces/ModeratorInterface";
 import placeholderimage from "../placeholder.jpeg";
 //
 function DragDrop({ role }: { role: string }): JSX.Element {
-    const users = ["Dan", "Jess", "James"];
+    const [users, setUsers] = useState<string[]>(["Dan", "Jess", "James"]);
     const [currentModerator, setCurrentModerator] = useState<Moderator>({
         review_list: [],
         username: ""
@@ -47,6 +47,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         username: "",
         createdVideos: [],
         flaggedVideos: [],
+        viewers: [],
         blockedUsers: []
     });
 
@@ -255,9 +256,25 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                     return viewer;
                 })
             );
-            setWatchList((prevWatchlist) => [...prevWatchlist, videoToAdd]);
         }
         updatePrevWatchlist();
+        if (videoToAdd?.creator !== "Clipped") {
+            const selectedViewerObj = allViewers.find((viewer: Viewer) => {
+                return viewer.username === selectedViewer;
+            });
+
+            if (selectedViewerObj) {
+                const newViewers = [
+                    ...currentCreator.viewers,
+                    selectedViewerObj
+                ];
+
+                setCurrentCreator({
+                    ...currentCreator,
+                    viewers: newViewers
+                });
+            }
+        }
     }
 
     function updateWatchList(toEdit: Video) {
@@ -450,6 +467,8 @@ function DragDrop({ role }: { role: string }): JSX.Element {
         setAllViewers((prevViewers) => [...prevViewers, newViewer]);
         setSelectedViewer(newViewerName);
         setNewViewerName("");
+        const newUsers = [...users, newViewerName];
+        setUsers(newUsers);
     }
 
     function handleNewViewer(event: React.ChangeEvent<HTMLInputElement>) {
@@ -459,6 +478,9 @@ function DragDrop({ role }: { role: string }): JSX.Element {
     function deleteViewer(username: string) {
         setAllViewers((prevViewers) =>
             prevViewers.filter((viewer) => viewer.username !== username)
+        );
+        setUsers((prevUsers) =>
+            prevUsers.filter((user: string) => user !== username)
         );
     }
 
@@ -550,6 +572,9 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                     dropdown={false}
                                                     currentViewer={
                                                         selectedViewer
+                                                    }
+                                                    viewers={
+                                                        currentCreator.viewers
                                                     }
                                                 ></VideoComponent>
                                             </ul>
@@ -726,6 +751,9 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                     currentViewer={
                                                         selectedViewer
                                                     }
+                                                    viewers={
+                                                        currentCreator.viewers
+                                                    }
                                                 ></VideoComponent>
                                             </div>
                                         );
@@ -743,8 +771,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                             <div
                                 style={{
                                     fontWeight: "bold",
-                                    fontSize: "xx-large",
-                                    marginRight: "1000px"
+                                    fontSize: "xx-large"
                                 }}
                             >
                                 Review List
@@ -841,11 +868,71 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                                 role={role}
                                                 dropdown={false}
                                                 currentViewer={selectedViewer}
+                                                viewers={currentCreator.viewers}
                                             ></VideoComponent>
                                         );
                                     }
                                 )}
                             </div>
+                        </Col>
+                        <div
+                            style={{ fontWeight: "bold", fontSize: "xx-large" }}
+                        >
+                            All Videos:
+                        </div>
+                        <Col style={{ columnCount: 3, marginRight: "50px" }}>
+                            {allVideos.map((video: Video, index: number) => {
+                                return (
+                                    <ul
+                                        key={video.name}
+                                        style={{ breakInside: "avoid" }}
+                                    >
+                                        <VideoComponent
+                                            key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}-${video.commentList}`}
+                                            name={video.name}
+                                            description={video.description}
+                                            genre={video.genre}
+                                            recommended={video.recommended}
+                                            isReported={video.isReported}
+                                            thumbnail={video.thumbnail}
+                                            wantRecommended={
+                                                video.wantRecommended
+                                            }
+                                            likes={video.likes}
+                                            creator={video.creator}
+                                            commentList={video.commentList}
+                                            inWatchlist={false}
+                                            wantToComment={video.wantToComment}
+                                            updateCentralList={
+                                                updateCentralList
+                                            }
+                                            updateModeratorList={
+                                                updateModeratorVideos
+                                            }
+                                            updateCreatorList={
+                                                updateCreatorVideos
+                                            }
+                                            updateWatchList={updateWatchList}
+                                            deleteCentralVid={
+                                                deleteVideoFromCentralList
+                                            }
+                                            deleteCreatorVid={
+                                                deleteVideoFromCreatorList
+                                            }
+                                            deleteReviewVid={
+                                                deleteFromReviewList
+                                            }
+                                            deleteWatchVid={deleteFromWatchList}
+                                            approveVid={approveVideo}
+                                            index={index}
+                                            role={role}
+                                            dropdown={false}
+                                            currentViewer={selectedViewer}
+                                            viewers={currentCreator.viewers}
+                                        ></VideoComponent>
+                                    </ul>
+                                );
+                            })}
                         </Col>
                     </Row>
                 </div>
@@ -855,8 +942,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                     <span
                         style={{
                             fontWeight: "bold",
-                            fontSize: "xx-large",
-                            marginRight: "1000px"
+                            fontSize: "xx-large"
                         }}
                     >
                         Creator List:
@@ -933,6 +1019,7 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                             role={role}
                                             dropdown={false}
                                             currentViewer={selectedViewer}
+                                            viewers={currentCreator.viewers}
                                             data-testid="creator-list"
                                         ></VideoComponent>
                                     );
@@ -1106,6 +1193,65 @@ function DragDrop({ role }: { role: string }): JSX.Element {
                                 ))}
                             </Col>
                         </div>
+                        <div
+                            style={{ fontWeight: "bold", fontSize: "xx-large" }}
+                        >
+                            All Videos:
+                        </div>
+                        <Col style={{ columnCount: 3, marginRight: "50px" }}>
+                            {allVideos.map((video: Video, index: number) => {
+                                return (
+                                    <ul
+                                        key={video.name}
+                                        style={{ breakInside: "avoid" }}
+                                    >
+                                        <VideoComponent
+                                            key={`${video.name}-${video.likes}-${video.isReported}-${video.wantRecommended}-${video.commentList}`}
+                                            name={video.name}
+                                            description={video.description}
+                                            genre={video.genre}
+                                            recommended={video.recommended}
+                                            isReported={video.isReported}
+                                            thumbnail={video.thumbnail}
+                                            wantRecommended={
+                                                video.wantRecommended
+                                            }
+                                            likes={video.likes}
+                                            creator={video.creator}
+                                            commentList={video.commentList}
+                                            inWatchlist={false}
+                                            wantToComment={video.wantToComment}
+                                            updateCentralList={
+                                                updateCentralList
+                                            }
+                                            updateModeratorList={
+                                                updateModeratorVideos
+                                            }
+                                            updateCreatorList={
+                                                updateCreatorVideos
+                                            }
+                                            updateWatchList={updateWatchList}
+                                            deleteCentralVid={
+                                                deleteVideoFromCentralList
+                                            }
+                                            deleteCreatorVid={
+                                                deleteVideoFromCreatorList
+                                            }
+                                            deleteReviewVid={
+                                                deleteFromReviewList
+                                            }
+                                            deleteWatchVid={deleteFromWatchList}
+                                            approveVid={approveVideo}
+                                            index={index}
+                                            role={role}
+                                            dropdown={false}
+                                            currentViewer={selectedViewer}
+                                            viewers={currentCreator.viewers}
+                                        ></VideoComponent>
+                                    </ul>
+                                );
+                            })}
+                        </Col>
                     </Row>
                 </div>
             </div>
