@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useDrag } from "react-dnd";
 import { Video } from "../interfaces/VideoInterface";
+import { Viewer } from "../interfaces/ViewerInterface";
 //import { Viewer } from "../interfaces/ViewerInterface";
 
 function VideoComponent({
@@ -29,7 +30,8 @@ function VideoComponent({
     index,
     role,
     dropdown,
-    currentViewer
+    currentViewer,
+    viewers
 }: {
     name: string;
     description: string;
@@ -61,6 +63,7 @@ function VideoComponent({
     role: string;
     dropdown: boolean;
     currentViewer: string;
+    viewers: Viewer[];
 }) {
     const [video, setVideo] = useState<Video>({
         name,
@@ -137,6 +140,34 @@ function VideoComponent({
         updateModeratorList(newVideo);
         updateCreatorList(newVideo);
         updateWatchList(newVideo);
+    }
+
+    const [currentTitle, setCurrentTitle] = useState<string>("");
+    const [currentGenre, setCurrentGenre] = useState<string>("");
+
+    // State to keep track of if the user is editing in their watchlist
+    const [editMode, setEditMode] = useState<boolean>(false);
+    // Updates state of edit mode
+    function updateEditMode(event: React.ChangeEvent<HTMLInputElement>) {
+        setEditMode(event.target.checked);
+    }
+    // Update edited title in textbox
+    function updateCurrentTitle(event: React.ChangeEvent<HTMLInputElement>) {
+        setCurrentTitle(event.target.value);
+    }
+    // Update edited title in watchlist
+    function updateWatchlistTitle() {
+        const newVideo = { ...video, name: currentTitle };
+        setVideo(newVideo);
+    }
+    // Update edited genre in textbox
+    function updateCurrentGenre(event: React.ChangeEvent<HTMLInputElement>) {
+        setCurrentGenre(event.target.value);
+    }
+    // Update edited genre in watchlist
+    function updateWatchlistGenre() {
+        const newVideo = { ...video, genre: currentGenre };
+        setVideo(newVideo);
     }
 
     return (
@@ -249,6 +280,14 @@ function VideoComponent({
                             Reviewed✔️
                         </Button>
                     </span>
+                    <span hidden={role !== "creator"}>
+                        <div>
+                            Viewers:
+                            {viewers.map((viewer: Viewer) => (
+                                <ul key={viewer.username}>{viewer.username}</ul>
+                            ))}
+                        </div>
+                    </span>
                     <span hidden={!inWatchlist}>
                         <Button
                             onClick={() =>
@@ -265,6 +304,35 @@ function VideoComponent({
                         >
                             ❌
                         </Button>
+                        <Form.Switch
+                            type="switch"
+                            id="edit-mode-check"
+                            label="Enter Edit Mode"
+                            checked={editMode}
+                            onChange={updateEditMode}
+                        />
+                        <div hidden={!editMode}>
+                            <span>
+                                <Form.Label>New Title in your List:</Form.Label>
+                                <Form.Control
+                                    value={currentTitle}
+                                    onChange={updateCurrentTitle}
+                                ></Form.Control>
+                                <Button onClick={updateWatchlistTitle}>
+                                    Change Title
+                                </Button>
+                            </span>
+                            <span>
+                                <Form.Label>New Genre in your List:</Form.Label>
+                                <Form.Control
+                                    value={currentGenre}
+                                    onChange={updateCurrentGenre}
+                                ></Form.Control>
+                                <Button onClick={updateWatchlistGenre}>
+                                    Change Genre
+                                </Button>
+                            </span>
+                        </div>
                     </span>
                 </div>
             </div>
